@@ -23,11 +23,6 @@
   ],
   "nodes": [
     {
-      "nodeID": 111,
-      "nodeType": 3,
-      "name": "hahaha"
-    },
-    {
       "nodeID": 0,
       "nodeType": 2,
       "delaySend": 100,
@@ -81,7 +76,7 @@
       "delaySend": 300,
       "x": 1.2,
       "y": 3.1,
-      "z": 2.0,
+      "z": 2,
       "channel": 1,
       "headLength": 3,
       "headCode": 4,

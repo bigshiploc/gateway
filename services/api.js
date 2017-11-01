@@ -1,10 +1,11 @@
-var _ = require('underscore')
+const _ = require('underscore')
+const shortid = require('shortid')
 
 var rp = require('request-promise');
 rp = rp.defaults({json: true});
 
-var Faye = require('faye')
-var config = require('./config')
+const Faye = require('faye')
+const config = require('./config')
 var client = new Faye.Client(config.SERVERS.MQ_SERVER)
 
 var HOST = 'http://127.0.0.1:' + config.SERVERS.WEB_SERVER_PORT
@@ -27,6 +28,23 @@ function getRtk() {
 
 function getNodes() {
     return rp({uri: HOST + '/nodes'})
+}
+
+function delStation(node_id) {
+    var options = {
+        method: 'DELETE',
+        uri: HOST + '/nodes/' + node_id,
+    };
+    return rp(options)
+}
+
+function addStation(body) {
+    var options = {
+        method: 'POST',
+        uri: HOST + '/nodes',
+        body: body,
+    };
+    return rp(options)
 }
 
 function getWrapperConfig() {
@@ -131,6 +149,49 @@ module.exports = function (app) {
     })
 
     // TODO Station
+    app.post('/deleteStation', function (req, res) {
+        var station_id = req.body.nodeID
+        delStation(station_id)
+            .then(function (data) {
+                res.send(data)
+            }, function (err) {
+                res.status(500).send(err)
+            })
+    })
+
+    app.post('/addStation', function (req, res) {
+        var station = _.chain(req.body)
+            .clone()
+            .extend({id: shortid.generate()})
+            .mapObject(function (val, key) {
+                if (key === 'nodeType') {
+                    if (val === 'GNSS') {
+                        val = 1
+                    }
+                    if (val === 'UWB') {
+                        val = 2
+                    }
+                }
+                if (_.contains(['nodeID', 'delaySend', 'x', 'y', 'z', 'channel', 'headLength', 'headCode', 'PRF'], key)) {
+                    val = parseInt(val)
+                }
+                return val;
+            })
+            .value()
+
+        addStation(station)
+            .then(function (data) {
+                res.send(data)
+            }, function (err) {
+                res.status(500).send(err)
+            })
+    })
+    // addStation(test)
+    //     .then(function (data) {
+    //         console.log(data)
+    //     },function (err) {
+    //         console.error(err)
+    //     })
 
 
     // TODO Label

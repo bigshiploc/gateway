@@ -1,0 +1,170 @@
+{
+  "UWB": {
+    "base.conf": [
+      {
+        "_id": "59f25f1bb6b8fc59cefcc699",
+        "nodeID": 0,
+        "delaySend": 100,
+        "x": 0,
+        "y": 0,
+        "z": 2.2,
+        "channel": 1,
+        "headLength": 3,
+        "headCode": 4,
+        "PRF": 0,
+        "nodeType": 1,
+        "name": "0"
+      },
+      {
+        "_id": "59f25f1bb6b8fc59cefcc69a",
+        "nodeID": 1,
+        "delaySend": 200,
+        "x": 1.6,
+        "y": -0.6,
+        "z": 2.2,
+        "channel": 1,
+        "headLength": 3,
+        "headCode": 4,
+        "PRF": 0,
+        "nodeType": 1,
+        "name": "1"
+      },
+      {
+        "_id": "59f25f1bb6b8fc59cefcc69b",
+        "nodeID": 2,
+        "delaySend": 300,
+        "x": 2.4,
+        "y": 0,
+        "z": 2.2,
+        "channel": 1,
+        "headLength": 3,
+        "headCode": 4,
+        "PRF": 0,
+        "nodeType": 1,
+        "name": "2"
+      },
+      {
+        "_id": "59f25f1bb6b8fc59cefcc69c",
+        "nodeID": 4,
+        "delaySend": 400,
+        "x": 2.4,
+        "y": 3,
+        "z": 2.2,
+        "channel": 1,
+        "headLength": 3,
+        "headCode": 4,
+        "PRF": 0,
+        "nodeType": 1,
+        "name": "4"
+      },
+      {
+        "_id": "59f25f1bb6b8fc59cefcc69d",
+        "nodeID": 5,
+        "delaySend": 300,
+        "x": 1.2,
+        "y": 3.1,
+        "z": 2,
+        "channel": 1,
+        "headLength": 3,
+        "headCode": 4,
+        "PRF": 0,
+        "nodeType": 1,
+        "name": "5"
+      },
+      {
+        "_id": "59f25f1bb6b8fc59cefcc69e",
+        "nodeID": 6,
+        "delaySend": 300,
+        "x": 0,
+        "y": 3,
+        "z": 2.2,
+        "channel": 1,
+        "headLength": 3,
+        "headCode": 4,
+        "PRF": 0,
+        "nodeType": 1,
+        "name": "6"
+      }
+    ],
+    "limit": {
+      "hightLimit": 1,
+      "vLimit": ""
+    },
+    "threshold": {
+      "C21": 2e-7
+    },
+    "IterNum": 20,
+    "positionMargin": 10,
+    "portToUWBLib": 5566,
+    "logLevel": "TRACE",
+    "recorder": "1"
+  },
+  "RTK": {
+    "base.conf": [
+      {
+        "_id": "59f25f1bb6b8fc59cefcc69f",
+        "nodeID": 7,
+        "x": 6.57,
+        "y": 0,
+        "z": 0,
+        "nodeType": 2,
+        "name": "7"
+      },
+      {
+        "_id": "59f25f1bb6b8fc59cefcc6a0",
+        "nodeID": 8,
+        "x": 3.285,
+        "y": 3.28,
+        "z": 0,
+        "nodeType": 2,
+        "name": "8"
+      },
+      {
+        "_id": "59f25f1bb6b8fc59cefcc6a1",
+        "nodeID": 3,
+        "x": 0,
+        "y": 0,
+        "z": 0,
+        "nodeType": 2,
+        "name": "3"
+      },
+      {
+        "_id": "59f25f1bb6b8fc59cefcc6a2",
+        "nodeID": 9,
+        "x": 2314,
+        "y": 452,
+        "z": 3235,
+        "nodeType": 2,
+        "name": "9"
+      }
+    ],
+    "InputStream_type": 1,
+    "InputStream_file": "C:/Users/pc/Desktop/DATA01/base1.txt",
+    "Log_InputData": 1,
+    "Log_OutputData": 1,
+    "Log_RoverSol": 1
+  },
+  "wrapper": {
+    "_id": "59f25f1bb6b8fc59cefcc698",
+    "portToRTKLib": 5555,
+    "connStrToDaemon": "http://127.0.0.1:3000",
+    "logLevel": "TRACE",
+    "recorder": "1",
+    "test": "0",
+    "file": "D:/bigboat/GPSUWB_redist_rtk/Data/DataToUWBLib_20171007155315.dat",
+    "uwb_bases": [
+      0,
+      1,
+      2,
+      4,
+      5,
+      6
+    ],
+    "rtk_bases": [
+      3,
+      9,
+      7,
+      8
+    ]
+  }
+}

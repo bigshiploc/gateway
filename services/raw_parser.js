@@ -41,7 +41,7 @@ var EVENTS = require('./config').EVENTS
 var express = require('express');
 var socketio_server = require('http').createServer(express);
 var io = require('socket.io')(socketio_server);
-io.on('connection', (socket) => {
+io.on('connection', function (socket) {
     var remoteAddress = socket.client.conn.remoteAddress,
         remotePort = socket.client.conn.remotePort
 

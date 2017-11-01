@@ -5,18 +5,25 @@
 const fs = require('fs-extra')
 const path = require('path')
 
-var DATA_DIR = 'data'
+var DATA_DIR = 'log'
+var LOG_RAW = path.join(DATA_DIR, 'raw.log')
+var LOG_SERVICE = path.join(DATA_DIR, 'service.log')
+var LOG_FRAME = path.join(DATA_DIR, 'frame.log')
 var DATA_RAW_DIR = path.join(DATA_DIR, 'raw')
 var DATA_FRAME_DIR = path.join(DATA_DIR, 'frame')
 var DATA_RESULT_DIR = path.join(DATA_DIR, 'result')
+fs.ensureDirSync(DATA_DIR)
+fs.ensureDirSync(DATA_RAW_DIR)
+fs.ensureDirSync(DATA_FRAME_DIR)
+fs.ensureDirSync(DATA_RESULT_DIR)
 
 var log4js = require('log4js')
 log4js.configure({
     appenders: {
         terminal: {type: 'stdout'},
-        services: {type: 'file', filename: 'service.log'},
-        raw: {type: 'file', filename: 'raw.log'},
-        frame: {type: 'file', filename: 'frame.log'},
+        services: {type: 'file', filename: LOG_SERVICE},
+        raw: {type: 'file', filename: LOG_RAW},
+        frame: {type: 'file', filename: LOG_FRAME},
     },
     categories: {
         default: {appenders: ['services', 'terminal'], level: 'debug'},
@@ -26,11 +33,6 @@ log4js.configure({
 })
 var logger = log4js.getLogger('services')
 logger.level = 'debug'
-
-fs.ensureDirSync(DATA_DIR)
-fs.ensureDirSync(DATA_RAW_DIR)
-fs.ensureDirSync(DATA_FRAME_DIR)
-fs.ensureDirSync(DATA_RESULT_DIR)
 
 var MOCKUP = true
 

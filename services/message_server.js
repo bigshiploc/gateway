@@ -2,7 +2,7 @@
  * Created by xiaopingfeng on 9/30/17.
  */
 var logger = require('log4js').getLogger('services');
-var config = require('./config')
+var config = require('../config')
 
 var http = require('http'),
     Faye = require('faye'),

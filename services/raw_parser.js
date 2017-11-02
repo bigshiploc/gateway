@@ -2,13 +2,13 @@
  * Created by xiaopingfeng on 10/5/17.
  */
 
-var config = require('./config')
+var config = require('../config')
 
 var fs = require('fs')
 var Faye = require('faye')
 var client = new Faye.Client(config.SERVERS.MQ_SERVER)
 
-var result_dir = 'data/result/'
+var result_dir = config.DIR.DATA_RESULT_DIR
 var PORT = config.SERVERS.SIO_WRAPPER_PORT
 
 function writeResultLog(session_id, type, data) {
@@ -37,7 +37,7 @@ function fixResult(event, data) {
     return data
 }
 
-var EVENTS = require('./config').EVENTS
+var EVENTS = require('../config').EVENTS
 var express = require('express');
 var socketio_server = require('http').createServer(express);
 var io = require('socket.io')(socketio_server);

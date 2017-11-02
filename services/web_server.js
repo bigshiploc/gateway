@@ -1,7 +1,7 @@
 /**
  * Created by xiaopingfeng on 10/5/17.
  */
-var PORT = require('./config').SERVERS.WEB_SERVER_PORT
+var PORT = require('../config').SERVERS.WEB_SERVER_PORT
 
 const jsonServer = require('json-server')
 const server = jsonServer.create()

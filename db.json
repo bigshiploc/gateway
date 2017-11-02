@@ -8,17 +8,21 @@
       "start_point": [
         0,
         0
-      ]
+      ],
+      "_id": "HyIQ39_0a",
+      "id": "HyIQ39_0a"
     },
     {
-      "region_name": "室内",
-      "width": 160,
-      "height": 55.6,
-      "background_image": "static/ship.png",
       "start_point": [
         100,
         100
-      ]
+      ],
+      "region_name": "室内",
+      "width": "700",
+      "height": "200",
+      "background_image": "static",
+      "createdAt": 1509634989702,
+      "id": "BJLnXh_CW"
     }
   ],
   "nodes": [

@@ -10,15 +10,16 @@ var net = require('net');
 
 class MockSender {
 
-    constructor(file) {
+    constructor(file, server_ip, server_port) {
         this.data_file = file
-        console.log('data', this.data_file)
+        this.server_port = server_port
+        this.server_ip = server_ip
     }
 
     start_send() {
         var client = new net.Socket()
         var sender = this
-        client.connect(8899, '127.0.0.1', function () {
+        client.connect(this.server_port, this.server_ip, function () {
             var lines = []
             console.log(sender)
             var myInterface = readline.createInterface({
@@ -38,7 +39,6 @@ class MockSender {
                     }
 
                     if (i == lines.length) {
-                        console.log('complete')
                         clearInterval(task)
                     }
                 }, SEND_INTERVAL)
@@ -47,11 +47,16 @@ class MockSender {
     }
 }
 
-var RAW_DIR = 'test/raw/'
-var rawFiles = fs.readdirSync(RAW_DIR)
-var path = require('path')
-rawFiles.forEach(function (file) {
-    var f = path.join(RAW_DIR, file)
-    console.log(f)
-    new MockSender(f).start_send()
-})
+module.exports = function (config, raw_dir) {
+    var rawFiles = fs.readdirSync(raw_dir)
+    var path = require('path')
+    rawFiles.forEach(function (file) {
+        new MockSender(
+            path.join(raw_dir, file),
+            config.SERVERS.RAW_SERVER_IP,
+            config.SERVERS.RAW_SERVER_PORT
+        ).start_send()
+    })
+
+}
+

@@ -1,4 +1,4 @@
-var config = require('./config')
+var config = require('../config')
 
 var Faye = require('faye')
 var client = new Faye.Client(config.SERVERS.MQ_SERVER)
@@ -19,4 +19,3 @@ client.subscribe('/node', function (message) {
     });
     console.log(message.data)
 });
-

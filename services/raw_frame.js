@@ -5,14 +5,15 @@
  * Created by xiaopingfeng on 9/13/17.
  */
 
-var config = require('./config.js')
+var config = require('../config.js')
 
-var logger = require('log4js').getLogger('raw');
-var logger_frame = require('log4js').getLogger('frame');
+var logger = require('log4js').getLogger('raw')
+var logger_frame = require('log4js').getLogger('frame')
 
-var net = require('net');
+var net = require('net')
+var path = require('path')
 
-var Parser = require('binary-parser').Parser;
+var Parser = require('binary-parser').Parser
 var parser = new Parser()
     .endianess('little')
     .uint32('magic_header', {assert: 0x5aa555aa})
@@ -34,13 +35,15 @@ var fs = require('fs')
 
 function logRaw(remote_address, remote_port, data) {
     fs.appendFileSync(
-        'data/raw/' + remote_address + '_' + remote_port + '.raw',
+        path.join(config.DIR.DATA_RAW_DIR, remote_address + '_' + remote_port + '.raw'),
         data.toString('base64') + '\n'
     )
     // console.log(remote_address, data.length, data)
 }
 
-var MagicHeader = new Buffer('aa55a55a', 'hex');
+var MAGIC_HEADER = 'aa55a55a'
+
+var MagicHeader = new Buffer(MAGIC_HEADER, 'hex');
 
 var Faye = require('faye')
 // var client = new Faye.Client('http://localhost:8001/events')

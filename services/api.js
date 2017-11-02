@@ -5,7 +5,7 @@ var rp = require('request-promise');
 rp = rp.defaults({json: true});
 
 const Faye = require('faye')
-const config = require('./config')
+const config = require('../config')
 var client = new Faye.Client(config.SERVERS.MQ_SERVER)
 
 var HOST = 'http://127.0.0.1:' + config.SERVERS.WEB_SERVER_PORT
@@ -47,6 +47,15 @@ function addStation(body) {
     return rp(options)
 }
 
+function addArea(body) {
+    var options = {
+        method: 'POST',
+        uri: HOST + '/areas',
+        body: body,
+    };
+    return rp(options)
+}
+
 function getWrapperConfig() {
     return Promise.all([
         getAreas(),
@@ -76,7 +85,6 @@ function getWrapperConfig() {
             nodes: nodes
         })
     })
-
 }
 
 module.exports = function (app) {
@@ -102,6 +110,14 @@ module.exports = function (app) {
     //
     //     res.send('POST request to the homepage');
     // });
+
+    app.post('/addArea', function (req, res) {
+
+        addArea(_.extend(req.body, {id: shortid.generate()}))
+            .then(function (data) {
+                res.send(data)
+            })
+    })
 
     app.get('/getAllArea', function (req, res) {
         rp({uri: HOST + '/areas'})
@@ -131,9 +147,9 @@ module.exports = function (app) {
             })
     })
 
-    app.get('/getStationInfo/:station_type', function (req, res) {
-        console.log(req.params['station_type'])
-        rp({uri: HOST + '/nodes?nodeType=' + req.params['station_type']})
+    app.get('/getStationInfo', function (req, res) {
+        console.log(req.query['nodeType'])
+        rp({uri: HOST + '/nodes?nodeType=' + req.query['nodeType']})
             .then(function (data) {
                 res.send(data)
             })
@@ -186,13 +202,6 @@ module.exports = function (app) {
                 res.status(500).send(err)
             })
     })
-    // addStation(test)
-    //     .then(function (data) {
-    //         console.log(data)
-    //     },function (err) {
-    //         console.error(err)
-    //     })
-
 
     // TODO Label
 

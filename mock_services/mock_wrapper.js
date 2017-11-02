@@ -17,7 +17,7 @@ myInterface.on('line', function (line) {
   lines.push(data)
 });
 myInterface.on('close', function () {
-  console.log('mock up data ready')
+  console.log('mock_services up data ready')
 
   var socket = require('socket.io-client')('http://127.0.0.1:3000');
   socket.on('connect', function () {

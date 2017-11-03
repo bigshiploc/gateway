@@ -3,7 +3,7 @@
  */
 
 const fs = require('fs-extra')
-
+const path = require('path')
 var config = require('./config')
 
 // var DATA_DIR = 'log'
@@ -42,12 +42,16 @@ require('./services/message_server')
 require('./services/raw_frame')
 require('./services/raw_parser')
 require('./services/database')
-// if (MOCKUP) {
-//     setTimeout(function () {
+if (MOCKUP) {
+    setTimeout(function () {
 //         // require('./services/mock_services/mock_raw_pub')
 //         // require('./services/mock_services/mock_wrapper')
-//     }, 3000)
-// } else {
+        require('./mock_services/mock_faye')(
+            config,
+            path.join('/Users/fxp/Projects/bigshiploc/data/', 'result')
+        )
+    }, 3000)
+} else {
 //     var spawn = require('child_process').spawn
 //     var wrapper = undefined
 //     setTimeout(function () {
@@ -59,7 +63,7 @@ require('./services/database')
 //             console.error(data)
 //         })
 //     }, 1000)
-// }
+}
 
 var wrapper = undefined
 

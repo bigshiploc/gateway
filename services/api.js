@@ -111,97 +111,103 @@ module.exports = function (app) {
     //     res.send('POST request to the homepage');
     // });
 
-    app.post('/addArea', function (req, res) {
+    // app.post('/addArea', function (req, res) {
+    //
+    //     addArea(_.extend(req.body, {id: shortid.generate()}))
+    //         .then(function (data) {
+    //             res.send(data)
+    //         })
+    // })
+    //
+    // app.get('/getAllArea', function (req, res) {
+    //     rp({uri: HOST + '/areas'})
+    //         .then(function (data) {
+    //             res.send(data)
+    //         })
+    //     // getNodes()
+    //     //     .then(function (nodes) {
+    //     //         var stations = _.filter(nodes, function (node) {
+    //     //             return (node.nodeType == 1 || node.nodeType == 2);
+    //     //         })
+    //     //         res.send(stations)
+    //     //     })
+    //
+    // })
+    //
+    // app.get('/getAllStationInfo', function (req, res) {
+    //     rp({uri: HOST + '/nodes?nodeType=1&nodeType=2'})
+    //         .then(function (data) {
+    //             res.send(data)
+    //         })
+    // })
+    // app.get('/getAllLabelInfo', function (req, res) {
+    //     rp({uri: HOST + '/nodes?nodeType=3'})
+    //         .then(function (data) {
+    //             res.send(data)
+    //         })
+    // })
+    //
+    // app.get('/getStationInfo', function (req, res) {
+    //     console.log(req.query['nodeType'])
+    //     rp({uri: HOST + '/nodes?nodeType=' + req.query['nodeType']})
+    //         .then(function (data) {
+    //             res.send(data)
+    //         })
+    // })
+    //
+    // app.get('/wrapper/config', function (req, res) {
+    //     getWrapperConfig()
+    //         .then(function (data) {
+    //             res.send(data)
+    //         }, function (err) {
+    //             res.status(500).send(err)
+    //         })
+    // })
+    //
+    // // TODO Station
+    // app.post('/deleteStation', function (req, res) {
+    //     var station_id = req.body.nodeID
+    //     delStation(station_id)
+    //         .then(function (data) {
+    //             res.send(data)
+    //         }, function (err) {
+    //             res.status(500).send(err)
+    //         })
+    // })
+    //
+    // app.post('/areas', (req, res, next) => {
+    //     console.log('post areas')
+    //     next()
+    // })
 
-        addArea(_.extend(req.body, {id: shortid.generate()}))
-            .then(function (data) {
-                res.send(data)
-            })
-    })
 
-    app.get('/getAllArea', function (req, res) {
-        rp({uri: HOST + '/areas'})
-            .then(function (data) {
-                res.send(data)
-            })
-        // getNodes()
-        //     .then(function (nodes) {
-        //         var stations = _.filter(nodes, function (node) {
-        //             return (node.nodeType == 1 || node.nodeType == 2);
-        //         })
-        //         res.send(stations)
-        //     })
-
-    })
-
-    app.get('/getAllStationInfo', function (req, res) {
-        rp({uri: HOST + '/nodes?nodeType=1&nodeType=2'})
-            .then(function (data) {
-                res.send(data)
-            })
-    })
-    app.get('/getAllLabelInfo', function (req, res) {
-        rp({uri: HOST + '/nodes?nodeType=3'})
-            .then(function (data) {
-                res.send(data)
-            })
-    })
-
-    app.get('/getStationInfo', function (req, res) {
-        console.log(req.query['nodeType'])
-        rp({uri: HOST + '/nodes?nodeType=' + req.query['nodeType']})
-            .then(function (data) {
-                res.send(data)
-            })
-    })
-
-    app.get('/wrapper/config', function (req, res) {
-        getWrapperConfig()
-            .then(function (data) {
-                res.send(data)
-            }, function (err) {
-                res.status(500).send(err)
-            })
-    })
-
-    // TODO Station
-    app.post('/deleteStation', function (req, res) {
-        var station_id = req.body.nodeID
-        delStation(station_id)
-            .then(function (data) {
-                res.send(data)
-            }, function (err) {
-                res.status(500).send(err)
-            })
-    })
-
-    app.post('/addStation', function (req, res) {
-        var station = _.chain(req.body)
-            .clone()
-            .extend({id: shortid.generate()})
-            .mapObject(function (val, key) {
-                if (key === 'nodeType') {
-                    if (val === 'GNSS') {
-                        val = 1
-                    }
-                    if (val === 'UWB') {
-                        val = 2
-                    }
-                }
-                if (_.contains(['nodeID', 'delaySend', 'x', 'y', 'z', 'channel', 'headLength', 'headCode', 'PRF'], key)) {
-                    val = parseInt(val)
-                }
-                return val;
-            })
-            .value()
-
-        addStation(station)
-            .then(function (data) {
-                res.send(data)
-            }, function (err) {
-                res.status(500).send(err)
-            })
-    })
+    // app.post('/addStation', function (req, res) {
+    //     var station = _.chain(req.body)
+    //         .clone()
+    //         .extend({id: shortid.generate()})
+    //         .mapObject(function (val, key) {
+    //             if (key === 'nodeType') {
+    //                 if (val === 'GNSS') {
+    //                     val = 1
+    //                 }
+    //                 if (val === 'UWB') {
+    //                     val = 2
+    //                 }
+    //             }
+    //             if (_.contains(['nodeID', 'delaySend', 'x', 'y', 'z', 'channel', 'headLength', 'headCode', 'PRF'], key)) {
+    //                 val = parseInt(val)
+    //             }
+    //             return val;
+    //         })
+    //         .value()
+    //
+    //     addStation(station)
+    //         .then(function (data) {
+    //             res.send(data)
+    //         }, function (err) {
+    //             res.status(500).send(err)
+    //         })
+    // })
 
     // TODO Label
 

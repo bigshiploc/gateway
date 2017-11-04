@@ -1,0 +1,275 @@
+{
+  "areas": [
+    {
+      "region_name": "室外",
+      "width": 26.25,
+      "height": 21,
+      "background_image": "static/house.jpg",
+      "start_point": [
+        0,
+        0
+      ],
+      "_id": "HyIQ39_0a",
+      "id": "HyIQ39_0a"
+    },
+    {
+      "start_point": [
+        100,
+        100
+      ],
+      "region_name": "室内",
+      "width": "700",
+      "height": "200",
+      "background_image": "static",
+      "createdAt": 1509634989702,
+      "id": "BJLnXh_CW"
+    },
+    {
+      "start_point": [
+        1,
+        2
+      ],
+      "region_name": "test",
+      "width": 1,
+      "height": 2,
+      "background_image": "f",
+      "createdAt": 1509669187531,
+      "id": "ry3rtNtCW"
+    },
+    {
+      "start_point": [
+        1,
+        2
+      ],
+      "region_name": "test",
+      "width": 1,
+      "height": 2,
+      "background_image": "f",
+      "createdAt": 1509669375187,
+      "id": "BkD-5EtAb"
+    },
+    {
+      "start_point": [
+        1,
+        3
+      ],
+      "region_name": "53w64",
+      "width": 1,
+      "height": 2,
+      "background_image": "df",
+      "createdAt": 1509669410980,
+      "id": "BJsmq4KAW"
+    },
+    {
+      "start_point": [
+        1,
+        3
+      ],
+      "region_name": "53w64sa",
+      "width": 1,
+      "height": 2,
+      "background_image": "df",
+      "createdAt": 1509669464253,
+      "id": "S1eDcNtRb"
+    }
+  ],
+  "nodes": [
+    {
+      "nodeID": 0,
+      "nodeType": 2,
+      "delaySend": 100,
+      "x": 0,
+      "y": 0,
+      "z": 2.2,
+      "channel": 1,
+      "headLength": 3,
+      "headCode": 4,
+      "PRF": 0,
+      "coordinate": "0,0,2.2",
+      "id": 0,
+      "history": {
+        "beforeUpdate": {
+          "nodeID": 0,
+          "nodeType": 2,
+          "x": 0,
+          "y": 0,
+          "z": 2.2
+        }
+      },
+      "name": "sdafasdf"
+    },
+    {
+      "id": 1,
+      "nodeID": 1,
+      "nodeType": 2,
+      "delaySend": 200,
+      "x": 1.6,
+      "y": -0.6,
+      "z": 2.2,
+      "channel": 1,
+      "headLength": 3,
+      "headCode": 4,
+      "PRF": 0,
+      "coordinate": "1.6,-0.6,2.2",
+      "history": {
+        "beforeUpdate": {
+          "nodeID": 1,
+          "nodeType": 2,
+          "x": 1.6,
+          "y": -0.6,
+          "z": 2.2
+        }
+      },
+      "name": "sadfsadfsdfa"
+    },
+    {
+      "id": 2,
+      "nodeID": 2,
+      "nodeType": 2,
+      "delaySend": 300,
+      "x": 2.4,
+      "y": 0,
+      "z": 2.2,
+      "channel": 1,
+      "headLength": 3,
+      "headCode": 4,
+      "PRF": 0
+    },
+    {
+      "id": 4,
+      "nodeID": 4,
+      "nodeType": 2,
+      "delaySend": 400,
+      "x": 2.4,
+      "y": 3,
+      "z": 2.2,
+      "channel": 1,
+      "headLength": 3,
+      "headCode": 4,
+      "PRF": 0
+    },
+    {
+      "id": 5,
+      "nodeID": 5,
+      "nodeType": 2,
+      "delaySend": 300,
+      "x": 1.2,
+      "y": 3.1,
+      "z": 2,
+      "channel": 1,
+      "headLength": 3,
+      "headCode": 4,
+      "PRF": 0
+    },
+    {
+      "id": 6,
+      "nodeID": 6,
+      "nodeType": 2,
+      "delaySend": 300,
+      "x": 0,
+      "y": 3,
+      "z": 2.2,
+      "channel": 1,
+      "headLength": 3,
+      "headCode": 4,
+      "PRF": 0
+    },
+    {
+      "id": 7,
+      "nodeID": 7,
+      "nodeType": 1,
+      "x": 6.57,
+      "y": 0,
+      "z": 0
+    },
+    {
+      "id": 8,
+      "nodeID": 8,
+      "nodeType": 1,
+      "x": 3.285,
+      "y": 3.28,
+      "z": 0
+    },
+    {
+      "id": 3,
+      "nodeID": 3,
+      "nodeType": 1,
+      "x": 0,
+      "y": 0,
+      "z": 0
+    },
+    {
+      "nodeID": "332",
+      "name": "fsdf1",
+      "nodeType": "2",
+      "delaySend": "12",
+      "x": "12",
+      "y": "2",
+      "z": "3",
+      "channel": "45",
+      "headLength": "5",
+      "headCode": "6",
+      "PRF": "7",
+      "createdAt": 1509643167663,
+      "id": 10
+    },
+    {
+      "nodeID": "231",
+      "name": "3213",
+      "nodeType": "2",
+      "delaySend": "1",
+      "x": "2",
+      "y": "3",
+      "z": "4",
+      "channel": "5",
+      "headLength": "6",
+      "headCode": "7",
+      "PRF": "8",
+      "createdAt": 1509643191992,
+      "id": 11
+    }
+  ],
+  "wrapper": {
+    "portToRTKLib": 5555,
+    "connStrToDaemon": "http://127.0.0.1:3000",
+    "logLevel": "TRACE",
+    "recorder": "1",
+    "test": "0",
+    "file": "D:/bigboat/GPSUWB_redist_rtk/Data/DataToUWBLib_20171007155315.dat"
+  },
+  "uwb": {
+    "limit": {
+      "hightLimit": 1,
+      "vLimit": ""
+    },
+    "threshold": {
+      "C21": 2e-7,
+      "C22": 100
+    },
+    "IterNum": 20,
+    "positionMargin": 10,
+    "positionNumToPick": 1,
+    "portToUWBLib": 5566,
+    "logLevel": "TRACE",
+    "recorder": "1"
+  },
+  "rtk": {
+    "InputStream_type": 1,
+    "InputStream_file": "C:/Users/pc/Desktop/DATA01/base1.txt",
+    "Log_InputData": 1,
+    "Log_OutputData": 1,
+    "Log_RoverSol": 1
+  },
+  "users":[
+    {
+      "username":"1",
+      "password":"1",
+      "id":"1"
+    },
+    {
+      "username":"2",
+      "password":"2",
+      "id":"2"
+    }
+  ]
+}

@@ -1,0 +1,127 @@
+{
+    "wrapper" : {
+        "portToRTKLib" : 5555,
+        "connStrToDaemon" : "http://127.0.0.1:3000",
+        "rtk_bases" : [0, 1, 2, 3],
+        "uwb_bases" : [5, 6, 7, 8],
+        "logLevel" : "TRACE",
+        "recorder" : "1",
+        "test" : "0",
+        "file" : "D:/bigboat/GPSUWB_redist_rtk/Data/DataToUWBLib_20171007155315.dat"
+    },
+    "UWB" : {
+        "base.conf" : [
+            {
+                "nodeID" : 0,
+                "delaySend" : 100,
+                "x": 0,
+                "y": 0,
+                "z": 2.2,
+                "channel": 1,
+                "headLength": 3,
+                "headCode": 4,
+                "PRF": 0
+            },
+            {
+                "nodeID" : 1,
+                "delaySend" : 200,
+                "x": 1.6,
+                "y": -0.6,
+                "z": 2.2,
+                "channel": 1,
+                "headLength": 3,
+                "headCode": 4,
+                "PRF": 0
+            },
+            {
+                "nodeID" : 2,
+                "delaySend" : 300,
+                "x": 2.4,
+                "y": 0,
+                "z": 2.2,
+                "channel": 1,
+                "headLength": 3,
+                "headCode": 4,
+                "PRF": 0
+            },
+            {
+                "nodeID" : 4,
+                "delaySend" : 400,
+                "x": 2.4,
+                "y": 3,
+                "z": 2.2,
+                "channel": 1,
+                "headLength": 3,
+                "headCode": 4,
+                "PRF": 0
+            },
+            {
+                "nodeID" : 5,
+                "delaySend" : 300,
+                "x": 1.2,
+                "y": 3.1,
+                "z": 2.0,
+                "channel": 1,
+                "headLength": 3,
+                "headCode": 4,
+                "PRF": 0
+            },
+            {
+                "nodeID" : 6,
+                "delaySend" : 300,
+                "x": 0,
+                "y": 3,
+                "z": 2.2,
+                "channel": 1,
+                "headLength": 3,
+                "headCode": 4,
+                "PRF": 0
+            }
+        ],
+        "limit" : {
+            "hightLimit" : 1,
+            "vLimit" : ""
+        },
+        "threshold" : {
+            "C21" : 2e-7
+        },
+        "IterNum" : 20,
+        "positionMargin" : 10,
+        "portToUWBLib" : 5566,
+        "logLevel" : "TRACE",
+        "recorder" : "1"
+    },
+	"RTK" : {
+        "base.conf" : [
+            {
+                "nodeID" : 1,
+                "x": 0,
+                "y": 0,
+                "z": 0
+            },
+            {
+                "nodeID" : 2,
+                "x": 3.285,
+                "y": 3.28,
+                "z": 0
+            },
+            {
+                "nodeID" : 3,
+                "x": 6.57,
+                "y": 0,
+                "z": 0
+            },
+            {
+                "nodeID" : 4,
+                "x": 2314,
+                "y": 452,
+                "z": 3235
+            }
+        ],
+		"InputStream_type": 1,
+		"InputStream_file" : "C:/Users/pc/Desktop/DATA01/base1.txt",
+		"Log_InputData" : 1,
+		"Log_OutputData" : 1,
+		"Log_RoverSol" :1
+    }
+}

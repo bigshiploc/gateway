@@ -139,7 +139,7 @@ module.exports = function (app) {
         child.send({start:req.query.startTime,end:req.query.endTime,msg:""});
 
         child.on('message', function (msg) {
-            if(msg!='close'){
+            if(msg!='close'&&msg!='timeout'){
                 res.sendFile(msg)
             }else if(msg=='timeout'){
                 res.send('false')
@@ -147,9 +147,6 @@ module.exports = function (app) {
             child.send({msg:'close'})
             console.log('parent get message: ' + JSON.stringify(msg));
         });
-        child.on('exit',function () {
-
-        })
     })
 
     // app.post('/nodes/wrapper', function (req, res) {

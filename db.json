@@ -1,10 +1,10 @@
 {
   "areas": [
     {
-      "region_name": "室外",
-      "width": 26.25,
-      "height": 21,
-      "background_image": "static/house.jpg",
+      "region_name": "室内",
+      "width": 5.25,
+      "height": 4.2,
+      "background_image": "",
       "start_point": [
         0,
         0
@@ -14,63 +14,15 @@
     },
     {
       "start_point": [
-        100,
-        100
+        0,
+        0
       ],
-      "region_name": "室内",
-      "width": "700",
-      "height": "200",
-      "background_image": "static",
-      "createdAt": 1509634989702,
-      "id": "BJLnXh_CW"
-    },
-    {
-      "start_point": [
-        1,
-        2
-      ],
-      "region_name": "test",
-      "width": 1,
-      "height": 2,
-      "background_image": "f",
-      "createdAt": 1509669187531,
-      "id": "ry3rtNtCW"
-    },
-    {
-      "start_point": [
-        1,
-        2
-      ],
-      "region_name": "test",
-      "width": 1,
-      "height": 2,
-      "background_image": "f",
-      "createdAt": 1509669375187,
-      "id": "BkD-5EtAb"
-    },
-    {
-      "start_point": [
-        1,
-        3
-      ],
-      "region_name": "53w64",
-      "width": 1,
-      "height": 2,
-      "background_image": "df",
-      "createdAt": 1509669410980,
-      "id": "BJsmq4KAW"
-    },
-    {
-      "start_point": [
-        1,
-        3
-      ],
-      "region_name": "53w64sa",
-      "width": 1,
-      "height": 2,
-      "background_image": "df",
-      "createdAt": 1509669464253,
-      "id": "S1eDcNtRb"
+      "region_name": "室外",
+      "width": 700,
+      "height": 200,
+      "background_image": "",
+      "createdAt": 1509780350903,
+      "id": "HJvYsyo0W"
     }
   ],
   "nodes": [
@@ -96,7 +48,7 @@
           "z": 2.2
         }
       },
-      "name": "sdafasdf"
+      "name": "基站1"
     },
     {
       "id": 1,
@@ -120,7 +72,7 @@
           "z": 2.2
         }
       },
-      "name": "sadfsadfsdfa"
+      "name": "基站2"
     },
     {
       "id": 2,
@@ -227,6 +179,48 @@
       "PRF": "8",
       "createdAt": 1509643191992,
       "id": 11
+    },
+    {
+      "nodeID": "514",
+      "name": "514",
+      "nodeType": 3,
+      "createdAt": 1509779295030,
+      "id": 12
+    },
+    {
+      "nodeID": "515",
+      "name": "515",
+      "nodeType": 3,
+      "createdAt": 1509779300682,
+      "id": 13
+    },
+    {
+      "nodeID": "516",
+      "name": "516",
+      "nodeType": 3,
+      "createdAt": 1509779305606,
+      "id": 14
+    },
+    {
+      "nodeID": "517",
+      "name": "517",
+      "nodeType": 3,
+      "createdAt": 1509779310918,
+      "id": 15
+    },
+    {
+      "nodeID": "518",
+      "name": "518",
+      "nodeType": 3,
+      "createdAt": 1509779316342,
+      "id": 16
+    },
+    {
+      "nodeID": "513",
+      "name": "513",
+      "nodeType": 3,
+      "createdAt": 1509779329158,
+      "id": 17
     }
   ],
   "wrapper": {
@@ -260,16 +254,16 @@
     "Log_OutputData": 1,
     "Log_RoverSol": 1
   },
-  "users":[
+  "users": [
     {
-      "username":"1",
-      "password":"1",
-      "id":"1"
+      "username": "1",
+      "password": "1",
+      "id": "1"
     },
     {
-      "username":"2",
-      "password":"2",
-      "id":"2"
+      "username": "2",
+      "password": "2",
+      "id": "2"
     }
   ]
 }

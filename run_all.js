@@ -17,6 +17,7 @@ fs.ensureDirSync(config.DIR.DATA_DIR)
 fs.ensureDirSync(config.DIR.DATA_RAW_DIR)
 fs.ensureDirSync(config.DIR.DATA_FRAME_DIR)
 fs.ensureDirSync(config.DIR.DATA_RESULT_DIR)
+fs.ensureDirSync(config.DIR.CONFIG_DIR)
 
 var log4js = require('log4js')
 log4js.configure({
@@ -65,17 +66,5 @@ if (MOCKUP) {
 //     }, 1000)
 }
 
-var wrapper = undefined
 
 logger.info("run_all", MOCKUP);
-
-process.on('SIGINT', function () {
-    if (wrapper) {
-        wrapper.kill()
-    }
-    require('child_process').exec('taskkill /F /IM ServiceUWBLib.exe')
-    require('child_process').exec('taskkill /F /IM ServiceRTKLib.exe')
-    setTimeout(function () {
-        process.exit(0)
-    }, 1000)
-})

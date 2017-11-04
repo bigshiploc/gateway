@@ -16,8 +16,10 @@ exports.SERVERS = {
     RAW_SERVER_PORT: 8899,
 }
 
+exports.WRAPPER_CORE_EXE = 'C:\\bigship-20171101\\wrapper\\GPSUWB_CoreWrapper.exe'
+
 exports.DIR = {
-    DATA_DIR: __dirname+'/log',
+    DATA_DIR: 'C:\\bigship-20171101\\data',
     get LOG_RAW() {
         return path.join(this.DATA_DIR, 'raw.log')
     },
@@ -36,6 +38,9 @@ exports.DIR = {
     get DATA_RESULT_DIR() {
         return path.join(this.DATA_DIR, 'result')
     },
+    get CONFIG_DIR() {
+        return path.join(this.DATA_DIR, 'config')
+    }
 }
 
 

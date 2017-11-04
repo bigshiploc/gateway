@@ -5,6 +5,7 @@
 var config = require('../config')
 
 var fs = require('fs')
+var _ = require('underscore')
 var path = require('path')
 var Faye = require('faye')
 var client = new Faye.Client(config.SERVERS.MQ_SERVER)
@@ -23,7 +24,6 @@ function writeResultLog(session_id, type, data) {
     }
     // console.log(type, JSON.stringify(data))
     fs.appendFileSync(
-        result_dir + session_id + '_' + node_id + '.' + type,
         path.join(result_dir, session_id + '_' + node_id + '.' + type),
         JSON.stringify(data) + '\n'
     )
@@ -36,7 +36,10 @@ function fixResult(event, data) {
         data.y = parseFloat(data.y)
     }
     // TODO change all data into numbers
-
+    console.log({
+        event: event,
+        node: (_.contains(['user_uwb', 'rtkres_roverpos', 'user_stat', 'uwbbase_stat'], event)) ? data.nodeID : ''
+    })
     return data
 }
 
@@ -57,7 +60,7 @@ io.on('connection', function (socket) {
         socket.emit('raw', buffer)
         result.raw_pkg = buffer.toString('base64')
         delete result.raw
-        console.log(result, 'frame_to_wrapper')
+        // console.log(result, 'frame_to_wrapper')
     }
 
     var sub = client.subscribe('/frames', listener)
@@ -72,7 +75,6 @@ io.on('connection', function (socket) {
                 data: data,
             })
             data = fixResult(eventName, data)
-            console.log({event: eventName, data: data}, 'wrapper_to_daemon')
         })
     })
 

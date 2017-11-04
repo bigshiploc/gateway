@@ -17,5 +17,4 @@ client.subscribe('/node', function (message) {
     }, function (err, resp, status) {
         // console.log(resp);
     });
-    console.log(message.data)
 });

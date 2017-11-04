@@ -1,5 +1,6 @@
 const _ = require('underscore')
 const shortid = require('shortid')
+var spawn = require('child_process').spawn
 
 var passport = require('passport');
 const path = require('path')
@@ -139,7 +140,7 @@ function getLastData(startTime, endTime, timeDifference, allDataObj, fileName) {
     // console.log(lastDataArr[0]);   // 这里得到基本的数据。（不包含节点信息的数据。）
 }
 
-function getOneSecondData(obj,name,i,startTime,endTime,allDataObj) {
+function getOneSecondData(obj, name, i, startTime, endTime, allDataObj) {
     for (var z = 0; z < allDataObj[name].length; z++) {
         var timeData = getTime(allDataObj[name][z].timestamp);
         if (startTime + i <= timeData && timeData < startTime + i + 1 && startTime <= timeData && timeData <= endTime) {
@@ -412,14 +413,56 @@ module.exports = function (app) {
     //         })
     // })
     //
-    // app.get('/wrapper/config', function (req, res) {
-    //     getWrapperConfig()
-    //         .then(function (data) {
-    //             res.send(data)
-    //         }, function (err) {
-    //             res.status(500).send(err)
-    //         })
-    // })
+
+    var wrapper_thread = undefined
+
+    process.on('SIGINT', function () {
+        if (wrapper_thread) {
+            wrapper_thread.kill()
+        }
+        require('child_process').exec('taskkill /F /IM ServiceUWBLib.exe')
+        require('child_process').exec('taskkill /F /IM ServiceRTKLib.exe')
+        setTimeout(function () {
+            process.exit(0)
+        }, 1000)
+    })
+
+    function startWrapper(config_file) {
+        return new Promise(function (resolve, reject) {
+            if (wrapper_thread) {
+                wrapper_thread.kill()
+                wrapper_thread = undefined
+            }
+            setTimeout(function () {
+                wrapper_thread = spawn(config.WRAPPER_CORE_EXE, [config_file])
+                wrapper_thread.on('exit', function () {
+                    console.log('wrapper has exited')
+                })
+                wrapper_thread.stderr.on('data', function (data) {
+                    console.error(data)
+                })
+                resolve(wrapper_thread)
+            }, 1000)
+        })
+    }
+
+    app.get('/wrapper/restart', function (req, res) {
+        console.log('restart')
+        getWrapperConfig()
+            .then(function (data) {
+                var config_file = path.join(config.DIR.CONFIG_DIR, 'wrapper_' + new Date().getTime() + '.json')
+                fs.writeFileSync(
+                    config_file,
+                    JSON.stringify(data)
+                )
+                return startWrapper(config_file)
+            })
+            .then(function (pid) {
+                res.send('ok')
+            }, function (err) {
+                res.send(500, err)
+            })
+    })
     //
     // // TODO Station
     // app.post('/deleteStation', function (req, res) {
@@ -467,7 +510,6 @@ module.exports = function (app) {
     // })
 
     // TODO Label
-
 
     // TODO History related, data, config(station, label)
     app.get('/log/history', function (req, res) {

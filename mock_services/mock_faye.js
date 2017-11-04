@@ -38,11 +38,13 @@ class MockWrapper {
             var task = setInterval(function () {
                 i++
                 if (lines[i]) {
+                    lines[i].eventname = type
+                    lines[i].timestamp = new Date().getTime()
                     client.publish('/node', {
                         name: type,
                         data: lines[i],
                     })
-                    console.log({name: type})
+                    // console.log({name: type})
                 }
 
                 if (i == lines.length) {

@@ -230,96 +230,6 @@ module.exports = function (app) {
         }
     })
 
-    // app.get('/getAllHistoryInfo', function (req, res) {
-    //     res.send({
-    //         label: [[{
-    //             "nodeID": 1,
-    //             "beforeUpdateInfo": null,
-    //             "afterUpdateInfo": {
-    //                 "name": 1, "type": "UWB",
-    //                 "nodeID": 1
-    //             },
-    //             "updateDate": 1507882790205
-    //         }],
-    //             [{
-    //                 "nodeID": 2,
-    //                 "beforeUpdateInfo": null,
-    //                 "afterUpdateInfo": {
-    //                     "name": 2, "type": "UWB", "nodeID": 2
-    //                 },
-    //                 "updateDate": 1507882700205
-    //             }, {
-    //                 "nodeID": 2,
-    //                 "beforeUpdateInfo": {
-    //                     "name": 2, "type": "UWB", "nodeID": 2
-    //                 },
-    //                 "afterUpdateInfo": {
-    //                     "name": 21, "type": "UWB", "nodeID": 2
-    //                 },
-    //                 "updateDate": 1507882899205
-    //             }, {
-    //                 "nodeID": 2,
-    //                 "beforeUpdateInfo": {
-    //                     "name": 21, "type": "UWB", "nodeID": 2
-    //                 },
-    //                 "afterUpdateInfo": {
-    //                     "name": 22, "type": "UWB", "nodeID": 2
-    //                 },
-    //                 "updateDate": 1507882999205
-    //             }]
-    //             , [{
-    //                 "nodeID": 3,
-    //                 "beforeUpdateInfo": null,
-    //                 "afterUpdateInfo": {
-    //                     "name": 3, "type": "UWB", "nodeID": 3
-    //                 },
-    //                 "updateDate": 1507882700205
-    //             }, {
-    //                 "nodeID": 3,
-    //                 "beforeUpdateInfo": null,
-    //                 "afterUpdateInfo": {
-    //                     "name": 31, "type": "UWB", "nodeID": 3
-    //                 },
-    //                 "updateDate": 1507882899205
-    //             }]],
-    //         station: [[{
-    //             "nodeID": 4,
-    //             "beforeUpdateInfo": null,
-    //             "afterUpdateInfo": {
-    //                 "name": 4, "type": "UWB", "z": 999, "y": 999, "x": 999,
-    //                 "nodeID": 4
-    //             },
-    //             "updateDate": 1507882790205
-    //         }],
-    //             [{
-    //                 "nodeID": 5,
-    //                 "beforeUpdateInfo": null,
-    //                 "afterUpdateInfo": {
-    //                     "name": 5, "type": "UWB", "nodeID": 5, "z": 0, "y": 0, "x": 0
-    //                 },
-    //                 "updateDate": 1507882700205
-    //             }, {
-    //                 "nodeID": 5,
-    //                 "beforeUpdateInfo": {
-    //                     "name": 5, "type": "UWB", "nodeID": 5, "z": 0, "y": 0, "x": 0
-    //                 },
-    //                 "afterUpdateInfo": {
-    //                     "name": 51, "type": "UWB", "nodeID": 5, "z": 1, "y": 1, "x": 1
-    //                 },
-    //                 "updateDate": 1507882899205
-    //             }, {
-    //                 "nodeID": 5,
-    //                 "beforeUpdateInfo": {
-    //                     "name": 51, "type": "UWB", "nodeID": 5, "z": 1, "y": 1, "x": 1
-    //                 },
-    //                 "afterUpdateInfo": {
-    //                     "name": 52, "type": "UWB", "nodeID": 5, "z": 2, "y": 2, "x": 2
-    //                 },
-    //                 "updateDate": 1507882999205
-    //             }]]
-    //     })
-    // })
-
     app.get('/getHistoryDataFile', function (req, res) {
         var timeDifference = getTime(req.query.endTime) - getTime(req.query.startTime);
         console.log(timeDifference);
@@ -330,19 +240,7 @@ module.exports = function (app) {
             getHistoryInfo(req.query.startTime, req.query.endTime, fileName,res);
             // res.sendFile(path.join(__dirname, '../public/data/' + fileName))
         }
-    }) // 1507882700205,1507882899205
-
-    // app.get('/getHistoryDataFile', function (req, res) {
-    //     fs.exists(path.join(__dirname, '../public/data/' + req.query.fileName), function (exists) {
-    //         console.log(path.join(__dirname, '../public/data/' + req.query.fileName))
-    //         console.log("文件是否存在:" + exists);
-    //         if (exists) {
-    //             res.sendFile(path.join(__dirname, '../public/data/' + req.query.fileName))
-    //         } else {
-    //             res.send(false)
-    //         }
-    //     });
-    // })
+    })
 
     // app.post('/nodes/wrapper', function (req, res) {
     //     // TODO get config info

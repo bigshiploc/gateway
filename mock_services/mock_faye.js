@@ -54,7 +54,6 @@ class MockWrapper {
 }
 
 module.exports = function (config, result_dir) {
-    console.log(config)
     var resultFiles = fs.readdirSync(result_dir)
     resultFiles.forEach(function (file) {
         if (file.indexOf('\.') > 0) {

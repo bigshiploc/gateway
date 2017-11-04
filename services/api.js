@@ -8,7 +8,7 @@ const path = require('path')
 var fs = require("fs");
 var rp = require('request-promise');
 rp = rp.defaults({json: true});
-
+var isSave = false;
 const Faye = require('faye')
 const config = require('../config')
 var client = new Faye.Client(config.SERVERS.MQ_SERVER)
@@ -122,6 +122,7 @@ function getLastData(startTime, endTime, timeDifference, allDataObj, fileName,re
     console.log('=====================time');
     if (Object.keys(allDataObj).length == 0) {
          fs.writeFileSync(path.join(__dirname, '../public/data/' + fileName), '[]')
+        isSave =true
         return res.sendFile(path.join(__dirname, '../public/data/' + fileName))
     }
     for (var i = 0; i < timeDifference; i++) {
@@ -153,6 +154,7 @@ function getOneSecondData(obj, name, i, startTime, endTime, allDataObj) {
 function saveDataArr(fileName,res) {
     fs.writeFile(path.join(__dirname, '../public/data/' + fileName), JSON.stringify(lastDataArr), function (err) {
         res.sendFile(path.join(__dirname, '../public/data/' + fileName))
+        isSave =true
         console.log('--保存文件结束！！！')
         lastDataArr.length = 0;
     });
@@ -241,6 +243,11 @@ module.exports = function (app) {
             getHistoryInfo(req.query.startTime, req.query.endTime, fileName,res);
             // res.sendFile(path.join(__dirname, '../public/data/' + fileName))
         }
+        setTimeout(function () {
+            if(!isSave){
+                res.send(false)
+            }
+        },1000*20)
     })
 
     // app.post('/nodes/wrapper', function (req, res) {

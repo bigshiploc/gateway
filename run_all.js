@@ -48,7 +48,7 @@ if (MOCKUP) {
 //         // require('./services/mock_services/mock_wrapper')
         require('./mock_services/mock_faye')(
             config,
-            path.join('/Users/fxp/Projects/bigshiploc/data/', 'result')
+            path.join(__dirname+'/data/', 'result')
         )
     }, 3000)
 } else {

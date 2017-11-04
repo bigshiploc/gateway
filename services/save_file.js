@@ -110,6 +110,6 @@ process.on('message', function(data){
     var fileName = new Date().getTime() + '.json';
     getHistoryInfo(data.start, data.end, fileName)
     setTimeout(function () {
-        process.send('close')
+        return process.send('timeout')
     }, 1000 * 20)
 });

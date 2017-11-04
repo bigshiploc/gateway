@@ -141,13 +141,15 @@ module.exports = function (app) {
         child.on('message', function (msg) {
             if(msg!='close'){
                 res.sendFile(msg)
-
-            }else {
+            }else if(msg=='timeout'){
                 res.send('false')
             }
             child.send({msg:'close'})
             console.log('parent get message: ' + JSON.stringify(msg));
         });
+        child.on('exit',function () {
+
+        })
     })
 
     // app.post('/nodes/wrapper', function (req, res) {

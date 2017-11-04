@@ -91,7 +91,6 @@ function getWrapperConfig() {
     })
 }
 
-module.exports = function (app) {
 var elasticsearch = require('elasticsearch');
 var elasticsearChlient = new elasticsearch.Client({
     host: '192.168.1.17:9200'

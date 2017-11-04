@@ -1,5 +1,5 @@
 node_modules
 .idea
 log/*
-data/result
-data/*.json
+data/
+data/

@@ -121,7 +121,7 @@ function getTimeDifference(start, end, allDataObj, fileName) {
 function getLastData(startTime, endTime, timeDifference, allDataObj, fileName) {
     console.log('=====================time');
     if (Object.keys(allDataObj).length == 0) {
-        return fs.writeFileSync(path.join(__dirname, '../data/' + fileName), '[]')
+        return fs.writeFileSync(path.join(__dirname, '../public/data/' + fileName), '[]')
     }
     for (var i = 0; i < timeDifference; i++) {
         var obj = {};
@@ -150,8 +150,8 @@ function getOneSecondData(obj,name,i,startTime,endTime,allDataObj) {
 }
 
 function saveDataArr(fileName) {
-    fs.writeFile(path.join(__dirname, '../data/' + fileName), JSON.stringify(lastDataArr), function (err) {
-        // res.sendFile(path.join(__dirname, '../data/result.txt'))
+    fs.writeFile(path.join(__dirname, '../public/data/' + fileName), JSON.stringify(lastDataArr), function (err) {
+        // res.sendFile(path.join(__dirname, '../public/data/result.txt'))
         console.log('--保存文件结束！！！')
         lastDataArr.length = 0;
     });
@@ -334,11 +334,11 @@ module.exports = function (app) {
     }) // 1507882700205,1507882899205
 
     app.get('/getHistoryDataFile', function (req, res) {
-        fs.exists(path.join(__dirname, '../data/' + req.query.fileName), function (exists) {
-            console.log(path.join(__dirname, '../data/' + req.query.fileName))
+        fs.exists(path.join(__dirname, '../public/data/' + req.query.fileName), function (exists) {
+            console.log(path.join(__dirname, '../public/data/' + req.query.fileName))
             console.log("文件是否存在:" + exists);
             if (exists) {
-                res.sendFile(path.join(__dirname, '../data/' + req.query.fileName))
+                res.sendFile(path.join(__dirname, '../public/data/' + req.query.fileName))
             } else {
                 res.send(false)
             }

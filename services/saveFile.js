@@ -3,10 +3,12 @@
  */
 
 var elasticsearch = require('elasticsearch');
+const config = require('../config')
 var esclient = new elasticsearch.Client({
     host: config.SERVERS.ES_SERVER,
 });
-
+var fs = require("fs");
+const path = require('path')
 var child_process = require('child_process');
 
 var stationHistoryInfo = [];
@@ -32,7 +34,7 @@ function getLastData(startTime, endTime, timeDifference, allDataObj, fileName, r
     console.log('=====================time');
     if (Object.keys(allDataObj).length == 0) {
         fs.writeFileSync(path.join(__dirname, '../public/data/' + fileName), '[]')
-        return precess.send(path.join(__dirname, '../public/data/' + fileName))
+        process.send(path.join(__dirname, '../public/data/' + fileName))
     }
     for (var i = 0; i < timeDifference; i++) {
         var obj = {};
@@ -63,7 +65,7 @@ function getOneSecondData(obj, name, i, startTime, endTime, allDataObj) {
 function saveDataArr(fileName, res) {
     fs.writeFile(path.join(__dirname, '../public/data/' + fileName), JSON.stringify(lastDataArr), function (err) {
         // res.sendFile(path.join(__dirname, '../public/data/' + fileName))
-        precess.send(path.join(__dirname, '../public/data/' + fileName))
+        process.send(path.join(__dirname, '../public/data/' + fileName))
         console.log('--保存文件结束！！！')
         lastDataArr.length = 0;
     });
@@ -100,10 +102,13 @@ function getHistoryInfo(start, end, fileName, res) {
     });
 }
 process.on('message', function(data){
-    if (data.message == 'close') {
+    if (data.msg == 'close') {
         return process.exit()
     }
-    getHistoryInfo(data.start, data.end, data.fileName, data.res)
+    var timeDifference = getTime(data.end) - getTime(data.start);
+    console.log(timeDifference);
+    var fileName = new Date().getTime() + '.json';
+    getHistoryInfo(data.start, data.end, fileName)
     setTimeout(function () {
         process.send('close')
     }, 1000 * 20)

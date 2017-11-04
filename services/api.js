@@ -134,30 +134,18 @@ module.exports = function (app) {
     })
 
     app.get('/getHistoryDataFile', function (req, res) {
-        var timeDifference = getTime(req.query.endTime) - getTime(req.query.startTime);
-        console.log(timeDifference);
-        var fileName = new Date().getTime() + '.json';
-
-        getHistoryInfo(req.query.startTime, req.query.endTime, fileName, res);
         var fork = require('child_process').fork;
-        var child = fork('./saveFile.js');
+        var child = fork(__dirname+'/saveFile.js');
+        child.send({start:req.query.startTime,end:req.query.endTime,msg:""});
+
         child.on('message', function (msg) {
             if(msg!='close'){
-                res.sendFile(path.join(__dirname, '../public/data/' + fileName))
+                res.sendFile(msg)
 
             }
-            child.send('close')
+            child.send({msg:'close'})
             console.log('parent get message: ' + JSON.stringify(msg));
         });
-        var data = {
-            start: req.query.startTime, end: req.query.endTime, fileName: fileName, res: res,message:""
-        }
-        child.send(data);
-        // setTimeout(function () {
-        //     if (!isSave) {
-        //         res.send(false)
-        //     }
-        // }, 1000 * 20)
     })
 
     // app.post('/nodes/wrapper', function (req, res) {

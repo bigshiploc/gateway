@@ -135,13 +135,15 @@ module.exports = function (app) {
 
     app.get('/getHistoryDataFile', function (req, res) {
         var fork = require('child_process').fork;
-        var child = fork(__dirname+'/saveFile.js');
+        var child = fork(__dirname+'/save_file.js');
         child.send({start:req.query.startTime,end:req.query.endTime,msg:""});
 
         child.on('message', function (msg) {
             if(msg!='close'){
                 res.sendFile(msg)
 
+            }else {
+                res.send('false')
             }
             child.send({msg:'close'})
             console.log('parent get message: ' + JSON.stringify(msg));

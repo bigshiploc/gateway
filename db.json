@@ -259,5 +259,17 @@
     "Log_InputData": 1,
     "Log_OutputData": 1,
     "Log_RoverSol": 1
-  }
+  },
+  "users":[
+    {
+      "username":"1",
+      "password":"1",
+      "id":"1"
+    },
+    {
+      "username":"2",
+      "password":"2",
+      "id":"2"
+    }
+  ]
 }

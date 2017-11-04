@@ -5,6 +5,7 @@
 var config = require('../config')
 
 var fs = require('fs')
+var path = require('path')
 var Faye = require('faye')
 var client = new Faye.Client(config.SERVERS.MQ_SERVER)
 
@@ -23,7 +24,9 @@ function writeResultLog(session_id, type, data) {
     // console.log(type, JSON.stringify(data))
     fs.appendFileSync(
         result_dir + session_id + '_' + node_id + '.' + type,
-        JSON.stringify(data) + '\n')
+        path.join(result_dir, session_id + '_' + node_id + '.' + type),
+        JSON.stringify(data) + '\n'
+    )
     return data
 }
 

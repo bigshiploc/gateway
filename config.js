@@ -17,7 +17,7 @@ exports.SERVERS = {
 }
 
 exports.DIR = {
-    DATA_DIR: '/Users/fxp/Projects/bigship/log',
+    DATA_DIR: __dirname+'/log',
     get LOG_RAW() {
         return path.join(this.DATA_DIR, 'raw.log')
     },

@@ -139,15 +139,15 @@ module.exports = function (app) {
         }
     });
 
-    app.get('/isAuthenticated', function () {
-        return function (req, res, next) {
-            if (req.isAuthenticated()) {
-                next()
-            } else {
-                return res.send({bool: false});
-            }
-        }
-    });
+    // app.get('/isAuthenticated', function () {
+    //     return function (req, res, next) {
+    //         if (req.isAuthenticated()) {
+    //             next()
+    //         } else {
+    //             return res.send({bool: false});
+    //         }
+    //     }
+    // });
 
     app.post('/nodes',function (req,res,next) {
         console.log(req.body);
@@ -156,6 +156,15 @@ module.exports = function (app) {
 
     app.put('/nodes/:id',function (req,res,next) {
         console.log(req.params.id);
+        console.log(req.body)
+        // client.create({
+        //     index: 'bigship',
+        //     type: 'history',
+        //     body: {
+        //     }
+        // }, function (error, response) {
+        //
+        // });
         next()
     });
 
@@ -171,7 +180,6 @@ module.exports = function (app) {
                 res.send('false')
             }
             child.send({msg:'close'});
-            console.log('parent get message: ' + JSON.stringify(msg));
         });
     });
 

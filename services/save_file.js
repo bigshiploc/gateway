@@ -21,20 +21,20 @@ var labelLastOne = 0;
 var allDataObj = {};
 var lastDataArr = [];
 
-function getTimeDifference(start, end, allDataObj, fileName, res) {
+function getTimeDifference(start, end, allDataObj, fileName) {
     var startTime = getTime(start);
     var endTime = getTime(end);
     var timeDifference = endTime - startTime;
     console.log(timeDifference);
-    getLastData(startTime, endTime, timeDifference, allDataObj, fileName, res)
+    getLastData(startTime, endTime, timeDifference, allDataObj, fileName)
 }
 
 
-function getLastData(startTime, endTime, timeDifference, allDataObj, fileName, res) {
+function getLastData(startTime, endTime, timeDifference, allDataObj, fileName) {
     console.log('=====================time');
     if (Object.keys(allDataObj).length == 0) {
-        fs.writeFileSync(path.join(__dirname, '../public/data/' + fileName), '[]')
-        process.send(path.join(__dirname, '../public/data/' + fileName))
+        fs.writeFileSync(fileName, '[]')
+        process.send(fileName)
     }
     for (var i = 0; i < timeDifference; i++) {
         var obj = {};
@@ -48,7 +48,7 @@ function getLastData(startTime, endTime, timeDifference, allDataObj, fileName, r
         }
         lastDataArr.push(obj);
     }
-    saveDataArr(fileName, res);
+    saveDataArr(fileName);
     // console.log(lastDataArr[0]);   // 这里得到基本的数据。（不包含节点信息的数据。）
 }
 
@@ -62,10 +62,10 @@ function getOneSecondData(obj, name, i, startTime, endTime, allDataObj) {
     }
 }
 
-function saveDataArr(fileName, res) {
-    fs.writeFile(path.join(__dirname, '../public/data/' + fileName), JSON.stringify(lastDataArr), function (err) {
+function saveDataArr(fileName) {
+    fs.writeFile(fileName, JSON.stringify(lastDataArr), function (err) {
         // res.sendFile(path.join(__dirname, '../public/data/' + fileName))
-        process.send(path.join(__dirname, '../public/data/' + fileName))
+        process.send(fileName)
         console.log('--保存文件结束！！！')
         lastDataArr.length = 0;
     });
@@ -75,7 +75,7 @@ function getTime(timeStamp) {
     return parseInt(timeStamp / 1000)
 }
 
-function getHistoryInfo(start, end, fileName, res) {
+function getHistoryInfo(start, end, fileName) {
     esclient.search({
         index: 'bigship',
         type: 'constituencies',
@@ -86,6 +86,7 @@ function getHistoryInfo(start, end, fileName, res) {
         }
     }).then(function (resp) {
         var data = resp.hits.hits;
+        console.log('esclient数据条数'+data.length)
         var allDataObj = {};
         for (var j = 0; j < data.length; j++) {
             if (!allDataObj.hasOwnProperty(data[j]._source.eventname)) {
@@ -96,19 +97,32 @@ function getHistoryInfo(start, end, fileName, res) {
             allDataObj[data[i]._source.eventname].push(data[i]._source)
         }
 
-        getTimeDifference(start, end, allDataObj, fileName, res)
+        getTimeDifference(start, end, allDataObj, fileName)
     }, function (err) {
         console.trace(err.message);
     });
 }
-process.on('message', function(data){
+
+function init(data){
+    var timeDifference = getTime(data.end) - getTime(data.start);
+    console.log(timeDifference);
+    var fileName = path.join(__dirname, '../public/' + data.start + '_' + data.end + '.data');
+    fs.exists(fileName, function (exists) {
+        console.log("文件是否存在:" + exists);
+        if (exists) {
+            process.send(fileName)
+        } else {
+            getHistoryInfo(data.start, data.end, fileName);
+        }
+    })
+}
+process.on('message', function (data) {
     if (data.msg == 'close') {
         return process.exit()
     }
-    var timeDifference = getTime(data.end) - getTime(data.start);
-    console.log(timeDifference);
-    var fileName = new Date().getTime() + '.json';
-    getHistoryInfo(data.start, data.end, fileName)
+
+    init(data);
+
     setTimeout(function () {
         return process.send('timeout')
     }, 1000 * 20)

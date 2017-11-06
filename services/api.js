@@ -34,6 +34,10 @@ function getNodes() {
     return rp({uri: HOST + '/nodes'})
 }
 
+function getVehicle() {
+    return rp({uri: HOST + '/vehicle'})
+}
+
 function delStation(node_id) {
     var options = {
         method: 'DELETE',
@@ -67,12 +71,14 @@ function getWrapperConfig() {
         getUwb(),
         getRtk(),
         getNodes(),
+        getVehicle()
     ]).then(function (results) {
         var zone = results[0],
             wrapper = results[1],
             uwb = results[2],
             rtk = results[3],
             nodes = results[4],
+            vehicle =results[5],
             uwb_nodes = _.where(nodes, {'nodeType': 2}),
             rtk_nodes = _.where(nodes, {'nodeType': 1})
 
@@ -86,26 +92,49 @@ function getWrapperConfig() {
             wrapper: wrapper,
             UWB: uwb,
             RTK: rtk,
-            nodes: nodes
+            nodes: nodes,
+            vehicle: vehicle,
         })
     })
+}
+var jwt = require('jsonwebtoken');
+
+function getUser(username) {
+    return rp({uri: HOST + '/users'+username})
 }
 
 module.exports = function (app) {
     app.post('/login', function (req, res, next) {
-        passport.authenticate('local', function (err, user) {
-            if (err) return next(err);
-            console.log(user)
-            if (!user) {
-                return res.send(user);
+        getUser('?username='+req.body.username).then(function (user) {
+            if (user.length==0) {
+                res.send(false);
+            } else if (user) {
+                if (user[0].password != req.body.password) {
+                    res.send(false)
+                } else {
+                    res.send(user);
+                }
             }
-            console.log(req.isAuthenticated())
-            req.logIn(user, function (err) {
-                if (err) return next(err);
-                console.log(req.isAuthenticated())
-                return res.send(user);
-            })
-        })(req, res, next);
+        }).catch(function (err) {
+            console.log(err)
+        })
+        // passport.authenticate('local', function (err, user) {
+        //     if (err) return next(err);
+        //     console.log(user)
+        //     if (!user) {
+        //         return res.send(user);
+        //     }
+        //     console.log(req.isAuthenticated())
+        //     req.logIn(user, function (err) {
+        //         if (err) return next(err);
+        //         console.log(req.isAuthenticated())
+        //         return res.send(user);
+        //     })
+        // })(req, res, next);
+    })
+
+    app.post('/nodes',function (req,res) {
+
     })
 
     app.get('/logout', function (req, res) {

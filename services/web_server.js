@@ -15,7 +15,7 @@ var passport = require('passport')
 
 // view engine setup
 
-server.use(session({secret: 'bigship', resave: true, saveUninitialized: true, cookie: { maxAge: 3600000*48 }}));
+server.use(session({secret: 'bigship', resave: true, saveUninitialized: true, cookie: { maxAge: 30*1000 }}));
 server.use(passport.initialize());
 server.use(passport.session());
 

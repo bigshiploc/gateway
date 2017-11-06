@@ -1,18 +1,22 @@
-const _ = require('underscore')
-const shortid = require('shortid')
-var spawn = require('child_process').spawn
+const _ = require('underscore');
+const shortid = require('shortid');
+var spawn = require('child_process').spawn;
 var passport = require('passport');
 
-const path = require('path')
-
+const path = require('path');
+var elasticsearch = require('elasticsearch');
 var fs = require("fs");
 var rp = require('request-promise');
 rp = rp.defaults({json: true});
-const Faye = require('faye')
-const config = require('../config')
-var client = new Faye.Client(config.SERVERS.MQ_SERVER)
+const Faye = require('faye');
+const config = require('../config');
+var client = new Faye.Client(config.SERVERS.MQ_SERVER);
 
-var HOST = 'http://127.0.0.1:' + config.SERVERS.WEB_SERVER_PORT
+var esclient = new elasticsearch.Client({
+    host: config.SERVERS.ES_SERVER,
+});
+
+var HOST = 'http://127.0.0.1:' + config.SERVERS.WEB_SERVER_PORT;
 
 function getAreas() {
     return rp({uri: HOST + '/areas'})
@@ -80,12 +84,12 @@ function getWrapperConfig() {
             nodes = results[4],
             vehicle =results[5],
             uwb_nodes = _.where(nodes, {'nodeType': 2}),
-            rtk_nodes = _.where(nodes, {'nodeType': 1})
+            rtk_nodes = _.where(nodes, {'nodeType': 1});
 
-        uwb['base.conf'] = uwb_nodes
-        rtk['base.conf'] = rtk_nodes
-        wrapper['uwb_bases'] = _.pluck(uwb_nodes, 'nodeID')
-        wrapper['rtk_bases'] = _.pluck(rtk_nodes, 'nodeID')
+        uwb['base.conf'] = uwb_nodes;
+        rtk['base.conf'] = rtk_nodes;
+        wrapper['uwb_bases'] = _.pluck(uwb_nodes, 'nodeID');
+        wrapper['rtk_bases'] = _.pluck(rtk_nodes, 'nodeID');
 
         return Promise.resolve({
             zone: zone,
@@ -97,7 +101,6 @@ function getWrapperConfig() {
         })
     })
 }
-var jwt = require('jsonwebtoken');
 
 function getUser(username) {
     return rp({uri: HOST + '/users'+username})
@@ -108,49 +111,33 @@ module.exports = function (app) {
         getUser('?username='+req.body.username).then(function (user) {
             if (user.length==0) {
                 res.send(false);
-            } else if (user) {
-                if (user[0].password != req.body.password) {
+            } else {
+                 user = user[0];
+                if (user.password != req.body.password) {
                     res.send(false)
                 } else {
-                    res.send(user);
+                    req.logIn(user, function (err) {
+                        if (err) return next(err);
+                        return res.send(user);
+                    })
                 }
             }
-        }).catch(function (err) {
-            console.log(err)
         })
-        // passport.authenticate('local', function (err, user) {
-        //     if (err) return next(err);
-        //     console.log(user)
-        //     if (!user) {
-        //         return res.send(user);
-        //     }
-        //     console.log(req.isAuthenticated())
-        //     req.logIn(user, function (err) {
-        //         if (err) return next(err);
-        //         console.log(req.isAuthenticated())
-        //         return res.send(user);
-        //     })
-        // })(req, res, next);
-    })
-
-    app.post('/nodes',function (req,res) {
-
-    })
+    });
 
     app.get('/logout', function (req, res) {
         req.session.destroy();
         req.logout();
         res.send('logout')
-    })
+    });
 
     app.get('/isLogin', function (req, res) {
-        console.log(req.isAuthenticated())
         if (!req.isAuthenticated()) {
             return res.send({bool: false})
         } else {
             return res.send({bool: true, user: req.user})
         }
-    })
+    });
 
     app.get('/isAuthenticated', function () {
         return function (req, res, next) {
@@ -160,7 +147,17 @@ module.exports = function (app) {
                 return res.send({bool: false});
             }
         }
-    })
+    });
+
+    app.post('/nodes',function (req,res,next) {
+        console.log(req.body);
+        next()
+    });
+
+    app.put('/nodes/:id',function (req,res,next) {
+        console.log(req.params.id);
+        next()
+    });
 
     app.get('/getHistoryDataFile', function (req, res) {
         var fork = require('child_process').fork;
@@ -173,10 +170,10 @@ module.exports = function (app) {
             }else if(msg=='timeout'){
                 res.send('false')
             }
-            child.send({msg:'close'})
+            child.send({msg:'close'});
             console.log('parent get message: ' + JSON.stringify(msg));
         });
-    })
+    });
 
     // app.post('/nodes/wrapper', function (req, res) {
     //     // TODO get config info
@@ -246,47 +243,47 @@ module.exports = function (app) {
     // })
     //
 
-    var wrapper_thread = undefined
+    var wrapper_thread = undefined;
 
     process.on('SIGINT', function () {
         if (wrapper_thread) {
             wrapper_thread.kill()
         }
-        require('child_process').exec('taskkill /F /IM ServiceUWBLib.exe')
-        require('child_process').exec('taskkill /F /IM ServiceRTKLib.exe')
+        require('child_process').exec('taskkill /F /IM ServiceUWBLib.exe');
+        require('child_process').exec('taskkill /F /IM ServiceRTKLib.exe');
         setTimeout(function () {
             process.exit(0)
         }, 1000)
-    })
+    });
 
     function startWrapper(config_file) {
         return new Promise(function (resolve, reject) {
             if (wrapper_thread) {
-                wrapper_thread.kill()
+                wrapper_thread.kill();
                 wrapper_thread = undefined
             }
             setTimeout(function () {
-                wrapper_thread = spawn(config.WRAPPER_CORE_EXE, [config_file])
+                wrapper_thread = spawn(config.WRAPPER_CORE_EXE, [config_file]);
                 wrapper_thread.on('exit', function () {
                     console.log('wrapper has exited')
-                })
+                });
                 wrapper_thread.stderr.on('data', function (data) {
                     console.error(data)
-                })
+                });
                 resolve(wrapper_thread)
             }, 1000)
         })
     }
 
     app.get('/wrapper/restart', function (req, res) {
-        console.log('restart')
+        console.log('restart');
         getWrapperConfig()
             .then(function (data) {
-                var config_file = path.join(config.DIR.CONFIG_DIR, 'wrapper_' + new Date().getTime() + '.json')
+                var config_file = path.join(config.DIR.CONFIG_DIR, 'wrapper_' + new Date().getTime() + '.json');
                 fs.writeFileSync(
                     config_file,
                     JSON.stringify(data)
-                )
+                );
                 return startWrapper(config_file)
             })
             .then(function (pid) {
@@ -294,7 +291,7 @@ module.exports = function (app) {
             }, function (err) {
                 res.send(500, err)
             })
-    })
+    });
     //
     // // TODO Station
     // app.post('/deleteStation', function (req, res) {
@@ -348,4 +345,4 @@ module.exports = function (app) {
 
     })
 
-}
+};

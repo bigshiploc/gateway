@@ -2,8 +2,6 @@
  * Created by xiaopingfeng on 10/5/17.
  */
 var PORT = require('../config').SERVERS.WEB_SERVER_PORT
-require('./passport')()
-
 const jsonServer = require('json-server')
 const server = jsonServer.create()
 const path = require('path')
@@ -12,16 +10,11 @@ const middlewares = jsonServer.defaults()
 const express = require('express');
 const static_path = path.join(__dirname, '../public')
 
-var session = require("express-session"),
-    bodyParser = require("body-parser");
+var session = require("express-session")
 var passport = require('passport')
-var cookieParser = require('cookie-parser');
 
 // view engine setup
 
-server.use(bodyParser.json());
-server.use(cookieParser());
-server.use(express.static(path.join(__dirname, 'public')));
 server.use(session({secret: 'bigship', resave: true, saveUninitialized: true, cookie: { maxAge: 3600000*48 }}));
 server.use(passport.initialize());
 server.use(passport.session());
@@ -39,6 +32,7 @@ server.use((req, res, next) => {
     next()
 })
 
+require('./passport')()
 require('./api')(server)
 
 server.use(router)

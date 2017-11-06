@@ -106,7 +106,7 @@ function getHistoryInfo(start, end, fileName) {
 function init(data){
     var timeDifference = getTime(data.end) - getTime(data.start);
     console.log(timeDifference);
-    var fileName = path.join(__dirname, '../public/' + data.start + '_' + data.end + '.data');
+    var fileName = path.join(__dirname, '../query_result/' + data.start + '_' + data.end + '.data');
     fs.exists(fileName, function (exists) {
         console.log("文件是否存在:" + exists);
         if (exists) {

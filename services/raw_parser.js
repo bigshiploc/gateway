@@ -31,7 +31,7 @@ function writeResultLog(session_id, type, data) {
 }
 
 function fixResult(event, data) {
-    if (event === 'user_uwb') {
+    if (event === 'user_uwb' || event === 'rtkres_roverpos') {
         data.x = parseFloat(data.x)
         data.y = parseFloat(data.y)
     }

@@ -155,18 +155,33 @@ module.exports = function (app) {
     });
 
     app.put('/nodes/:id',function (req,res,next) {
-        console.log(req.params.id);
-        console.log(req.body)
-        // client.create({
-        //     index: 'bigship',
-        //     type: 'history',
-        //     body: {
-        //     }
-        // }, function (error, response) {
-        //
-        // });
-        next()
+        var info = {id: req.params.id, nodeID: req.body.nodeID, updateDate: new Date().getTime()};
+        info.afterUpdateInfo = req.body;
+        rp({uri: HOST + '/nodes/'+req.params.id}).then(function (node) {
+            info.beforeUpdateInfo = node;
+            esclient.index({
+                index: 'bigship',
+                type: 'history',
+                body: info
+            }, function (error, response) {
+                console.log(error)
+                console.log(response)
+                next()
+            });
+        })
     });
+
+    app.delete('nodes/:id',function (req, res, next) {
+        var info = {id: req.params.id, updateDate: new Date().getTime(), delete: true};
+        esclient.index({
+            index: 'bigship',
+            type: 'history',
+            body: info
+        }, function (error, response) {
+            console.log(response)
+            next()
+        });
+    })
 
     app.get('/getHistoryDataFile', function (req, res) {
         var fork = require('child_process').fork;

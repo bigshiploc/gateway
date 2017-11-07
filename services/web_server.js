@@ -10,12 +10,16 @@ const middlewares = jsonServer.defaults()
 const express = require('express');
 const static_path = path.join(__dirname, '../public')
 
+var cookieParser = require('cookie-parser');
 var session = require("express-session")
+var bodyParser = require("body-parser");
 var passport = require('passport')
 
 // view engine setup
-
-server.use(session({secret: 'bigship', resave: true, saveUninitialized: true, cookie: { maxAge: 3600000*24 }}));
+server.use(cookieParser());
+server.use(bodyParser.json());
+server.use(bodyParser.urlencoded({extended: false}));
+server.use(session({secret: 'bigship', resave: false, saveUninitialized: true, cookie: { maxAge: 3600000*24 }}));
 server.use(passport.initialize());
 server.use(passport.session());
 

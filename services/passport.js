@@ -14,6 +14,7 @@ function getUser(username) {
 
 module.exports = function () {
   passport.use('local', new LocalPassport(function (username, password, done) {
+    console.log('local ---======')
       // getUser('?username='+username).then(function (results) {
       // if (results[0].password != password) {
       //   return done(null, false);

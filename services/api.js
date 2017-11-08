@@ -227,6 +227,22 @@ module.exports = function (app) {
         });
     });
 
+    app.get('/getAllHistoryInfo',function (req, res) {
+        esclient.search({
+            index: 'bigship',
+            type: 'history',
+            body: {
+                query: {
+                    range: {timestamp: {gte: req.query.startTime, lte: req.query.endTime}}
+                }, size: 10000
+            }
+        }).then(function (resp) {
+            var data = resp.hits.hits;
+            console.log('esclient数据条数'+data.length);
+        }, function (err) {
+            console.trace(err.message);
+        });
+    })
 
 
     // app.post('/nodes/wrapper', function (req, res) {

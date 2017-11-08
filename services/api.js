@@ -82,7 +82,7 @@ function getWrapperConfig() {
             uwb = results[2],
             rtk = results[3],
             nodes = results[4],
-            vehicle =results[5],
+            vehicle = results[5],
             uwb_nodes = _.where(nodes, {'nodeType': 2}),
             rtk_nodes = _.where(nodes, {'nodeType': 1});
 
@@ -103,16 +103,16 @@ function getWrapperConfig() {
 }
 
 function getUser(username) {
-    return rp({uri: HOST + '/users'+username})
+    return rp({uri: HOST + '/users' + username})
 }
 
 module.exports = function (app) {
     app.post('/login', function (req, res, next) {
-        getUser('?username='+req.body.username).then(function (user) {
-            if (user.length==0) {
+        getUser('?username=' + req.body.username).then(function (user) {
+            if (user.length == 0) {
                 res.send(false);
             } else {
-                 user = user[0];
+                user = user[0];
                 if (user.password != req.body.password) {
                     res.send(false)
                 } else {
@@ -149,54 +149,85 @@ module.exports = function (app) {
     //     }
     // });
 
-    app.post('/nodes',function (req,res,next) {
-        console.log(req.body);
-        next()
-    });
-
-    app.put('/nodes/:id',function (req,res,next) {
-        var info = {id: req.params.id, nodeID: req.body.nodeID, updateDate: new Date().getTime()};
-        info.afterUpdateInfo = req.body;
-        rp({uri: HOST + '/nodes/'+req.params.id}).then(function (node) {
-            info.beforeUpdateInfo = node;
+    app.post('/nodes', function (req, res, next) {
+        function afterResponse() {
+            res.removeListener('finish', afterResponse);
+            res.removeListener('close', afterResponse);
+            var info = {id: res.locals.data.id, nodeID: res.locals.data.nodeID, updateDate: new Date().getTime()};
+            info.beforeUpdateInfo = null;
+            info.afterUpdateInfo = res.locals.data;
             esclient.index({
                 index: 'bigship',
                 type: 'history',
                 body: info
             }, function (error, response) {
-                console.log(error)
                 console.log(response)
-                next()
             });
-        })
+        }
+
+        res.on('finish', afterResponse);
+        res.on('close', afterResponse);
+        next()
     });
 
-    app.delete('nodes/:id',function (req, res, next) {
-        var info = {id: req.params.id, updateDate: new Date().getTime(), delete: true};
-        esclient.index({
-            index: 'bigship',
-            type: 'history',
-            body: info
-        }, function (error, response) {
-            console.log(response)
+    app.put('/nodes/:id', function (req, res, next) {
+        var info = {id: req.params.id, nodeID: req.body.nodeID, updateDate: new Date().getTime()};
+        info.afterUpdateInfo = req.body;
+        rp({uri: HOST + '/nodes/' + req.params.id}).then(function (node) {
+            info.beforeUpdateInfo = node;
+            res.on('finish', afterResponse);
+            res.on('close', afterResponse);
             next()
         });
-    })
+
+        function afterResponse() {
+            res.removeListener('finish', afterResponse);
+            res.removeListener('close', afterResponse);
+            esclient.index({
+                index: 'bigship',
+                type: 'history',
+                body: info
+            }, function (error, response) {
+                console.log(response)
+            });
+        }
+    });
+
+    app.delete('/nodes/:id', function (req, res, next) {
+        var info = {id: req.params.id, updateDate: new Date().getTime(), delete: true};
+        function afterResponse() {
+            res.removeListener('finish', afterResponse);
+            res.removeListener('close', afterResponse);
+            esclient.index({
+                index: 'bigship',
+                type: 'history',
+                body: info
+            }, function (error, response) {
+                console.log(response)
+            });
+        }
+
+        res.on('finish', afterResponse);
+        res.on('close', afterResponse);
+        next()
+    });
 
     app.get('/getHistoryDataFile', function (req, res) {
         var fork = require('child_process').fork;
-        var child = fork(__dirname+'/save_file.js');
-        child.send({start:req.query.startTime,end:req.query.endTime,msg:""});
+        var child = fork(__dirname + '/save_file.js');
+        child.send({start: req.query.startTime, end: req.query.endTime, msg: ""});
 
         child.on('message', function (msg) {
-            if(msg!='close'&&msg!='timeout'){
+            if (msg != 'close' && msg != 'timeout') {
                 res.sendFile(msg)
-            }else if(msg=='timeout'){
+            } else if (msg == 'timeout') {
                 res.send('false')
             }
-            child.send({msg:'close'});
+            child.send({msg: 'close'});
         });
     });
+
+
 
     // app.post('/nodes/wrapper', function (req, res) {
     //     // TODO get config info

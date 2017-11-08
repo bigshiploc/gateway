@@ -3,12 +3,12 @@
  */
 
 var elasticsearch = require('elasticsearch');
-const config = require('../config')
+const config = require('../config');
 var esclient = new elasticsearch.Client({
     host: config.SERVERS.ES_SERVER,
 });
 var fs = require("fs");
-const path = require('path')
+const path = require('path');
 var child_process = require('child_process');
 
 var stationHistoryInfo = [];
@@ -33,18 +33,16 @@ function getTimeDifference(start, end, allDataObj, fileName) {
 function getLastData(startTime, endTime, timeDifference, allDataObj, fileName) {
     console.log('=====================time');
     if (Object.keys(allDataObj).length == 0) {
-        fs.writeFileSync(fileName, '[]')
+        fs.writeFileSync(fileName, '[]');
         process.send(fileName)
     }
     for (var i = 0; i < timeDifference; i++) {
         var obj = {};
         for (var j in allDataObj) {
-            if (j in obj == true) {
-                getOneSecondData(obj, j, i, startTime, endTime, allDataObj);
-            } else {
+            if (j in obj != true) {
                 obj[j] = [];
-                getOneSecondData(obj, j, i, startTime, endTime, allDataObj);
             }
+            getOneSecondData(obj, j, i, startTime, endTime, allDataObj);
         }
         lastDataArr.push(obj);
     }
@@ -65,8 +63,8 @@ function getOneSecondData(obj, name, i, startTime, endTime, allDataObj) {
 function saveDataArr(fileName) {
     fs.writeFile(fileName, JSON.stringify(lastDataArr), function (err) {
         // res.sendFile(path.join(__dirname, '../public/data/' + fileName))
-        process.send(fileName)
-        console.log('--保存文件结束！！！')
+        process.send(fileName);
+        console.log('--保存文件结束！！！');
         lastDataArr.length = 0;
     });
 }
@@ -86,7 +84,7 @@ function getHistoryInfo(start, end, fileName) {
         }
     }).then(function (resp) {
         var data = resp.hits.hits;
-        console.log('esclient数据条数'+data.length)
+        console.log('esclient数据条数'+data.length);
         var allDataObj = {};
         for (var j = 0; j < data.length; j++) {
             if (!allDataObj.hasOwnProperty(data[j]._source.eventname)) {

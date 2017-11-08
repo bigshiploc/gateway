@@ -153,18 +153,20 @@ module.exports = function (app) {
         function afterResponse() {
             res.removeListener('finish', afterResponse);
             res.removeListener('close', afterResponse);
-            var info = {id: res.locals.data.id, nodeID: res.locals.data.nodeID, updateDate: new Date().getTime()};
-            info.beforeUpdateInfo = null;
-            info.afterUpdateInfo = res.locals.data;
-            esclient.index({
-                index: 'bigship',
-                type: 'history',
-                body: info
-            }, function (error, response) {
-                console.log(response)
-            });
+            if(res.statusCode==200){
+                var info = {id: res.locals.data.id, nodeID: res.locals.data.nodeID, updateDate: new Date().getTime()};
+                info.beforeUpdateInfo = null;
+                info.afterUpdateInfo = res.locals.data;
+                esclient.index({
+                    index: 'bigship',
+                    type: 'history',
+                    body: info
+                }, function (error, response) {
+                    console.log(response)
+                });
+            }
         }
-
+        req.body.id = req.body.nodeID;
         res.on('finish', afterResponse);
         res.on('close', afterResponse);
         next()

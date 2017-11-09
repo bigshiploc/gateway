@@ -161,7 +161,7 @@ module.exports = function (app) {
         function afterResponse() {
             res.removeListener('finish', afterResponse);
             res.removeListener('close', afterResponse);
-            if (res.statusCode == 200) {
+            if (res.statusCode == 201) {
                 var info = {id: res.locals.data.id, nodeID: res.locals.data.nodeID, updateDate: new Date().getTime()};
                 info.beforeUpdateInfo = null;
                 info.afterUpdateInfo = res.locals.data;
@@ -300,21 +300,21 @@ module.exports = function (app) {
             console.log('--返回label结束！！！')
         }
     }
-    function sortNumber(a,b)
-    {
-        return  b._source.updateDate-a._source.updateDate
+
+    function sortNumber(a, b) {
+        return b._source.updateDate - a._source.updateDate
     }
+
     function getOneLabelData(data, req, res) {
         esclient.search({
             index: 'bigship',
             type: 'history',
             body: {
-                    query: {
-                        match : {
-                            id : data[labelLastOne]
-                        }
-                        // range: {updateDate: {lt: req.query.startTime}}
+                query: {
+                    match: {
+                        id: data[labelLastOne]
                     }
+                }
                 // query: {
                 //     range: {updateDate: {lt: req.query.startTime}}
                 // }
@@ -325,7 +325,7 @@ module.exports = function (app) {
             hits.sort(sortNumber);
 
             for (var i = 0; i < hits.length; i++) {
-                if(hits[i]&&hits[i]._source.updateDate < req.query.startTime){
+                if (hits[i] && hits[i]._source.updateDate < req.query.startTime) {
                     if (!hits[i]._source.hasOwnProperty('delete')) {
                         console.log('-------lastOne----');
                         labelHistoryInfo[labelLastOne].push(hits[i]._source);

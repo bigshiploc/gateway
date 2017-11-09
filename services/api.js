@@ -267,7 +267,7 @@ module.exports = function (app) {
                 labelHistoryData(allId, req, res);
             });
 
-            console.log(data);
+            console.log(data.length);
         }, function (err) {
             console.trace(err.message);
         });
@@ -300,38 +300,36 @@ module.exports = function (app) {
             console.log('--返回label结束！！！')
         }
     }
-
+    function sortNumber(a,b)
+    {
+        return  b._source.updateDate-a._source.updateDate
+    }
     function getOneLabelData(data, req, res) {
         esclient.search({
             index: 'bigship',
             type: 'history',
             body: {
-                // "filtered": {
-                //     "filter": {
-                //         "bool": {
-                //             "must": {"term": {"id": data[labelLastOne]}},
-                //             "must_not": {
-                //                 query: {
-                //                     range: {updateDate: {lt: req.query.startTime}}
-                //                 }
-                //
-                //             }
-                //         }
-                //     }
+                    query: {
+                        match : {
+                            id : data[labelLastOne]
+                        }
+                        // range: {updateDate: {lt: req.query.startTime}}
+                    }
+                // query: {
+                //     range: {updateDate: {lt: req.query.startTime}}
                 // }
-                query: {
-                    range: {updateDate: {lt: req.query.startTime}}
-                }
                 , size: 10000
             }
         }).then(function (resp) {
             var hits = resp.hits.hits;
-            console.log(hits)
+            hits.sort(sortNumber);
+
             for (var i = 0; i < hits.length; i++) {
-                if (hits[i] && hits[i]._source.id == data[labelLastOne]) {
+                if(hits[i]&&hits[i]._source.updateDate < req.query.startTime){
                     if (!hits[i]._source.hasOwnProperty('delete')) {
-                    console.log('-------lastOne----');
-                    labelHistoryInfo[labelLastOne].push(hits[i]._source);
+                        console.log('-------lastOne----');
+                        labelHistoryInfo[labelLastOne].push(hits[i]._source);
+                        break;
                     }
                 }
             }

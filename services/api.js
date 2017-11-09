@@ -105,10 +105,7 @@ function getWrapperConfig() {
 function getUser(username) {
     return rp({uri: HOST + '/users' + username})
 }
-var stationHistoryInfo = [];
 var labelHistoryInfo = [];
-var stationNum = 0;
-var stationLastOne = 0;
 var labelNum = 0;
 var labelLastOne = 0;
 
@@ -240,6 +237,10 @@ module.exports = function (app) {
     });
 
     app.get('/getAllHistoryInfo', function (req, res) {
+
+        labelHistoryInfo = [];
+        labelNum = 0;
+        labelLastOne = 0;
         esclient.search({
             index: 'bigship',
             type: 'history',

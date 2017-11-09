@@ -250,7 +250,6 @@ module.exports = function (app) {
             }
         }).then(function (resp) {
             var data = resp.hits.hits;
-            var sendArr = [];
             rp({uri: HOST + '/nodes'}).then(function (node) {
                 var allId = [];
                 for (var i = 0; i < data.length; i++) {
@@ -264,7 +263,7 @@ module.exports = function (app) {
                         allId.push(node[j].id)
                     }
                 }
-                createLabelInfo(allId, node);
+                createLabelInfo(allId, data);
                 labelHistoryData(allId, req, res);
             });
 
@@ -326,7 +325,6 @@ module.exports = function (app) {
                 , size: 10000
             }
         }).then(function (resp) {
-            // console.log(resp)
             var hits = resp.hits.hits;
             console.log(hits)
             for (var i = 0; i < hits.length; i++) {

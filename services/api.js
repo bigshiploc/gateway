@@ -105,6 +105,14 @@ function getWrapperConfig() {
 function getUser(username) {
     return rp({uri: HOST + '/users' + username})
 }
+var stationHistoryInfo = [];
+var labelHistoryInfo = [];
+var stationNum = 0;
+var stationLastOne = 0;
+var labelNum = 0;
+var labelLastOne = 0;
+
+var allDataObj = {};
 
 module.exports = function (app) {
     app.post('/login', function (req, res, next) {
@@ -153,7 +161,7 @@ module.exports = function (app) {
         function afterResponse() {
             res.removeListener('finish', afterResponse);
             res.removeListener('close', afterResponse);
-            if(res.statusCode==200){
+            if (res.statusCode == 200) {
                 var info = {id: res.locals.data.id, nodeID: res.locals.data.nodeID, updateDate: new Date().getTime()};
                 info.beforeUpdateInfo = null;
                 info.afterUpdateInfo = res.locals.data;
@@ -166,6 +174,7 @@ module.exports = function (app) {
                 });
             }
         }
+
         req.body.id = req.body.nodeID;
         res.on('finish', afterResponse);
         res.on('close', afterResponse);
@@ -197,6 +206,7 @@ module.exports = function (app) {
 
     app.delete('/nodes/:id', function (req, res, next) {
         var info = {id: req.params.id, updateDate: new Date().getTime(), delete: true};
+
         function afterResponse() {
             res.removeListener('finish', afterResponse);
             res.removeListener('close', afterResponse);
@@ -229,23 +239,108 @@ module.exports = function (app) {
         });
     });
 
-    app.get('/getAllHistoryInfo',function (req, res) {
+    app.get('/getAllHistoryInfo', function (req, res) {
         esclient.search({
             index: 'bigship',
             type: 'history',
             body: {
                 query: {
-                    range: {timestamp: {gte: req.query.startTime, lte: req.query.endTime}}
+                    range: {updateDate: {gte: req.query.startTime, lte: req.query.endTime}}
                 }, size: 10000
             }
         }).then(function (resp) {
             var data = resp.hits.hits;
-            console.log('esclient数据条数'+data.length);
+            var sendArr = [];
+            rp({uri: HOST + '/nodes'}).then(function (node) {
+                var allId = [];
+                for (var i = 0; i < data.length; i++) {
+                    if (allId.indexOf(data[i]._source.id) === -1) {
+                        allId.push(data[i]._source.id)
+                    }
+                }
+
+                for (var j = 0; j < node.length; j++) {
+                    if (allId.indexOf(node[j].id) === -1) {
+                        allId.push(node[j].id)
+                    }
+                }
+                createLabelInfo(allId, node);
+                labelHistoryData(allId, req, res);
+            });
+
+            console.log(data);
         }, function (err) {
             console.trace(err.message);
         });
     })
+    function createLabelInfo(allId, result) {
+        var arr = [];
+        for (var j = 0; j < result.length; j++) {
+            if (result[j].id == allId[labelNum]) {
+                arr.push(result[j])
+            }
+        }
 
+        labelHistoryInfo.push(arr);
+        labelNum++;
+        if (labelNum < allId.length) {
+            createLabelInfo(allId, result)
+        }
+    }
+
+    function labelHistoryData(data, req, res) {
+        if (labelHistoryInfo[labelLastOne] && labelHistoryInfo[labelLastOne].length == 0) {
+            getOneLabelData(data, req, res)
+        } else if (labelLastOne <= labelHistoryInfo.length - 1) {
+            labelLastOne++;
+            labelHistoryData(data, req, res)
+        } else {
+            res.send({
+                labelHistoryInfo: labelHistoryInfo
+            });
+            console.log('--返回label结束！！！')
+        }
+    }
+
+    function getOneLabelData(data, req, res) {
+        esclient.search({
+            index: 'bigship',
+            type: 'history',
+            body: {
+                // "filtered": {
+                //     "filter": {
+                //         "bool": {
+                //             "must": {"term": {"id": data[labelLastOne]}},
+                //             "must_not": {
+                //                 query: {
+                //                     range: {updateDate: {lt: req.query.startTime}}
+                //                 }
+                //
+                //             }
+                //         }
+                //     }
+                // }
+                query: {
+                    range: {updateDate: {lt: req.query.startTime}}
+                }
+                , size: 10000
+            }
+        }).then(function (resp) {
+            // console.log(resp)
+            var hits = resp.hits.hits;
+            console.log(hits)
+            for (var i = 0; i < hits.length; i++) {
+                if (hits[i] && hits[i]._source.id == data[labelLastOne]) {
+                    if (!hits[i]._source.hasOwnProperty('delete')) {
+                    console.log('-------lastOne----');
+                    labelHistoryInfo[labelLastOne].push(hits[i]._source);
+                    }
+                }
+            }
+            labelLastOne++;
+            labelHistoryData(data, req, res)
+        })
+    }
 
     // app.post('/nodes/wrapper', function (req, res) {
     //     // TODO get config info

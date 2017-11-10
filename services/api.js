@@ -155,25 +155,25 @@ module.exports = function (app) {
     // });
 
     app.post('/nodes', function (req, res, next) {
-        // function afterResponse() {
-        //     res.removeListener('finish', afterResponse);
-        //     res.removeListener('close', afterResponse);
-        //     if (res.statusCode == 201) {
-        //         var info = {id: res.locals.data.id, nodeID: res.locals.data.nodeID, updateDate: new Date().getTime()};
-        //         info.beforeUpdateInfo = null;
-        //         info.afterUpdateInfo = res.locals.data;
-        //         esclient.index({
-        //             index: 'bigship',
-        //             type: 'history',
-        //             body: info
-        //         }, function (error, response) {
-        //             console.log(response)
-        //         });
-        //     }
-        // }
+        function afterResponse() {
+            res.removeListener('finish', afterResponse);
+            res.removeListener('close', afterResponse);
+            if (res.statusCode == 201) {
+                var info = {id: res.locals.data.id, nodeID: res.locals.data.nodeID, updateDate: new Date().getTime()};
+                info.beforeUpdateInfo = null;
+                info.afterUpdateInfo = res.locals.data;
+                esclient.index({
+                    index: 'bigship',
+                    type: 'history',
+                    body: info
+                }, function (error, response) {
+                    console.log(response)
+                });
+            }
+        }
 
-        // res.on('finish', afterResponse);
-        // res.on('close', afterResponse);
+        res.on('finish', afterResponse);
+        res.on('close', afterResponse);
         req.body.id = req.body.nodeID;
         console.log(req.body)
         next()
@@ -205,20 +205,20 @@ module.exports = function (app) {
     app.delete('/nodes/:id', function (req, res, next) {
         var info = {id: req.params.id, updateDate: new Date().getTime(), delete: true};
 
-        // function afterResponse() {
-        //     res.removeListener('finish', afterResponse);
-        //     res.removeListener('close', afterResponse);
-        //     esclient.index({
-        //         index: 'bigship',
-        //         type: 'history',
-        //         body: info
-        //     }, function (error, response) {
-        //         console.log(response)
-        //     });
-        // }
-        //
-        // res.on('finish', afterResponse);
-        // res.on('close', afterResponse);
+        function afterResponse() {
+            res.removeListener('finish', afterResponse);
+            res.removeListener('close', afterResponse);
+            esclient.index({
+                index: 'bigship',
+                type: 'history',
+                body: info
+            }, function (error, response) {
+                console.log(response)
+            });
+        }
+
+        res.on('finish', afterResponse);
+        res.on('close', afterResponse);
         next()
     });
 
@@ -328,7 +328,7 @@ module.exports = function (app) {
             for (var i = 0; i < hits.length; i++) {
                 if (hits[i] && hits[i]._source.updateDate < req.query.startTime) {
                     if (!hits[i]._source.hasOwnProperty('delete')) {
-                        console.log('-------lastOne----');
+                        console.log('-------lastOne----'+data[labelLastOne]);
                         labelHistoryInfo[labelLastOne].push(hits[i]._source);
                         break;
                     }

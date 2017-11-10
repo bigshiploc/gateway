@@ -254,8 +254,8 @@ module.exports = function (app) {
             rp({uri: HOST + '/nodes'}).then(function (node) {
                 var allId = [];
                 for (var i = 0; i < data.length; i++) {
-                    if (allId.indexOf(data[i]._source.id) === -1) {
-                        allId.push(data[i]._source.id)
+                    if (allId.indexOf(Number(data[i]._source.id)) === -1) {
+                        allId.push(Number(data[i]._source.id))
                     }
                 }
 
@@ -276,7 +276,7 @@ module.exports = function (app) {
     function createLabelInfo(allId, result) {
         var arr = [];
         for (var j = 0; j < result.length; j++) {
-            if (result[j].id == allId[labelNum]) {
+            if (result[j]._source.id == allId[labelNum]) {
                 arr.push(result[j])
             }
         }

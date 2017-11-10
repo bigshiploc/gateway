@@ -290,7 +290,7 @@ module.exports = function (app) {
     }
 
     function labelHistoryData(data, req, res) {
-        if ((labelHistoryInfo[labelLastOne] && labelHistoryInfo[labelLastOne].length == 0) ||
+        if (labelHistoryInfo[labelLastOne] && (labelHistoryInfo[labelLastOne].length == 0) ||
             (labelHistoryInfo[labelLastOne].length == 1 && labelHistoryInfo[labelLastOne][0].hasOwnProperty('delete'))) {
             getOneLabelData(data, req, res)
         } else if (labelLastOne <= labelHistoryInfo.length - 1) {

@@ -27,30 +27,6 @@
   ],
   "nodes": [
     {
-      "nodeID": 0,
-      "nodeType": 2,
-      "delaySend": 100,
-      "x": 0,
-      "y": 0,
-      "z": 2.2,
-      "channel": 1,
-      "headLength": 3,
-      "headCode": 4,
-      "PRF": 0,
-      "coordinate": "0,0,2.2",
-      "id": 0,
-      "history": {
-        "beforeUpdate": {
-          "nodeID": 0,
-          "nodeType": 2,
-          "x": 0,
-          "y": 0,
-          "z": 2.2
-        }
-      },
-      "name": "基站1"
-    },
-    {
       "id": 1,
       "nodeID": 1,
       "nodeType": 2,
@@ -221,6 +197,13 @@
       "nodeType": 3,
       "createdAt": 1509779329158,
       "id": 17
+    },
+    {
+      "nodeType": 3,
+      "nodeID": 0,
+      "name": "0",
+      "createdAt": 1510299468611,
+      "id": "0"
     }
   ],
   "wrapper": {

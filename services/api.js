@@ -174,7 +174,7 @@ module.exports = function (app) {
 
         res.on('finish', afterResponse);
         res.on('close', afterResponse);
-        req.body.id = req.body.nodeID;
+        req.body.id = JSON.stringify(req.body.nodeID);
         console.log(req.body)
         next()
     });

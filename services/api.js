@@ -173,8 +173,7 @@ module.exports = function (app) {
         }
 
         req.body.id = req.body.nodeID;
-        res.on('finish', afterResponse);
-        res.on('close', afterResponse);
+        console.log(req.body)
         next()
     });
 
@@ -277,7 +276,7 @@ module.exports = function (app) {
         var arr = [];
         for (var j = 0; j < result.length; j++) {
             if (result[j]._source.id == allId[labelNum]) {
-                arr.push(result[j])
+                arr.push(result[j]._source)
             }
         }
 

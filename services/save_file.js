@@ -25,13 +25,12 @@ function getTimeDifference(start, end, allDataObj, fileName) {
     var startTime = getTime(start);
     var endTime = getTime(end);
     var timeDifference = endTime - startTime;
-    console.log(timeDifference);
+    console.log("时间duan:"+timeDifference);
     getLastData(startTime, endTime, timeDifference, allDataObj, fileName)
 }
 
 
 function getLastData(startTime, endTime, timeDifference, allDataObj, fileName) {
-    console.log('=====================time');
     if (Object.keys(allDataObj).length == 0) {
         fs.writeFileSync(fileName, '[]');
         process.send(fileName)
@@ -102,8 +101,7 @@ function getHistoryInfo(start, end, fileName) {
 }
 
 function init(data){
-    var timeDifference = getTime(data.end) - getTime(data.start);
-    console.log(timeDifference);
+    // var timeDifference = getTime(data.end) - getTime(data.start);
     var fileName = path.join(__dirname, '../query_result/' + data.start + '_' + data.end + '.data');
     fs.exists(fileName, function (exists) {
         console.log("文件是否存在:" + exists);

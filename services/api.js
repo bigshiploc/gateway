@@ -272,7 +272,8 @@ module.exports = function (app) {
         }, function (err) {
             console.trace(err.message);
         });
-    })
+    });
+
     function createLabelInfo(allId, result) {
         var arr = [];
         for (var j = 0; j < result.length; j++) {
@@ -289,7 +290,8 @@ module.exports = function (app) {
     }
 
     function labelHistoryData(data, req, res) {
-        if (labelHistoryInfo[labelLastOne] && labelHistoryInfo[labelLastOne].length == 0) {
+        if ((labelHistoryInfo[labelLastOne] && labelHistoryInfo[labelLastOne].length == 0) ||
+            (labelHistoryInfo[labelLastOne].length == 1 && labelHistoryInfo[labelLastOne][0].hasOwnProperty('delete'))) {
             getOneLabelData(data, req, res)
         } else if (labelLastOne <= labelHistoryInfo.length - 1) {
             labelLastOne++;
@@ -328,7 +330,7 @@ module.exports = function (app) {
             for (var i = 0; i < hits.length; i++) {
                 if (hits[i] && hits[i]._source.updateDate < req.query.startTime) {
                     if (!hits[i]._source.hasOwnProperty('delete')) {
-                        console.log('-------lastOne----'+data[labelLastOne]);
+                        console.log('-------lastOne----' + data[labelLastOne]);
                         labelHistoryInfo[labelLastOne].push(hits[i]._source);
                         break;
                     }

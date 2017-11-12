@@ -124,79 +124,9 @@
       "nodeType": 1,
       "x": 0,
       "y": 0,
-      "z": 0
-    },
-    {
-      "nodeID": "332",
-      "name": "fsdf1",
-      "nodeType": "2",
-      "delaySend": "12",
-      "x": "12",
-      "y": "2",
-      "z": "3",
-      "channel": "45",
-      "headLength": "5",
-      "headCode": "6",
-      "PRF": "7",
-      "createdAt": 1509643167663,
-      "id": 10
-    },
-    {
-      "nodeID": "231",
-      "name": "3213",
-      "nodeType": "2",
-      "delaySend": "1",
-      "x": "2",
-      "y": "3",
-      "z": "4",
-      "channel": "5",
-      "headLength": "6",
-      "headCode": "7",
-      "PRF": "8",
-      "createdAt": 1509643191992,
-      "id": 11
-    },
-    {
-      "nodeID": 514,
-      "name": "514",
-      "nodeType": 3,
-      "createdAt": 1509779295030,
-      "id": 12
-    },
-    {
-      "nodeID": "515",
-      "name": "515",
-      "nodeType": 3,
-      "createdAt": 1509779300682,
-      "id": 13
-    },
-    {
-      "nodeID": "516",
-      "name": "516",
-      "nodeType": 3,
-      "createdAt": 1509779305606,
-      "id": 14
-    },
-    {
-      "nodeID": "517",
-      "name": "517",
-      "nodeType": 3,
-      "createdAt": 1509779310918,
-      "id": 15
-    },
-    {
-      "nodeID": "518",
-      "name": "518",
-      "nodeType": 3,
-      "createdAt": 1509779316342,
-      "id": 16
-    },
-    {
-      "nodeID": "513",
-      "name": "513",
-      "nodeType": 3,
-      "createdAt": 1509779329158,
-      "id": 17
+      "z": 0,
+      "coordinate": "0,0,0",
+      "name": "dddd"
     }
   ],
   "wrapper": {

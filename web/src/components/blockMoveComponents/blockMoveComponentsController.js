@@ -59,7 +59,6 @@ export default {
   },
   mounted: function(){
     this.getRange()
-
   },
   watch: {
     windowWidth: function(){

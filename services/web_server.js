@@ -8,7 +8,7 @@ const path = require('path')
 const router = jsonServer.router(path.join(__dirname, '../db.json'))
 const middlewares = jsonServer.defaults()
 const express = require('express');
-const static_path = path.join(__dirname, '../web/public')
+const static_path = path.join(__dirname, '../public')
 
 var cookieParser = require('cookie-parser');
 var session = require("express-session")

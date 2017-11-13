@@ -127,6 +127,20 @@
       "z": 0,
       "coordinate": "0,0,0",
       "name": "dddd"
+    },
+    {
+      "nodeType": 3,
+      "nodeID": 514,
+      "name": "514",
+      "createdAt": 1510554151981,
+      "id": "514"
+    },
+    {
+      "nodeType": 3,
+      "nodeID": 515,
+      "name": "515",
+      "createdAt": 1510554158620,
+      "id": "515"
     }
   ],
   "wrapper": {
@@ -172,5 +186,19 @@
       "id": "2"
     }
   ],
-  "vehicle": []
+  "vehicle": [
+    {
+      "node_ids": [
+        514,
+        515
+      ],
+      "equipment_name": "飞机",
+      "width": 2,
+      "height": 2,
+      "image": "static/plane.svg",
+      "style": "2-littlehead",
+      "createdAt": 1510554232516,
+      "id": 1
+    }
+  ]
 }

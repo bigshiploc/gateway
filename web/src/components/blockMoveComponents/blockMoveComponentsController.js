@@ -132,7 +132,7 @@ export default {
         .attr('width', size/b)
         .attr('height',size/b)
         .attr('transform', a);
-      if(url == 'static/label.svg'){
+      if(url == 'static/image/label.svg'){
         coor.attr('x', testX(node_x)-size/2)
           .attr('y', testY(node_y)-size/2)
           .attr('width', size)
@@ -359,7 +359,7 @@ export default {
 
       self.getDeleteNode(self.labelsNodeID,labelInfo)
       self.getDeleteNode(self.stationsNodeID,stationInfo)
-      
+
       Object.keys(labelInfo).forEach(function (key) {
         const node_x = labelInfo[key][0];
         const node_y = labelInfo[key][1];
@@ -404,7 +404,7 @@ export default {
 
         }else {
 
-          self.stationIcon[key] = self.createStationIcon(key,node_x,node_y,self.size*2,'static/label.svg')
+          self.stationIcon[key] = self.createStationIcon(key,node_x,node_y,self.size*2,'static/image/label.svg')
           self.text[key] = self.createText(key,node_x,node_y,name,color)
           self.coorText[key] = self.createCoorText(key,node_x,node_y,coor,color)
           self.dataArr[key] = []
@@ -453,7 +453,7 @@ export default {
           self.moveStationIcon(key,node_x,node_y,self.getProportion)
 
         }else {
-          self.stationIcon[key] = self.createStationIcon(key,node_x,node_y,self.size*4,'static/station.svg');
+          self.stationIcon[key] = self.createStationIcon(key,node_x,node_y,self.size*4,'static/image/station.svg');
           self.text[key] = self.createText(key,node_x,node_y,name);
           self.coorText[key] = self.createCoorText(key,node_x,node_y,coor);
           self.stationsNodeID.push(key)

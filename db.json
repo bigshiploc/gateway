@@ -196,8 +196,8 @@
   "vehicle": [
     {
       "node_ids": [
-        515,
-        514
+        "514",
+        "515"
       ],
       "equipment_name": "飞机",
       "width": 0.2,

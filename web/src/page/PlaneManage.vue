@@ -2,7 +2,7 @@
     <div>
         <sidebar/>
         <el-row>
-            <el-col :offset=5 class="stationManageTitle">
+            <el-col :span="14" :offset=5 class="stationManageTitle">
                 设备管理
                 <el-button type="text" icon="el-icon-plus" @click="dialogAddEquipment = true" style="margin-left: 20px">添加
                 </el-button>

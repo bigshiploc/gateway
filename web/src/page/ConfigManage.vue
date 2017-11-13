@@ -2,7 +2,7 @@
     <div id="app">
         <sidebar/>
         <el-row>
-            <el-col :offset=5 class="stationManageTitle">
+            <el-col :span="14" :offset=5 class="stationManageTitle">
                 UWB配置管理
                 <el-button type="text" icon="el-icon-edit" @click="dialogEditUWB = true" style="margin-left: 20px">
                     修改

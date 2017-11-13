@@ -202,7 +202,7 @@
       "equipment_name": "飞机",
       "width": 0.2,
       "height": 0.2,
-      "image": "static/plane.svg",
+      "image": "static/image/plane.svg",
       "style": "2-littlehead",
       "createdAt": 1510554232516,
       "id": 1

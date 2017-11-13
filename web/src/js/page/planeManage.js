@@ -148,7 +148,7 @@ export default {
       Data.getLabels()
         .then(function (result) {
           result.forEach(function (key) {
-            self.allLabels.push(key.nodeID)
+            self.allLabels.push(String(key.nodeID))
           })
         })
 

@@ -7,6 +7,7 @@ import LabelManage from '@/page/LabelManage'
 import Test from '@/page/test'
 import PlaneManage from '@/page/PlaneManage'
 import ZoneManage from '@/page/ZoneManage'
+import ConfigManage from '@/page/ConfigManage'
 
 Vue.use(Router)
 
@@ -46,6 +47,11 @@ export default new Router({
       path: '/planeManage',
       name: 'plane',
       component: PlaneManage
+    },
+    {
+      path: '/configManage',
+      name: 'config',
+      component: ConfigManage
     }
   ]
 })

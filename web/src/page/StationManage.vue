@@ -8,7 +8,10 @@
                     添加
                 </el-button>
                 <el-button type="text" icon="el-icon-refresh" @click="restartWrapper" style="margin-left: 20px">
-                    下发配置
+                    重启服务
+                </el-button>
+                <el-button type="text" icon="el-icon-circle-close-outline" @click="stopWrapper" style="margin-left: 20px">
+                    停止服务
                 </el-button>
             </el-col>
         </el-row>

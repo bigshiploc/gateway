@@ -193,12 +193,27 @@ export default {
         .then(function () {
           self.$message({
             type: 'success',
-            message: '下发成功'
+            message: '重启成功'
           })
         }, function () {
           self.$message({
             type: 'error',
-            message: '下发失败'
+            message: '重启失败'
+          })
+        })
+    },
+    stopWrapper: function () {
+      var self = this
+      return Data.stopWrapper()
+        .then(function () {
+          self.$message({
+            type: 'success',
+            message: '服务停止'
+          })
+        },function () {
+          self.$message({
+            type: 'error',
+            message: '停止失败'
           })
         })
     }

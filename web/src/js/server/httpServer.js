@@ -76,6 +76,9 @@ export default {
   restartWrapper: function () {
     return Vue.http.get(window.url + '/wrapper/restart')
   },
+  stopWrapper: function () {
+    return Vue.http.get(window.url + '/wrapper/stop')
+  },
   //history
   getHistoryDataFile:function (startTime, endTime) {
     return Vue.http.get(window.url + '/getHistoryDataFile?startTime=' + new Date(startTime).getTime() + '&endTime=' + new Date(endTime).getTime())
@@ -101,6 +104,24 @@ export default {
       .then(function (res) {
         return Promise.resolve(res.body)
       })
+  },
+  getUWB: function () {
+    return Vue.http.get(window.url + '/uwb')
+      .then(function (res) {
+        return Promise.resolve(res.body)
+      })
+  },
+  updateUWB: function (form) {
+    return Vue.http.put(window.url + '/uwb', form)
+  },
+  getRTK: function () {
+    return Vue.http.get(window.url + '/rtk')
+      .then(function (res) {
+        return Promise.resolve(res.body)
+      })
+  },
+  updateRTK: function (form) {
+    return Vue.http.put(window.url + '/rtk' ,form)
   }
 
 }

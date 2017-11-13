@@ -2,7 +2,7 @@
   <div class="sidebar">
     <el-col :span="4" class="sidebarCol">
       <el-menu class="el-menu-vertical-demo sidebarMenu" :default-active="this.$route.path"  background-color="#545c64" text-color="#fff" :router="true" >
-        <h3  class="sidebarTitle">大船定位</h3>
+        <h3  class="sidebarTitle">BIG SHIP</h3>
           <el-menu-item index="/">
             <i class="el-icon-menu"></i>
             <span slot="title">监控面板</span>
@@ -21,7 +21,11 @@
           </el-menu-item>
           <el-menu-item index="/planeManage">
             <i class="el-icon-view"></i>
-            <span slot="title">设备管理</span>
+            <span slot="title">飞机管理</span>
+          </el-menu-item>
+          <el-menu-item index="/configManage">
+          <i class="el-icon-setting"></i>
+          <span slot="title">配置管理</span>
           </el-menu-item>
       </el-menu>
     </el-col>

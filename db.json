@@ -189,12 +189,12 @@
   "vehicle": [
     {
       "node_ids": [
-        514,
-        515
+        "514",
+        "515"
       ],
       "equipment_name": "飞机",
-      "width": 2,
-      "height": 2,
+      "width": 0.2,
+      "height": 0.2,
       "image": "static/plane.svg",
       "style": "2-littlehead",
       "createdAt": 1510554232516,

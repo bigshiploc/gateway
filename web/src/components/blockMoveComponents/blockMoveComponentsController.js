@@ -1,5 +1,4 @@
 
-
 export default {
   props: {
     blockId: String,
@@ -60,7 +59,6 @@ export default {
   },
   mounted: function(){
     this.getRange()
-
   },
   watch: {
     windowWidth: function(){

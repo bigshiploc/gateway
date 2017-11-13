@@ -14,7 +14,7 @@ var cookieParser = require('cookie-parser');
 var session = require("express-session")
 var bodyParser = require("body-parser");
 var passport = require('passport')
-
+ 
 // view engine setup
 server.use(cookieParser());
 server.use(bodyParser.json());

@@ -4,19 +4,19 @@
 }
 
 .stationManageRe {
-    color: #ff4949;
+    color: #ff4949!important;
 }
 
 .stationManageRe:hover {
-    color: #ff6d6d;
+    color: #ff6d6d!important;
 }
 
 .stationManageRe:active {
-    color: #e64242;
+    color: #e64242!important;
 }
 
 .stationManageRe:focus {
-    color: #ff4949;
+    color: #ff4949!important;
 }
 
 .stationManage th {

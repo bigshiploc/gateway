@@ -193,12 +193,12 @@ export default {
         .then(function () {
           self.$message({
             type: 'success',
-            message: '重启成功'
+            message: '下发成功'
           })
         }, function () {
           self.$message({
             type: 'error',
-            message: '重启失败'
+            message: '下发失败'
           })
         })
     },

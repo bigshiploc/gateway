@@ -78,9 +78,10 @@ function getUser(username) {
     return rp({uri: HOST + '/users' + username})
 }
 
-var labelHistoryInfo = []
-var labelNum = 0
-var labelLastOne = 0
+var labelHistoryInfo = [];
+var labelNum = 0;
+var labelLastOne = 0;
+var allId = [];
 
 function login(req, res, next) {
     getUser('?username=' + req.body.username).then(function (user) {
@@ -221,28 +222,31 @@ module.exports = function (app) {
         }).then(function (resp) {
             var data = resp.hits.hits;
             rp({uri: HOST + '/nodes'}).then(function (node) {
-                var allId = [];
-                for (var i = 0; i < data.length; i++) {
-                    if (allId.indexOf(data[i]._source.id) === -1) {
-                        allId.push(data[i]._source.id)
-                    }
-                }
-
-                for (var j = 0; j < node.length; j++) {
-                    if (allId.indexOf(node[j].id) === -1) {
-                        allId.push(node[j].id)
-                    }
-                }
+                getAllId(data,node);
                 console.log(allId);
-                createLabelInfo(allId, data);
-                labelHistoryData(allId, req, res);
+                createNodeInfo(allId, data);
+                nodeHistoryData(allId, req, res);
             });
         }, function (err) {
             console.trace(err.message);
         });
     });
 
-    function createLabelInfo(allId, result) {
+    function getAllId(data,node){
+        for (var i = 0; i < data.length; i++) {
+            if (allId.indexOf(data[i]._source.id) === -1) {
+                allId.push(data[i]._source.id)
+            }
+        }
+
+        for (var j = 0; j < node.length; j++) {
+            if (allId.indexOf(node[j].id) === -1) {
+                allId.push(node[j].id)
+            }
+        }
+    }
+
+    function createNodeInfo(allId, result) {
         var arr = [];
         for (var j = 0; j < result.length; j++) {
             if (result[j]._source.id == allId[labelNum]) {
@@ -253,17 +257,17 @@ module.exports = function (app) {
         labelHistoryInfo.push(arr);
         labelNum++;
         if (labelNum < allId.length) {
-            createLabelInfo(allId, result)
+            createNodeInfo(allId, result)
         }
     }
 
-    function labelHistoryData(data, req, res) {
+    function nodeHistoryData(data, req, res) {
         if (labelHistoryInfo[labelLastOne] && ((labelHistoryInfo[labelLastOne].length == 0) ||
                 (labelHistoryInfo[labelLastOne].length == 1 && labelHistoryInfo[labelLastOne][0].hasOwnProperty('delete')))) {
-            getOneLabelData(data, req, res)
+            getOneNodeData(data, req, res)
         } else if (labelLastOne <= labelHistoryInfo.length - 1) {
             labelLastOne++;
-            labelHistoryData(data, req, res)
+            nodeHistoryData(data, req, res)
         } else {
             res.send({
                 labelHistoryInfo: labelHistoryInfo
@@ -272,11 +276,11 @@ module.exports = function (app) {
         }
     }
 
-    function sortNumber(a, b) {
+    function sortUpdateDate(a, b) {
         return b._source.updateDate - a._source.updateDate
     }
 
-    function getOneLabelData(data, req, res) {
+    function getOneNodeData(data, req, res) {
         esclient.search({
             index: 'bigship',
             type: 'history',
@@ -290,7 +294,7 @@ module.exports = function (app) {
             }
         }).then(function (resp) {
             var hits = resp.hits.hits;
-            hits.sort(sortNumber);
+            hits.sort(sortUpdateDate);
 
             for (var i = 0; i < hits.length; i++) {
                 if (hits[i] && hits[i]._source.updateDate < req.query.startTime) {
@@ -302,7 +306,7 @@ module.exports = function (app) {
                 }
             }
             labelLastOne++;
-            labelHistoryData(data, req, res)
+            nodeHistoryData(data, req, res)
         })
     }
 

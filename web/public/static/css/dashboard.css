@@ -1,0 +1,87 @@
+.panel-title-button {
+  padding-top: 5%;
+}
+
+.row-bg {
+  position: relative;
+  padding: 10px 0;
+  margin-bottom: 20px;
+}
+
+.box-card {
+  box-shadow: none;
+  border-radius: 1px;
+  background: #fdfdfd;
+}
+
+.block{
+  margin-bottom: 20px;
+}
+.angule{
+  float: left;
+  margin-left: 20%;
+  margin-bottom: 20px;
+}
+.euler-angles{
+  margin-left: 23px;
+}
+
+.star-time{
+  margin-top: 10px;
+}
+.sum-time{
+  margin-top: 10px;
+  padding-left: 10px;
+}
+.play-cancle{
+  font-size: 300%;
+  margin-top: -10px;
+  color: darkgrey;
+}
+.progress-bar{
+  margin-bottom: 20px;
+}
+.first-region{
+  /*background:url("../../src/image/map.jpg")no-repeat;*/
+  background-size:100% 100%;
+}
+.second-region{
+  /*background: url("../../src/image/map.jpg") no-repeat;*/
+  background-size:100% 100%;
+}
+.euler-angle{
+  float: left;
+  width: 10%;
+  margin-left: 20%;
+  margin-bottom: 20px;
+}
+.number{
+  font-size: 300%;
+  margin: auto;
+}
+.unit{
+  margin-left: 20%;
+}
+.big-button{
+  margin-bottom: 5px;
+  margin-top: 5px;
+}
+.little-button {
+  position: absolute;
+  margin-top: 10px;
+  z-index: 99;
+  padding-left: 45px;
+}
+.map-block{
+  overflow: hidden ;
+  height: 500px ;
+  width: 1213px ;
+}
+.testblock{
+  width: 960px;
+  padding-bottom: 40px;
+}
+
+.father{
+  margin-bottom: 20px
+}

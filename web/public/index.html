@@ -1,0 +1,7 @@
+<!DOCTYPE html><html><head><meta charset=utf-8><title>vue2</title><script src=static/lib/d3/d3.js></script><script src=http://127.0.0.1:8001/events/client.js></script><script>window.settingInfo = {
+//         server: "139.129.212.222",
+        server: 'localhost',
+        port: '9000'
+      }
+      window.client = new Faye.Client('http://' + window.settingInfo.server + ':8001/events');
+        window.url = 'http://' + window.settingInfo.server + ':' + window.settingInfo.port;</script><script src=static/lib/jquery/jquery-3.2.1.min.js></script><link href=/static/css/app.bf18c8fd86b27c6ae2707e9040d5eb54.css rel=stylesheet></head><body><div id=app></div><script type=text/javascript src=/static/js/manifest.4c492feddc4e2d81b5b6.js></script><script type=text/javascript src=/static/js/vendor.76cdc60a5c257287a0b7.js></script><script type=text/javascript src=/static/js/app.4c7ecd65989dae1b2330.js></script></body></html>

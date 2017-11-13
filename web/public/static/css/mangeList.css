@@ -1,0 +1,41 @@
+.stationManageTitle {
+    padding-top: 4%;
+    padding-bottom: 2%;
+}
+
+.stationManageRe {
+    color: #ff4949;
+}
+
+.stationManageRe:hover {
+    color: #ff6d6d;
+}
+
+.stationManageRe:active {
+    color: #e64242;
+}
+
+.stationManageRe:focus {
+    color: #ff4949;
+}
+
+.stationManage th {
+    font-weight: 500;
+    line-height: 50px;
+}
+
+.stationManage th, .stationManage tr, .stationManage table, .stationManage .el-table, .stationManage .el-table td, .stationManage .el-table th.is-leaf {
+    border: none;
+}
+
+.stationManage .el-table::after, .el-table::before {
+    width: 0;
+}
+
+.stationManage .el-dialog__body {
+    padding: 30px 20px 0;
+}
+
+.stationManage .el-dialog__footer {
+    border-top: 2px solid #dfe6ec;
+}

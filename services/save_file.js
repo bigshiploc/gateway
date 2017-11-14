@@ -11,14 +11,6 @@ var fs = require("fs");
 const path = require('path');
 var child_process = require('child_process');
 
-var stationHistoryInfo = [];
-var labelHistoryInfo = [];
-var stationNum = 0;
-var stationLastOne = 0;
-var labelNum = 0;
-var labelLastOne = 0;
-
-var allDataObj = {};
 var lastDataArr = [];
 
 function getTimeDifference(start, end, allDataObj, fileName) {

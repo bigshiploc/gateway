@@ -97,18 +97,36 @@
 
         <el-dialog title="修改" :visible.sync="dialogEditUWB" top="5%" :modal="true" :show-close="false">
             <el-form :model="uwbForm"  :rules="rules" ref="uwbForm"  labelPosition="left">
-                <el-form-item label="hightLimit" prop="limit.hightLimit"  :label-width="formLabelWidth">
-                    <el-input type="number" v-model.number="uwbForm.limit.hightLimit" autoComplete="off" placeholder="hightLimit"></el-input>
-                </el-form-item>
-                <el-form-item label="vLimit" prop="limit.vLimit" :label-width="formLabelWidth">
-                    <el-input v-model="uwbForm.limit.vLimit" autoComplete="off" placeholder="vLimit"></el-input>
-                </el-form-item>
-                <el-form-item label="C21" prop="threshold.C21" :label-width="formLabelWidth">
-                    <el-input type="number" v-model.number="uwbForm.threshold.C21" autoComplete="off" placeholder="C21" ></el-input>
-                </el-form-item>
-                <el-form-item label="C22" prop="threshold.C22" :label-width="formLabelWidth">
-                    <el-input type="number" v-model.number="uwbForm.threshold.C22" autoComplete="off" placeholder="C22" ></el-input>
-                </el-form-item>
+              <!--<el-form-item label="hightLimit" prop="limit.hightLimit"  :label-width="formLabelWidth">-->
+              <!--<el-input type="number" v-model.number="uwbForm.limit.hightLimit" autoComplete="off" placeholder="hightLimit"></el-input>-->
+              <!--</el-form-item>-->
+              <!--<el-form-item label="vLimit" prop="limit.vLimit" :label-width="formLabelWidth">-->
+              <!--<el-input v-model="uwbForm.limit.vLimit" autoComplete="off" placeholder="vLimit"></el-input>-->
+              <!--</el-form-item>-->
+              <el-form-item label="limit" prop="limit" :label-width="formLabelWidth">
+                <el-col :span="12">
+                  <el-input type="number" v-model.number="uwbForm.limit.hightLimit" autoComplete="off" placeholder="hightLimit"></el-input>
+                </el-col>
+                <el-col :span="12">
+                  <el-input v-model="uwbForm.limit.vLimit" autoComplete="off" placeholder="vLimit"></el-input>
+                </el-col>
+              </el-form-item>
+
+              <!--<el-form-item label="C21" prop="threshold.C21" :label-width="formLabelWidth">-->
+              <!--<el-input type="number" v-model.number="uwbForm.threshold.C21" autoComplete="off" placeholder="C21" ></el-input>-->
+              <!--</el-form-item>-->
+              <!--<el-form-item label="C22" prop="threshold.C22" :label-width="formLabelWidth">-->
+              <!--<el-input type="number" v-model.number="uwbForm.threshold.C22" autoComplete="off" placeholder="C22" ></el-input>-->
+              <!--</el-form-item>-->
+
+              <el-form-item label="threshold" prop="threshold" :label-width="formLabelWidth">
+                <el-col :span="12">
+                  <el-input type="number" v-model.number="uwbForm.threshold.C21" autoComplete="off" placeholder="C21"></el-input>
+                </el-col>
+                <el-col :span="12">
+                  <el-input type="number" v-model.number="uwbForm.threshold.C22" autoComplete="off" placeholder="C22"></el-input>
+                </el-col>
+              </el-form-item>
                 <el-form-item label="IterNum" prop="IterNum" :label-width="formLabelWidth">
                     <el-input type="number" v-model.number="uwbForm.IterNum" autoComplete="off" placeholder="IterNum" ></el-input>
                 </el-form-item>

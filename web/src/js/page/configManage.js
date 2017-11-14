@@ -1,6 +1,26 @@
 import Data from '../server/httpServer'
 export default {
   data(){
+    var checkPoint = (rule, value, callback) => {
+      if (Object.keys(value).length < 1) {
+        return callback(new Error('不能为空'))
+      } else if (isNaN(value.hightLimit)) {
+        return callback(new Error('必须为数字值'))
+      }else if(value.vLimit == undefined){
+        return callback(new Error('不能为空'))
+      }
+      callback()
+    }
+    var checkNumber = (rule, value, callback) => {
+      if (Object.keys(value).length < 1) {
+        return callback(new Error('不能为空'))
+      } else if (isNaN(value.C21)) {
+        return callback(new Error('必须为数字值'))
+      } else if((value.C22!== undefined) && (isNaN(value.C22))) {
+        return callback(new Error('必须为数字值'))
+      }
+      callback()
+    }
     return{
       uwbData: [],
       rtkData: [],
@@ -12,17 +32,23 @@ export default {
       rtkForm:{},
       formLabelWidth: '120px',
       rules:{
-        hightLimit: [
-          {required: true,type: 'number', message: '请输入', trigger: 'blur'}
+        // hightLimit: [
+        //   {required: true,type: 'number', message: '请输入', trigger: 'blur'}
+        // ],
+        // vLimit: [
+        //   {required: true, message: '请输入', trigger: 'blur,change'}
+        // ],
+        limit:[
+          {required: true,validator: checkPoint, trigger: 'blur'}
         ],
-        vLimit: [
-          {required: true, message: '请输入', trigger: 'blur,change'}
-        ],
-        C21: [
-          {required: true, type: 'number', message: '请输入', trigger: 'blur,change'}
-        ],
-        C22: [
-          {required: true, type: 'number', message: '请输入', trigger: 'blur'}
+        // C21: [
+        //   {required: true, type: 'number', message: '请输入', trigger: 'blur,change'}
+        // ],
+        // C22: [
+        //   {required: true, type: 'number', message: '请输入', trigger: 'blur'}
+        // ],
+        threshold:[
+          {required: true,validator: checkNumber, trigger: 'blur'}
         ],
         IterNum: [
           {required: true, type: 'number', message: '请输入', trigger: 'blur,change'}

@@ -32,21 +32,9 @@ export default {
       rtkForm:{},
       formLabelWidth: '120px',
       rules:{
-        // hightLimit: [
-        //   {required: true,type: 'number', message: '请输入', trigger: 'blur'}
-        // ],
-        // vLimit: [
-        //   {required: true, message: '请输入', trigger: 'blur,change'}
-        // ],
         limit:[
           {required: true,validator: checkPoint, trigger: 'blur'}
         ],
-        // C21: [
-        //   {required: true, type: 'number', message: '请输入', trigger: 'blur,change'}
-        // ],
-        // C22: [
-        //   {required: true, type: 'number', message: '请输入', trigger: 'blur'}
-        // ],
         threshold:[
           {required: true,validator: checkNumber, trigger: 'blur'}
         ],

@@ -382,6 +382,9 @@ export default {
               var endNodeID = Plane.node_ids[0]>Plane.node_ids[1] ? Plane.node_ids[0] : Plane.node_ids[1]
               if((nodeStatus.nodeID == startNodeID || nodeStatus.nodeID == endNodeID) && nodeStatus.status == false ){
                 self.plane[Plane.id].remove()
+              }else if(labelInfo[startNodeID] == undefined || labelInfo[endNodeID] == undefined){
+                self.plane[Plane.id].remove()
+                self.plane[Plane.id] = undefined
               }else {
                 var position = self.setPosition(labelInfo,startNodeID,endNodeID);
                 if(Object.keys(position).length == 0) return;
@@ -698,6 +701,13 @@ export default {
           self.stationIcon[key].remove()
           self.text[key].remove()
           self.coorText[key].remove()
+          if(self.dataArr[key] !== undefined){
+            for(i in self.dataArr[key]){
+              self.circles[key][i].remove()
+              self.dataArr[key] = []
+            }
+          }
+          nodeIDs.splice(nodeIDs.indexOf(key),1)
         }
       }
     }

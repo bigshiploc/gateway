@@ -2,6 +2,5 @@ node_modules
 .idea
 log/*
 data/*
-public/*
 C:\\bigship-20171101\\data
 package-lock.json

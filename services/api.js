@@ -301,8 +301,8 @@ module.exports = function (app) {
                     if (!hits[i]._source.hasOwnProperty('delete')) {
                         console.log('-------lastOne----' + data[labelLastOne]);
                         labelHistoryInfo[labelLastOne].push(hits[i]._source);
-                        break;
                     }
+                    break;
                 }
             }
             labelLastOne++;

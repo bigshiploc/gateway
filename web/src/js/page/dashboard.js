@@ -277,6 +277,7 @@ export default {
           type: "error",
           message: "连接超时"
         })
+        self.historyStatus = false
       } else {
         self.historyInfos = result
         self.allTime = self.getAllTime(startTime, endTime)
@@ -480,49 +481,51 @@ export default {
             }
           }
         }
-        if(diffTime !== null) {
-          if (diffTime.updateDate <= data.timestamp) {
-            if (diffTime.delete !== undefined) {
-            } else {
-              if (diffTime.afterUpdateInfo.nodeType == 1) {
-                diffTime.afterUpdateInfo.coordinate = diffTime.afterUpdateInfo.x + "," + diffTime.afterUpdateInfo.y + "," + diffTime.afterUpdateInfo.z
-                self.historyDataInfo.rtkStationData.push(diffTime.afterUpdateInfo)
-              }
-              if (diffTime.afterUpdateInfo.nodeType == 2) {
-                diffTime.afterUpdateInfo.coordinate = diffTime.afterUpdateInfo.x + "," + diffTime.afterUpdateInfo.y + "," + diffTime.afterUpdateInfo.z
-                self.historyDataInfo.uwbStationData.push(diffTime.afterUpdateInfo)
-              }
-              if (diffTime.afterUpdateInfo.nodeType == 3) {
-                diffTime.afterUpdateInfo.color = colors.shift() || "#"+(Math.random()*0xffffff<<0).toString(16)
-                self.historyDataInfo.labelData.push(diffTime.afterUpdateInfo)
-              }
-            }
+        self.getConfigTable(diffTime,colors)
+      }
+    },
+    getConfigTable: function (diffTime,colors) {
+      if(diffTime !== null) {
+        if (diffTime.updateDate <= data.timestamp) {
+          if (diffTime.delete !== undefined) {
           } else {
-            if (diffTime.delete !== undefined) {
-              // self.$notify.info({
-              //   message: diffTime.id + "被删除",
-              //   showClose: false,
-              //   position: "bottom-right"
-              // });
-            } else {
-              if (diffTime.beforeUpdateInfo !== null) {
-                if (diffTime.beforeUpdateInfo.nodeType == 1) {
-                  diffTime.beforeUpdateInfo.coordinate = diffTime.beforeUpdateInfo.x + "," + diffTime.beforeUpdateInfo.y + "," + diffTime.beforeUpdateInfo.z
-                  self.historyDataInfo.rtkStationData.push(diffTime.beforeUpdateInfo)
-                }
-                if (diffTime.beforeUpdateInfo.nodeType == 2) {
-                  diffTime.beforeUpdateInfo.coordinate = diffTime.beforeUpdateInfo.x + "," + diffTime.beforeUpdateInfo.y + "," + diffTime.beforeUpdateInfo.z
-                  self.historyDataInfo.uwbStationData.push(diffTime.beforeUpdateInfo)
-                }
-                if (diffTime.beforeUpdateInfo.nodeType == 3) {
-                  diffTime.beforeUpdateInfo.color = colors.shift() || "#"+(Math.random()*0xffffff<<0).toString(16)
-                  self.historyDataInfo.labelData.push(diffTime.beforeUpdateInfo)
-                }
+            if (diffTime.afterUpdateInfo.nodeType == 1) {
+              diffTime.afterUpdateInfo.coordinate = diffTime.afterUpdateInfo.x + "," + diffTime.afterUpdateInfo.y + "," + diffTime.afterUpdateInfo.z
+              self.historyDataInfo.rtkStationData.push(diffTime.afterUpdateInfo)
+            }
+            if (diffTime.afterUpdateInfo.nodeType == 2) {
+              diffTime.afterUpdateInfo.coordinate = diffTime.afterUpdateInfo.x + "," + diffTime.afterUpdateInfo.y + "," + diffTime.afterUpdateInfo.z
+              self.historyDataInfo.uwbStationData.push(diffTime.afterUpdateInfo)
+            }
+            if (diffTime.afterUpdateInfo.nodeType == 3) {
+              diffTime.afterUpdateInfo.color = colors.shift() || "#"+(Math.random()*0xffffff<<0).toString(16)
+              self.historyDataInfo.labelData.push(diffTime.afterUpdateInfo)
+            }
+          }
+        } else {
+          if (diffTime.delete !== undefined) {
+            // self.$notify.info({
+            //   message: diffTime.id + "被删除",
+            //   showClose: false,
+            //   position: "bottom-right"
+            // });
+          } else {
+            if (diffTime.beforeUpdateInfo !== null) {
+              if (diffTime.beforeUpdateInfo.nodeType == 1) {
+                diffTime.beforeUpdateInfo.coordinate = diffTime.beforeUpdateInfo.x + "," + diffTime.beforeUpdateInfo.y + "," + diffTime.beforeUpdateInfo.z
+                self.historyDataInfo.rtkStationData.push(diffTime.beforeUpdateInfo)
+              }
+              if (diffTime.beforeUpdateInfo.nodeType == 2) {
+                diffTime.beforeUpdateInfo.coordinate = diffTime.beforeUpdateInfo.x + "," + diffTime.beforeUpdateInfo.y + "," + diffTime.beforeUpdateInfo.z
+                self.historyDataInfo.uwbStationData.push(diffTime.beforeUpdateInfo)
+              }
+              if (diffTime.beforeUpdateInfo.nodeType == 3) {
+                diffTime.beforeUpdateInfo.color = colors.shift() || "#"+(Math.random()*0xffffff<<0).toString(16)
+                self.historyDataInfo.labelData.push(diffTime.beforeUpdateInfo)
               }
             }
           }
         }
-
       }
     }
   }

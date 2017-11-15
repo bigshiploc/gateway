@@ -5,7 +5,7 @@ const MQ_SERVER_BASE = 'http://localhost:' + MQ_SERVER_PORT + '/'
 
 exports.SERVERS = {
     MQ_SERVER: MQ_SERVER_BASE + 'events',
-    ES_SERVER: 'localhost:9200',
+    ES_SERVER: '192.168.1.17:9200',
     MQ_SERVER_PORT: MQ_SERVER_PORT,
     MQ_SERVER_BASE: MQ_SERVER_BASE,
     // WEB_SERVER_PORT: 8080,

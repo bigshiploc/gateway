@@ -1,11 +1,11 @@
-import Data from '../server/httpServer'
-import Bus from '../bus'
+import Data from "../server/httpServer";
+import Bus from "../bus";
 
 export default {
   data () {
     var checknodeID = (rule, value, callback) => {
         if ((value % 1 === 0) == false) {
-            return callback(new Error('请输入整数的节点ID'))
+            return callback(new Error("请输入整数的节点ID"))
         }
         callback()
     }
@@ -16,51 +16,50 @@ export default {
       form: {},
       addForm: {},
       rules: {
-        nodeID: [
-	        {validator: checknodeID, trigger: 'blur'}
+        nodeID: [{required: true,validator: checknodeID, trigger: "blur"}
         ],
         name: [
-          {required: true, message: '请输入名称', trigger: 'blur'}
+          {required: true, message: "请输入名称", trigger: "blur"}
         ],
         nodeType: [
-          {required: true, type: 'number', message: '基站类型', trigger: 'change'}
+          {required: true, type: "number", message: "基站类型", trigger: "change"}
         ],
         delaySend: [
-          {type: 'number', message: '请输入', trigger: 'blur'}
+          {type: "number", message: "请输入", trigger: "blur"}
         ],
         is_moving: [
-          {type: 'boolean', message: '请输入', trigger: 'blur'}
+          {type: "boolean", message: "请输入", trigger: "blur"}
         ],
         x: [
-          {type: 'number', message: '请输入', trigger: 'blur'}
+          {type: "number", message: "请输入", trigger: "blur"}
         ],
         y: [
-          {type: 'number', message: '请输入', trigger: 'blur'}
+          {type: "number", message: "请输入", trigger: "blur"}
         ],
         z: [
-          {type: 'number', message: '请输入', trigger: 'blur'}
+          {type: "number", message: "请输入", trigger: "blur"}
         ],
         channel: [
-          {type: 'number', message: '请输入', trigger: 'blur'}
+          {type: "number", message: "请输入", trigger: "blur"}
         ],
         headLength: [
-          {type: 'number', message: '请输入', trigger: 'blur'}
+          {type: "number", message: "请输入", trigger: "blur"}
         ],
         headCode: [
-          {type: 'number', message: '请输入', trigger: 'blur'}
+          {type: "number", message: "请输入", trigger: "blur"}
         ],
         PRF: [
-          {type: 'number', message: '请输入', trigger: 'blur'}
+          {type: "number", message: "请输入", trigger: "blur"}
         ]
       },
-      formLabelWidth: '120px'
+      formLabelWidth: "120px"
     }
   },
   created: function () {
     var self = this
     self.getStationInfo()
 
-    Bus.$on('status',function (data) {
+    Bus.$on("status",function (data) {
       self.tableData = self.setTableStatus(data)
     })
   },
@@ -95,7 +94,7 @@ export default {
     },
     showCoordinate: function (data) {
       for (var i = 0; i < data.length; i++) {
-        data[i].coordinate = data[i].x + ',' + data[i].y + ',' + data[i].z
+        data[i].coordinate = data[i].x + "," + data[i].y + "," + data[i].z
       }
       return data
     },
@@ -108,17 +107,17 @@ export default {
               self.getStationInfo()
               self.dialogAddStation = false
             },function (err) {
-              if(err.body.indexOf('Insert failed, duplicate id') !== -1){
+              if(err.body.indexOf("Insert failed, duplicate id") !== -1){
                 self.$message({
-                  type: 'error',
-                  message: '添加失败,nodeID相同'
+                  type: "error",
+                  message: "添加失败,nodeID相同"
                 })
               }
             })
         } else {
           self.$message({
-            type: 'error',
-            message: '表格验证失败'
+            type: "error",
+            message: "表格验证失败"
           })
           return false
         }
@@ -131,21 +130,21 @@ export default {
           Data.updateStation(self.form.id, self.form)
             .then(function () {
               self.$message({
-                type: 'success',
-                message: '更新成功'
+                type: "success",
+                message: "更新成功"
               })
               self.dialogEditStation = false
               self.getStationInfo()
             }, function () {
               self.$message({
-                type: 'error',
-                message: '更新失败'
+                type: "error",
+                message: "更新失败"
               })
             })
         }else {
           self.$message({
-            type: 'error',
-            message: '表格验证失败'
+            type: "error",
+            message: "表格验证失败"
           })
         }
       })
@@ -163,9 +162,9 @@ export default {
       var self = this
       return Promise.resolve()
         .then(function () {
-          return self.$confirm('确定要删除此基站？', '警告', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
+          return self.$confirm("确定要删除此基站？", "警告", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
           })
         })
         .then(function () {
@@ -176,13 +175,13 @@ export default {
             })
             .then(function () {
               self.$message({
-                type: 'success',
-                message: '删除成功'
+                type: "success",
+                message: "删除成功"
               })
             }, function () {
               self.$message({
-                type: 'error',
-                message: '删除失败'
+                type: "error",
+                message: "删除失败"
               })
             })
         })
@@ -192,13 +191,13 @@ export default {
       return Data.restartWrapper()
         .then(function () {
           self.$message({
-            type: 'success',
-            message: '重启成功'
+            type: "success",
+            message: "重启成功"
           })
         }, function () {
           self.$message({
-            type: 'error',
-            message: '重启失败'
+            type: "error",
+            message: "重启失败"
           })
         })
     },
@@ -207,13 +206,13 @@ export default {
       return Data.stopWrapper()
         .then(function () {
           self.$message({
-            type: 'success',
-            message: '服务停止'
+            type: "success",
+            message: "服务停止"
           })
         },function () {
           self.$message({
-            type: 'error',
-            message: '停止失败'
+            type: "error",
+            message: "停止失败"
           })
         })
     }

@@ -1,11 +1,11 @@
-import Data from '../server/httpServer'
+import Data from "../server/httpServer" ;
 export default {
-  name: 'signIn',
+  name: "signIn",
   data() {
     return {
-      msg: 'BIG SHIP管理后台',
-      username: '',
-      password: ''
+      msg: "BIG SHIP管理后台",
+      username: "",
+      password: ""
     }
   },
   methods: {
@@ -14,20 +14,20 @@ export default {
       return Data.getUser(this.username, this.password)
         .then(function (result) {
           if(result !== false){
-            localStorage.setItem('user', JSON.stringify({'username': self.username, 'password': self.password}))
-            self.$router.push('/')
+            localStorage.setItem("user", JSON.stringify({"username": self.username, "password": self.password}))
+            self.$router.push("/")
           }else {
             self.$message({
-              type: 'error',
-              message: '用户名或密码错误'
+              type: "error",
+              message: "用户名或密码错误"
             })
           }
         })
 // if (result !== false) {
-      //   localStorage.setItem('user', JSON.stringify({'username': this.username, 'password': this.password}))
-      //   this.$router.push('/')
+      //   localStorage.setItem("user", JSON.stringify({"username": this.username, "password": this.password}))
+      //   this.$router.push("/")
       // } else {
-      //   alert('错误')
+      //   alert("错误")
       // }
     }
   }

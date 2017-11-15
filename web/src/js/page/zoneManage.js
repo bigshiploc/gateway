@@ -1,17 +1,17 @@
 /**
  * Created by chenyu on 17/10/18.
  */
-import Data from '../server/httpServer'
+import Data from "../server/httpServer" ;
 
 export default {
   data () {
     var checkPoint = (rule, value, callback) => {
       if (value.length < 1) {
-        return callback(new Error('坐标不能为空'))
+        return callback(new Error("坐标不能为空"))
       } else if (isNaN(value[0])) {
-        return callback(new Error('必须为数字值'))
+        return callback(new Error("必须为数字值"))
       } else if((value[1] !== undefined) && (isNaN(value[1]))) {
-        return callback(new Error('必须为数字值'))
+        return callback(new Error("必须为数字值"))
       }
       callback()
     }
@@ -26,28 +26,28 @@ export default {
       addForm: {
         start_point: []
       },
-      formLabelWidth: '120px',
+      formLabelWidth: "120px",
       rules: {
         region_name: [
-          {required: true, message: '请输入名称', trigger: 'blur'}
+          {required: true, message: "请输入名称", trigger: "blur"}
         ],
         width: [
-          {required: true, type: 'number', message: '请输入长度', trigger: 'blur,change'}
+          {required: true, type: "number", message: "请输入长度", trigger: "blur,change"}
         ],
         height: [
-          {required: true, type: 'number', message: '请输入宽度', trigger: 'blur,change'}
+          {required: true, type: "number", message: "请输入宽度", trigger: "blur,change"}
         ],
         background_image: [
-          {required: true, message: '请输入图片路径', trigger: 'blur'}
+          {required: true, message: "请输入图片路径", trigger: "blur"}
         ],
         start_point: [
-          {required: true, validator: checkPoint, trigger: 'blur'}
+          {required: true, validator: checkPoint, trigger: "blur"}
         ],
         maxEnlarge: [
-          {required: true, type: 'number', message: '请输入最大放大倍数', trigger: 'blur,change'}
+          {required: true, type: "number", message: "请输入最大放大倍数", trigger: "blur,change"}
         ],
         maxNarrow: [
-          {required: true, type: 'number', message: '请输入最大缩小倍数', trigger: 'blur,change'}
+          {required: true, type: "number", message: "请输入最大缩小倍数", trigger: "blur,change"}
         ]
       }
     }
@@ -73,9 +73,9 @@ export default {
       var self = this
       return Promise.resolve()
         .then(function () {
-          return self.$confirm('确定要删除此区域？', '警告', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
+          return self.$confirm("确定要删除此区域？", "警告", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
           })
         })
         .then(function () {
@@ -86,34 +86,33 @@ export default {
             })
             .then(function () {
               self.$message({
-                type: 'success',
-                message: '删除成功'
+                type: "success",
+                message: "删除成功"
               })
             }, function () {
               self.$message({
-                type: 'error',
-                message: '删除失败'
+                type: "error",
+                message: "删除失败"
               })
             })
         })
     },
     updateArea (formName) {
       var self = this
-      // TODO add validator
       this.$refs[formName].validate(function (valid) {
         if (valid) {
           Data.updateArea(self.form.id, self.form)
             .then(function () {
               self.$message({
-                type: 'success',
-                message: '更新成功'
+                type: "success",
+                message: "更新成功"
               })
               self.dialogEditZone = false
               self.getZoneInfo()
             }, function (err) {
               self.$message({
-                type: 'error',
-                message: '更新失败'
+                type: "error",
+                message: "更新失败"
               })
             })
             .then(function () {
@@ -121,8 +120,8 @@ export default {
             })
         }else {
           self.$message({
-            type: 'error',
-            message: '表格验证失败'
+            type: "error",
+            message: "表格验证失败"
           })
           return false
         }
@@ -139,14 +138,14 @@ export default {
               self.getZoneInfo()
             }, function () {
               self.$message({
-                type: 'error',
-                message: '添加失败'
+                type: "error",
+                message: "添加失败"
               })
             })
         } else {
           self.$message({
-            type: 'error',
-            message: '表格验证失败'
+            type: "error",
+            message: "表格验证失败"
           })
           return false
         }
@@ -162,7 +161,7 @@ export default {
     },
     showCoordinate: function (data) {
       for (var i = 0; i < data.length; i++) {
-        data[i].coordinate = data[i].start_point[0] + ',' + data[i].start_point[1]
+        data[i].coordinate = data[i].start_point[0] + "," + data[i].start_point[1]
       }
       return data
     },

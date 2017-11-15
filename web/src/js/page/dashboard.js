@@ -1,20 +1,12 @@
-import Bus from '../bus'
-import controlMap from '@/components/blockMoveComponents/BlockMoveComponents.vue'
-import nodeList from '@/components/tableComponents/nodeList'
-import sidebar from '@/components/sidebar/Sidebar.vue'
-import Data from '../server/httpServer'
+import Bus from "../bus" ;
+import controlMap from "@/components/blockMoveComponents/BlockMoveComponents.vue" ;
+import nodeList from "@/components/tableComponents/nodeList" ;
+import sidebar from "@/components/sidebar/Sidebar.vue" ;
+import Data from "../server/httpServer" ;
 
 export default {
   data () {
     return {
-      // filterStatus: [{text: '正常', value: '正常'}, {text: '低电', value: '低电'}],
-      // filterType: [[{text: '人', value: '人'}, {text: '机', value: '机'}], [{text: 'GNSS', value: '2'}, {
-      //   text: 'UWB',
-      //   value: '1'
-      // }]],
-      // typeMethod: this.filterByType,
-      // statusMethod: this.filterByStatus,
-
       startDataSelect: {
         disabledDate (time) {
           return time.getTime() > Date.now()
@@ -30,29 +22,29 @@ export default {
       historyDataInfo: {rotationAngle: {}, coordinate: {}, labelData: [], rtkStationData: [], uwbStationData: []},
       windowWidth: 0,
       region: [],
-      reset: '',
+      reset: "",
       blockShow: true,
       clear: false,
       equipment: [],
 
-      activeNode: 'labelChange',
+      activeNode: "labelChange",
 
       isRealTimeData: true,
 
       startIndex: 0,
-      playState: '播放',
-      speed: '×2',
+      playState: "播放",
+      speed: "×2",
       isProgressBar: false,
       isTimeSelect: false,
-      allTime: '',
+      allTime: "",
 
-      startDate: '',
-      startTime: '',
-      endDate: '',
-      endTime: '',
+      startDate: "",
+      startTime: "",
+      endDate: "",
+      endTime: "",
 
       playProgress: 0,
-      playTime: '0:0',
+      playTime: "0:0",
       historyStatus: false
 
     }
@@ -70,24 +62,24 @@ export default {
     var self = this
     if (self.isRealTimeData === true) {
       self.realDataInfo.coordinate = {
-        'stationInfo': {},
-        'labelInfo': {}
+        "stationInfo": {},
+        "labelInfo": {}
       }
-      Bus.$on('rtkres_roverpos', function (data) {
+      Bus.$on("rtkres_roverpos", function (data) {
         self.realDataInfo.labelData = self.updateLabel(self.realDataInfo.labelData, data, 1)
         self.realDataInfo.coordinate = self.roverCoor(self.realDataInfo.labelData, self.realDataInfo.coordinate, data, 1)
       })
-      Bus.$on('user_uwb', function (data) {
+      Bus.$on("user_uwb", function (data) {
         self.realDataInfo.labelData = self.updateLabel(self.realDataInfo.labelData, data, 1)
         self.realDataInfo.coordinate = self.roverCoor(self.realDataInfo.labelData, self.realDataInfo.coordinate, data, 1)
       })
-      Bus.$on('user_stat', function (data) {
+      Bus.$on("user_stat", function (data) {
         self.realDataInfo.labelData = self.updateLabel(self.realDataInfo.labelData, data, 1)
       })
-      Bus.$on('rtkres_attitude', function (data) {
+      Bus.$on("rtkres_attitude", function (data) {
         self.realDataInfo.rotationAngle = self.updateRotationAngle(self.realDataInfo.rotationAngle, data)
       })
-      Bus.$on('status', function (data) {
+      Bus.$on("status", function (data) {
         self.realDataInfo.uwbStationData = self.setTableStatus(self.realDataInfo.uwbStationData,data)
         self.realDataInfo.rtkStationData = self.setTableStatus(self.realDataInfo.rtkStationData,data)
         self.realDataInfo.labelData = self.setTableStatus(self.realDataInfo.labelData,data)
@@ -102,7 +94,7 @@ export default {
     playProgress: function () {
       var self = this
       if (self.playProgress == 100) {
-        self.playState = '播放'
+        self.playState = "播放"
       }
     }
   },
@@ -111,12 +103,11 @@ export default {
       var self = this
       return Data.getLabels()
         .then(function (result) {
-          var colors = ['Crimson', 'Blue', 'PaleVioletRed', 'DarkCyan', 'DarkMagenta', 'Indigo', 'Cyan', 'DarkSlateGray','DoderBlue', 'SeaGreen', 'Lime', 'Yellow', 'Olive', 'GoldEnrod', 'SaddleBrown', 'RosyBrown', 'Black', 'Silver']
+          var colors = ["Crimson", "Blue", "PaleVioletRed", "DarkCyan", "DarkMagenta", "Indigo", "Cyan", "DarkSlateGray","DoderBlue", "SeaGreen", "Lime", "Yellow", "Olive", "GoldEnrod", "SaddleBrown", "RosyBrown", "Black", "Silver"]
           for (var i = 0; i < result.length; i++) {
-            result[i].color = colors.shift() || '#'+(Math.random()*0xffffff<<0).toString(16)
+            result[i].color = colors.shift() || "#"+(Math.random()*0xffffff<<0).toString(16)
           }
           self.realDataInfo.labelData = JSON.parse(JSON.stringify(result))
-          self.historyDataInfo.labelData = JSON.parse(JSON.stringify(result))
           return Promise.resolve()
         })
     },
@@ -125,7 +116,7 @@ export default {
       return Data.getUwbStations()
         .then(function (result) {
           for (var i = 0; i < result.length; i++) {
-            result[i].coordinate = result[i].x + ',' + result[i].y + ',' + result[i].z
+            result[i].coordinate = result[i].x + "," + result[i].y + "," + result[i].z
           }
           self.realDataInfo.uwbStationData = JSON.parse(JSON.stringify(result))
           self.realDataInfo.coordinate = self.baseCoor(self.realDataInfo.uwbStationData, self.realDataInfo.coordinate)
@@ -137,7 +128,7 @@ export default {
       return Data.getGnssStations()
         .then(function (result) {
           for (var i = 0; i < result.length; i++) {
-            result[i].coordinate = result[i].x + ',' + result[i].y + ',' + result[i].z
+            result[i].coordinate = result[i].x + "," + result[i].y + "," + result[i].z
           }
           self.realDataInfo.rtkStationData = JSON.parse(JSON.stringify(result))
           setInterval(function () {
@@ -153,14 +144,14 @@ export default {
             labelInfo[i].status = data.battery
           }
           if (data.x !== undefined) {
-            if (data.z !== '') {
+            if (data.z !== "") {
               if (data.stat == 0) {
 
               } else {
-                labelInfo[i].coordinate = data.x / number + ',' + data.y / number + ',' + data.z / number
+                labelInfo[i].coordinate = data.x / number + "," + data.y / number + "," + data.z / number
               }
             } else {
-              labelInfo[i].coordinate = data.x / number + ',' + data.y / number
+              labelInfo[i].coordinate = data.x / number + "," + data.y / number
             }
           }
           if (data.anchors !== undefined) {
@@ -211,23 +202,23 @@ export default {
     },
     play () {
       var self = this
-      if (self.playState == '播放') {
-        self.playState = '暂停'
+      if (self.playState == "播放") {
+        self.playState = "暂停"
 
         self.startPlay(self.frequency)
       } else {
-        self.playState = '播放'
+        self.playState = "播放"
         window.clearInterval(self.isStartPlay)
       }
     },
     doublePlay () {
       var self = this
-      self.playState = '暂停'
-      if (self.speed == '×1') {
-        self.speed = '×2'
+      self.playState = "暂停"
+      if (self.speed == "×1") {
+        self.speed = "×2"
         self.frequency = 1000
       } else {
-        self.speed = '×1'
+        self.speed = "×1"
         self.frequency = 500
       }
 
@@ -235,16 +226,16 @@ export default {
     },
     timeSelect () {
       var self = this
-      if (this.startTime == '' || this.endTime == '' || this.startDate == '' || this.endDate == '') {
+      if (this.startTime == "" || this.endTime == "" || this.startDate == "" || this.endDate == "") {
         return self.$message({
-          type: 'error',
-          message: '时间选择不完整,请检查'
+          type: "error",
+          message: "时间选择不完整,请检查"
         })
       }
       if (this.startDate > this.endDate || (JSON.stringify(this.startDate) == JSON.stringify(this.endDate) && (this.startTime > this.endTime))) {
         return self.$message({
-          type: 'error',
-          message: '时间范围选择错误'
+          type: "error",
+          message: "时间范围选择错误"
         })
       }
       window.clearInterval(self.isStartPlay)
@@ -253,12 +244,12 @@ export default {
     },
     createHistoryDate: function () {
       var self = this
-      var startTime = this.startDate.toLocaleString().split(' ')[0] + ' ' + this.startTime.toTimeString().split(' ')[0]
-      var endTime = this.endDate.toLocaleString().split(' ')[0] + ' ' + this.endTime.toTimeString().split(' ')[0]
+      var startTime = this.startDate.toLocaleString().split(" ")[0] + " " + this.startTime.toTimeString().split(" ")[0]
+      var endTime = this.endDate.toLocaleString().split(" ")[0] + " " + this.endTime.toTimeString().split(" ")[0]
       if (self.historyStatus) {
         return self.$message({
-          type: 'error',
-          message: '数据正在处理'
+          type: "error",
+          message: "数据正在处理"
         })
       }
       self.historyStatus = true
@@ -272,19 +263,24 @@ export default {
         .then(function (result) {
           console.log(JSON.stringify(result.labelHistoryInfo))
           self.historyConfigInfos = result.labelHistoryInfo
+          if(self.historyInfos !== undefined){
+            self.isProgressBar = true
+          }
         })
     },
     getHistoryDataFile: function (startTime, endTime,result) {
       var self = this
-      if (result === 'false') {
+      if (result === "false") {
         self.$message({
-          type: 'error',
-          message: '连接超时'
+          type: "error",
+          message: "连接超时"
         })
       } else {
         self.historyInfos = result
         self.allTime = self.getAllTime(startTime, endTime)
-        self.isProgressBar = true
+        if(self.historyConfigInfos !== undefined){
+          self.isProgressBar = true
+        }
         self.historyStatus = false
       }
     },
@@ -292,8 +288,8 @@ export default {
 
       var index = parseInt(new Date(endTime).getTime() - new Date(startTime).getTime()) / 1000
       var minute = (index) / 60
-      var second = '0.' + String(minute).split('.')[1]
-      return parseInt(minute) + ':' + String(parseFloat(second) * 60).split('.')[0]
+      var second = "0." + String(minute).split(".")[1]
+      return parseInt(minute) + ":" + String(parseFloat(second) * 60).split(".")[0]
 
     },
     initHistroy: function () {
@@ -306,9 +302,9 @@ export default {
       self.historyDataInfo.uwbStationData = []
       self.historyDataInfo.rtkStationData = []
       self.historyDataInfo.rotationAngle = []
-      self.playTime = '0:0'
-      self.playState = '播放'
-      self.speed = '×2'
+      self.playTime = "0:0"
+      self.playState = "播放"
+      self.speed = "×2"
       self.frequency = 1000
       self.historyInfos = undefined
     },
@@ -316,16 +312,16 @@ export default {
     startPlay: function (frequency) {
       var self = this
       if (self.historyInfos === undefined) {
-        self.playState = '播放'
+        self.playState = "播放"
         return self.$message({
-          type: 'error',
-          message: '数据正在加载中...'
+          type: "error",
+          message: "数据正在加载中..."
         })
       }
       if (self.historyInfos.length == 0) {
         return self.$message({
-          type: 'error',
-          message: '该时间段数据为空'
+          type: "error",
+          message: "该时间段数据为空"
         })
       }
       window.clearInterval(self.isStartPlay)
@@ -354,16 +350,16 @@ export default {
     hadPlayTime: function (index) {
       var self = this
       var minute = index / 60
-      var second = '0.' + String(minute).split('.')[1]
-      self.playTime = parseInt(minute) + ':' + String(parseFloat(second) * 60).split('.')[0]
+      var second = "0." + String(minute).split(".")[1]
+      self.playTime = parseInt(minute) + ":" + String(parseFloat(second) * 60).split(".")[0]
     },
     showData: function (index) {
       var self = this
       var currentDate = self.historyInfos[index]
       self.getHistoryTable(currentDate,self.historyConfigInfos)
       self.historyDataInfo.coordinate = {
-        'stationInfo': {},
-        'labelInfo': {}
+        "stationInfo": {},
+        "labelInfo": {}
       }
       self.historyDataInfo.coordinate = self.baseCoor(self.historyDataInfo.uwbStationData, self.historyDataInfo.coordinate)
       self.historyDataInfo.coordinate = self.baseCoor(self.historyDataInfo.rtkStationData, self.historyDataInfo.coordinate)
@@ -433,7 +429,7 @@ export default {
           var update = new Date().getTime()
           if (update - info[i].update > 1500) {
             var overTime = update - info[i].update
-            console.log(info[i].nodeID + ' 时间超时 ' + parseFloat(overTime / 1000) + '秒')
+            console.log(info[i].nodeID + " 时间超时 " + parseFloat(overTime / 1000) + "秒")
           }
           coor.labelInfo[info[i].nodeID] = [x, y, info[i].name, update, info[i].color]
         }
@@ -441,7 +437,7 @@ export default {
       return JSON.parse(JSON.stringify(coor))
     },
     reduction: function (id) {
-      this.reset = id + '-' + Math.random()
+      this.reset = id + "-" + Math.random()
     },
     changeProgress: function () {
       this.clear = !this.clear
@@ -452,7 +448,7 @@ export default {
       self.historyDataInfo.rtkStationData = []
       self.historyDataInfo.uwbStationData = []
       self.historyDataInfo.labelData = []
-      var colors = ['Crimson', 'Blue', 'PaleVioletRed', 'DarkCyan', 'DarkMagenta', 'Indigo', 'Cyan', 'DarkSlateGray','DoderBlue', 'SeaGreen', 'Lime', 'Yellow', 'Olive', 'GoldEnrod', 'SaddleBrown', 'RosyBrown', 'Black', 'Silver']
+      var colors = ["Crimson", "Blue", "PaleVioletRed", "DarkCyan", "DarkMagenta", "Indigo", "Cyan", "DarkSlateGray","DoderBlue", "SeaGreen", "Lime", "Yellow", "Olive", "GoldEnrod", "SaddleBrown", "RosyBrown", "Black", "Silver"]
       for (var i=0;i<configInfo.length;i++){
         var config = configInfo[i]
         var diffTimeLittle = []
@@ -465,7 +461,6 @@ export default {
             diffTimeBig.push(config[j])
           }
         }
-        
         if(diffTimeLittle.length !== 0){
           for(var k=0 ; k<diffTimeLittle.length;k++){
             if(diffTime == null){
@@ -486,45 +481,39 @@ export default {
         if(diffTime !== null) {
           if (diffTime.updateDate <= data.timestamp) {
             if (diffTime.delete !== undefined) {
-              // console.log('-----------------delete')
-              // self.$notify.info({
-              //   message: diffTime.id + '被删除',
-              //   showClose: false,
-              //   position: 'bottom-right'
-              // });
             } else {
               if (diffTime.afterUpdateInfo.nodeType == 1) {
-                diffTime.afterUpdateInfo.coordinate = diffTime.afterUpdateInfo.x + ',' + diffTime.afterUpdateInfo.y + ',' + diffTime.afterUpdateInfo.z
+                diffTime.afterUpdateInfo.coordinate = diffTime.afterUpdateInfo.x + "," + diffTime.afterUpdateInfo.y + "," + diffTime.afterUpdateInfo.z
                 self.historyDataInfo.rtkStationData.push(diffTime.afterUpdateInfo)
               }
               if (diffTime.afterUpdateInfo.nodeType == 2) {
-                diffTime.afterUpdateInfo.coordinate = diffTime.afterUpdateInfo.x + ',' + diffTime.afterUpdateInfo.y + ',' + diffTime.afterUpdateInfo.z
+                diffTime.afterUpdateInfo.coordinate = diffTime.afterUpdateInfo.x + "," + diffTime.afterUpdateInfo.y + "," + diffTime.afterUpdateInfo.z
                 self.historyDataInfo.uwbStationData.push(diffTime.afterUpdateInfo)
               }
               if (diffTime.afterUpdateInfo.nodeType == 3) {
-                diffTime.afterUpdateInfo.color = colors.shift() || '#'+(Math.random()*0xffffff<<0).toString(16)
+                diffTime.afterUpdateInfo.color = colors.shift() || "#"+(Math.random()*0xffffff<<0).toString(16)
                 self.historyDataInfo.labelData.push(diffTime.afterUpdateInfo)
               }
             }
           } else {
             if (diffTime.delete !== undefined) {
               // self.$notify.info({
-              //   message: diffTime.id + '被删除',
+              //   message: diffTime.id + "被删除",
               //   showClose: false,
-              //   position: 'bottom-right'
+              //   position: "bottom-right"
               // });
             } else {
               if (diffTime.beforeUpdateInfo !== null) {
                 if (diffTime.beforeUpdateInfo.nodeType == 1) {
-                  diffTime.beforeUpdateInfo.coordinate = diffTime.beforeUpdateInfo.x + ',' + diffTime.beforeUpdateInfo.y + ',' + diffTime.beforeUpdateInfo.z
+                  diffTime.beforeUpdateInfo.coordinate = diffTime.beforeUpdateInfo.x + "," + diffTime.beforeUpdateInfo.y + "," + diffTime.beforeUpdateInfo.z
                   self.historyDataInfo.rtkStationData.push(diffTime.beforeUpdateInfo)
                 }
                 if (diffTime.beforeUpdateInfo.nodeType == 2) {
-                  diffTime.beforeUpdateInfo.coordinate = diffTime.beforeUpdateInfo.x + ',' + diffTime.beforeUpdateInfo.y + ',' + diffTime.beforeUpdateInfo.z
+                  diffTime.beforeUpdateInfo.coordinate = diffTime.beforeUpdateInfo.x + "," + diffTime.beforeUpdateInfo.y + "," + diffTime.beforeUpdateInfo.z
                   self.historyDataInfo.uwbStationData.push(diffTime.beforeUpdateInfo)
                 }
                 if (diffTime.beforeUpdateInfo.nodeType == 3) {
-                  diffTime.beforeUpdateInfo.color = colors.shift() || '#'+(Math.random()*0xffffff<<0).toString(16)
+                  diffTime.beforeUpdateInfo.color = colors.shift() || "#"+(Math.random()*0xffffff<<0).toString(16)
                   self.historyDataInfo.labelData.push(diffTime.beforeUpdateInfo)
                 }
               }

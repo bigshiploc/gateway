@@ -1,4 +1,4 @@
-import Data from '../server/httpServer'
+import Data from "../server/httpServer" ;
 
 export default {
   data() {
@@ -14,23 +14,23 @@ export default {
       addForm: {
         node_ids: []
       },
-      formLabelWidth: '120px',
+      formLabelWidth: "120px",
 
       rules: {
         equipment_name: [
-          {required: true, message: '请输入名称', trigger: 'blur'}
+          {required: true, message: "请输入名称", trigger: "blur"}
         ],
         width: [
-          {required: true, type: 'number', message: '请输入长度', trigger: 'blur,change'}
+          {required: true, type: "number", message: "请输入长度", trigger: "blur,change"}
         ],
         height: [
-          {required: true, type: 'number', message: '请输入宽度', trigger: 'blur,change'}
+          {required: true, type: "number", message: "请输入宽度", trigger: "blur,change"}
         ],
         image: [
-          {required: true, message: '请输入图片路径', trigger: 'blur'}
+          {required: true, message: "请输入图片路径", trigger: "blur"}
         ],
         style: [
-          {required: true, message: '请选择类型', trigger: 'blur,change'}
+          {required: true, message: "请选择类型", trigger: "blur,change"}
         ]
       }
     }
@@ -62,14 +62,14 @@ export default {
               self.getEquipmentInfo()
             }, function () {
               self.$message({
-                type: 'error',
-                message: '添加失败'
+                type: "error",
+                message: "添加失败"
               })
             })
         } else {
           self.$message({
-            type: 'error',
-            message: '表格验证失败'
+            type: "error",
+            message: "表格验证失败"
           })
           return false
         }
@@ -83,15 +83,15 @@ export default {
           Data.updateEquipment(self.form.id, self.form)
             .then(function () {
               self.$message({
-                type: 'success',
-                message: '更新成功'
+                type: "success",
+                message: "更新成功"
               })
               self.dialogEditEquipment = false
               self.getEquipmentInfo()
             }, function (err) {
               self.$message({
-                type: 'error',
-                message: '更新失败'
+                type: "error",
+                message: "更新失败"
               })
             })
             .then(function () {
@@ -99,8 +99,8 @@ export default {
             })
         }else {
           self.$message({
-            type: 'error',
-            message: '表格验证失败'
+            type: "error",
+            message: "表格验证失败"
           })
           return false
         }
@@ -111,9 +111,9 @@ export default {
       var self = this
       return Promise.resolve()
         .then(function () {
-          return self.$confirm('确定要删除此设备？', '警告', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
+          return self.$confirm("确定要删除此设备？", "警告", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
           })
         })
         .then(function () {
@@ -124,13 +124,13 @@ export default {
             })
             .then(function () {
               self.$message({
-                type: 'success',
-                message: '删除成功'
+                type: "success",
+                message: "删除成功"
               })
             }, function () {
               self.$message({
-                type: 'error',
-                message: '删除失败'
+                type: "error",
+                message: "删除失败"
               })
             })
         })

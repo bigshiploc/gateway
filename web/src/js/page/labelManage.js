@@ -1,11 +1,11 @@
-import Data from '../server/httpServer'
-import Bus from '../bus'
+import Data from "../server/httpServer"
+import Bus from "../bus"
 
 export default {
   data() {
     var checknodeID = (rule, value, callback) => {
 	    if ((value % 1 === 0) == false) {
-          return callback(new Error('请输入整数的节点ID'))
+          return callback(new Error("请输入整数的节点ID"))
         }
         callback()
     }
@@ -13,20 +13,20 @@ export default {
       tableData: [],
       dialogAddLabel: false,
       dialogEditLabel: false,
-      // colors : ['Crimson', 'Blue', 'PaleVioletRed', 'DarkCyan', 'DarkMagenta', 'Indigo', 'Cyan', 'DarkSlateGray','DoderBlue', 'SeaGreen', 'Lime', 'Yellow', 'Olive', 'GoldEnrod', 'SaddleBrown', 'RosyBrown', 'Black', 'Silver'],
+      // colors : ["Crimson", "Blue", "PaleVioletRed", "DarkCyan", "DarkMagenta", "Indigo", "Cyan", "DarkSlateGray","DoderBlue", "SeaGreen", "Lime", "Yellow", "Olive", "GoldEnrod", "SaddleBrown", "RosyBrown", "Black", "Silver"],
       form: {
         nodeType: 3
       },
       addForm: {
         nodeType: 3
       },
-      formLabelWidth: '120px',
+      formLabelWidth: "120px",
       rules: {
         nodeID: [
-          {required: true, validator: checknodeID, trigger: 'blur'}
+          {required: true, validator: checknodeID, trigger: "blur"}
         ],
         name: [
-          {required: true, message: '请输入名称', trigger: 'blur'}
+          {required: true, message: "请输入名称", trigger: "blur"}
         ]
       }
     }
@@ -34,16 +34,16 @@ export default {
   created: function () {
     var self = this
     self.getLabelInfo()
-    Bus.$on('rtkres_roverpos', function (data) {
+    Bus.$on("rtkres_roverpos", function (data) {
       self.tableData = self.updateLabelStatus(data)
     })
-    Bus.$on('user_uwb', function (data) {
+    Bus.$on("user_uwb", function (data) {
       self.tableData = self.updateLabelStatus(data)
     })
-    Bus.$on('user_stat', function (data) {
+    Bus.$on("user_stat", function (data) {
       self.tableData = self.updateLabelStatus(data)
     })
-    Bus.$on('status',function (data) {
+    Bus.$on("status",function (data) {
       self.tableData = self.setTableStatus(data)
     })
   },
@@ -68,12 +68,12 @@ export default {
             self.tableData[i].status = data.battery
           }
           if (data.x !== undefined) {
-            if (data.z !== '') {
+            if (data.z !== "") {
               if (data.stat != 0) {
-                self.tableData[i].coordinate = data.x + ',' + data.y + ',' + data.z
+                self.tableData[i].coordinate = data.x + "," + data.y + "," + data.z
               }
             } else {
-              self.tableData[i].coordinate = data.x + ',' + data.y
+              self.tableData[i].coordinate = data.x + "," + data.y
             }
           }
           if (data.anchors !== undefined) {
@@ -112,21 +112,21 @@ export default {
           Data.updateStation(self.form.id, self.form)
             .then(function () {
               self.$message({
-                type: 'success',
-                message: '更新成功'
+                type: "success",
+                message: "更新成功"
               })
               self.dialogEditLabel = false
               self.getLabelInfo()
             }, function () {
               self.$message({
-                type: 'error',
-                message: '更新失败'
+                type: "error",
+                message: "更新失败"
               })
             })
         }else {
           self.$message({
-            type: 'error',
-            message: '表格验证失败'
+            type: "error",
+            message: "表格验证失败"
           })
         }
       })
@@ -134,7 +134,7 @@ export default {
     },
     addLabel(formName) {
       var self = this
-      // var color =   '#'+(Math.random()*0xffffff<<0).toString(16)
+      // var color =   "#"+(Math.random()*0xffffff<<0).toString(16)
       // self.addForm.color = self.colors.shift()
       this.$refs[formName].validate((valid) => {
         if (valid) {
@@ -143,17 +143,17 @@ export default {
               self.dialogAddLabel = false
               self.getLabelInfo()
             },function (err) {
-              if(err.body.indexOf('Insert failed, duplicate id') !== -1){
+              if(err.body.indexOf("Insert failed, duplicate id") !== -1){
                 self.$message({
-                  type: 'error',
-                  message: '添加失败,nodeID相同'
+                  type: "error",
+                  message: "添加失败,nodeID相同"
                 })
               }
             })
         } else {
           self.$message({
-            type: 'error',
-            message: '表格验证失败'
+            type: "error",
+            message: "表格验证失败"
           })
           return false
         }
@@ -171,9 +171,9 @@ export default {
       var self = this
       return Promise.resolve()
         .then(function () {
-          return self.$confirm('确定要删除此标签？', '警告', {
-            confirmButtonText: '确定',
-            cancelButtonText: '取消',
+          return self.$confirm("确定要删除此标签？", "警告", {
+            confirmButtonText: "确定",
+            cancelButtonText: "取消",
           })
         })
         .then(function () {
@@ -184,13 +184,13 @@ export default {
             })
             .then(function () {
               self.$message({
-                type: 'success',
-                message: '删除成功'
+                type: "success",
+                message: "删除成功"
               })
             }, function () {
               self.$message({
-                type: 'error',
-                message: '删除失败'
+                type: "error",
+                message: "删除失败"
               })
             })
         })

@@ -45,9 +45,10 @@ function getOneSecondData(obj, name, i, startTime, endTime, allDataObj) {
     for (var z = 0; z < allDataObj[name].length; z++) {
         var timeData = getTime(allDataObj[name][z].timestamp);
         if (startTime + i <= timeData && timeData < startTime + i + 1 && startTime <= timeData && timeData <= endTime) {
-            obj.timestamp = allDataObj[name][z].timestamp;
             obj[name].push(allDataObj[name][z])
         }
+        obj.timestamp = allDataObj[name][z].timestamp || (startTime+i)*1000;
+
     }
 }
 

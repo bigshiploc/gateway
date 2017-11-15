@@ -232,7 +232,9 @@ export default {
           message: "时间选择不完整,请检查"
         })
       }
-      if (this.startDate > this.endDate || (JSON.stringify(this.startDate) == JSON.stringify(this.endDate) && (this.startTime > this.endTime))) {
+      if (this.startDate > this.endDate ||
+        (JSON.stringify(this.startDate) == JSON.stringify(this.endDate) &&
+        (this.startTime > this.endTime||JSON.stringify(this.startTime) == JSON.stringify(this.endTime)))) {
         return self.$message({
           type: "error",
           message: "时间范围选择错误"

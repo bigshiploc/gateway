@@ -16,8 +16,8 @@ export default {
       size: 10,
       getProportion: 10,
 
-      startNodeID: '514',
-      endNodeID: '515',
+      startNodeID: "514",
+      endNodeID: "515",
 
       // planeWidth: 0.3,
       // planeHeight: 0.3,
@@ -99,24 +99,24 @@ export default {
       return  d3.axisRight(this.yAxisScale())
     },
     getbkg: function (id, x, y, width, height, url) {
-      return this.nodeLayer.append('svg:image')
-        .attr('xlink:href', url)
-        .attr('x', this.xAxisScale()(x))
-        .attr('y', this.yAxisScale()(y))
-        .attr('width', this.xAxisScale()(width) - this.xAxisScale()(0))
-        .attr('height',this.yAxisScale()(0) - this.yAxisScale()(height))
+      return this.nodeLayer.append("svg:image")
+        .attr("xlink:href", url)
+        .attr("x", this.xAxisScale()(x))
+        .attr("y", this.yAxisScale()(y))
+        .attr("width", this.xAxisScale()(width) - this.xAxisScale()(0))
+        .attr("height",this.yAxisScale()(0) - this.yAxisScale()(height))
     },
     getInnerSpace: function () {
-      return this.svgViewport.append('g')
-        .attr('class', 'inner_space')
+      return this.svgViewport.append("g")
+        .attr("class", "inner_space")
     },
     zoom: function () {
       return  d3.zoom()
-        .on('zoom', this.zoomFunction)
+        .on("zoom", this.zoomFunction)
         .scaleExtent([this.maxNarrow, this.maxEnlarge])
     },
     getNodeLayer:function () {
-      var nodeLayer = this.innerSpace.append('g')
+      var nodeLayer = this.innerSpace.append("g")
       return nodeLayer;
     },
     createStationIcon: function (nodeID, node_x, node_y,size,url) {
@@ -124,19 +124,19 @@ export default {
       var b = this.initCoordinate()[1];
       var testX = this.newx? this.newx: this.xAxisScale();
       var testY = this.newy? this.newy: this.yAxisScale();
-      var coor = this.nodeLayer.append('svg:image')
-        .attr('class', nodeID)
-        .attr('xlink:href', url)
-        .attr('x', this.xAxisScale()(node_x)-size/2)
-        .attr('y', this.yAxisScale()(node_y)-size/2)
-        .attr('width', size/b)
-        .attr('height',size/b)
-        .attr('transform', a);
-      if(url == 'static/image/label.svg'){
-        coor.attr('x', testX(node_x)-size/2)
-          .attr('y', testY(node_y)-size/2)
-          .attr('width', size)
-          .attr('height',size)
+      var coor = this.nodeLayer.append("svg:image")
+        .attr("class", nodeID)
+        .attr("xlink:href", url)
+        .attr("x", this.xAxisScale()(node_x)-size/2)
+        .attr("y", this.yAxisScale()(node_y)-size/2)
+        .attr("width", size/b)
+        .attr("height",size/b)
+        .attr("transform", a);
+      if(url == "static/image/label.svg"){
+        coor.attr("x", testX(node_x)-size/2)
+          .attr("y", testY(node_y)-size/2)
+          .attr("width", size)
+          .attr("height",size)
       }
       coor.info ={x:node_x,y:node_y, offest_x:size/2, offest_y:size/2};
       return coor
@@ -144,43 +144,43 @@ export default {
     createText: function (nodeID, node_x, node_y,name,color) {
       var a = this.initCoordinate()[0];
       var b = this.initCoordinate()[1];
-      var coor = this.nodeLayer.append('text')
-        .attr('id', nodeID)
-        .attr('x', this.xAxisScale()(node_x)-this.size / b)
-        .attr('y', this.yAxisScale()(node_y)+this.size*2 / b)
+      var coor = this.nodeLayer.append("text")
+        .attr("id", nodeID)
+        .attr("x", this.xAxisScale()(node_x)-this.size / b)
+        .attr("y", this.yAxisScale()(node_y)+this.size*2 / b)
         .text(name)
         .attr("font-size",this.size / b)
-        .attr('fill', color||'black')
-        .attr('transform', a)
+        .attr("fill", color||"black")
+        .attr("transform", a)
       coor.info ={x:node_x,y:node_y, offest_x:this.size, offest_y:this.size*2}
       return coor
     },
     createCoorText: function (nodeID, node_x, node_y,coor,color) {
       var a = this.initCoordinate()[0];
       var b = this.initCoordinate()[1];
-      var coor =  this.nodeLayer.append('text')
-        .attr('id', nodeID)
-        .attr('x', this.xAxisScale()(node_x)-this.size / b)
-        .attr('y', this.yAxisScale()(node_y)+this.size*3 / b)
+      var coor =  this.nodeLayer.append("text")
+        .attr("id", nodeID)
+        .attr("x", this.xAxisScale()(node_x)-this.size / b)
+        .attr("y", this.yAxisScale()(node_y)+this.size*3 / b)
         .text(coor)
         .attr("font-size",this.size / b)
-        .attr('fill', color||'black')
-        .attr('transform', a);
+        .attr("fill", color||"black")
+        .attr("transform", a);
       coor.info ={x:node_x,y:node_y, offest_x:this.size, offest_y:this.size*3};
       return coor
     },
     createCircle:function (node_x,node_y,color) {
       var a = this.initCoordinate()[0];
       var b = this.initCoordinate()[1];
-      return this.nodeLayer.append('circle') //需要添加nodeID，坐标x和y，颜色，缩放比例。
-        .attr('r', 3/b)
+      return this.nodeLayer.append("circle") //需要添加nodeID，坐标x和y，颜色，缩放比例。
+        .attr("r", 3/b)
         .attr("cx", node_x)
         .attr("cy", node_y)
         .attr("fill",color)
-        .attr('transform', a)
+        .attr("transform", a)
     },
     initCoordinate: function () {
-      var a  = this.bkg[this.region[0].region_name].attr('transform')
+      var a  = this.bkg[this.region[0].region_name].attr("transform")
       var b;
       if(a != null){
         var c = a.split(/[(]|[)]/)
@@ -193,18 +193,18 @@ export default {
     },
     getX: function () {
       var height = this.svgHeight-1;
-      return this.innerSpace.append('g')
-        .attr('class', 'axis axis--x')
-        .attr('transform', 'translate(0,' + height + ')')
+      return this.innerSpace.append("g")
+        .attr("class", "axis axis--x")
+        .attr("transform", "translate(0," + height + ")")
         .call(this.xAxis())
     },
     getY: function () {
-      return this.innerSpace.append('g')
-        .attr('class', 'axis axis--y')
+      return this.innerSpace.append("g")
+        .attr("class", "axis axis--y")
         .call(this.yAxis())
     },
     getPlane: function () {
-      return this.innerSpace.append('g')
+      return this.innerSpace.append("g")
     },
     make_x_gridlines: function () {
       return d3.axisBottom(this.xAxisScale())
@@ -215,11 +215,11 @@ export default {
     get_x_gridlines: function () {
       return this.svgViewport.append("g")
         .attr("class", "grid")
-        .style('stroke','#FF0000')
-        .style('stroke-width','0.3px')
-        .style('stroke-dasharray','5,5')
-        .style('stroke-opacity','0.2')
-        .style('stroke','dashed')
+        .style("stroke","#FF0000")
+        .style("stroke-width","0.3px")
+        .style("stroke-dasharray","5,5")
+        .style("stroke-opacity","0.2")
+        .style("stroke","dashed")
         .attr("transform", "translate(0," + this.svgHeight + ")")
         .call(this.make_x_gridlines()
           .tickSize(-this.svgHeight)
@@ -229,10 +229,10 @@ export default {
     get_y_gridlines: function () {
       return this.svgViewport.append("g")
         .attr("class", "grid")
-        .style('stroke-width','0.3px')
-        .style('stroke-dasharray','5,5')
-        .style('stroke-opacity','0.2')
-        .attr('fill','red !important')
+        .style("stroke-width","0.3px")
+        .style("stroke-dasharray","5,5")
+        .style("stroke-opacity","0.2")
+        .attr("fill","red !important")
         .call(this.make_y_gridlines()
           .tickSize(-this.svgWidth)
           .tickFormat("")
@@ -244,8 +244,8 @@ export default {
       var testY = this.newy? this.newy: this.yAxisScale();
       var scale = this.scale? this.scale.k: 1;
       this.plane[id].append("svg:image")
-        .attr('xlink:href', url)
-        .attr('id',id)
+        .attr("xlink:href", url)
+        .attr("id",id)
         .attr("x", this.xAxisScale()(0)-this.xAxisScale()(width))
         .attr("y", this.xAxisScale()(0)-this.xAxisScale()(heigth))
         .attr("width",  this.xAxisScale()(width*2)-this.xAxisScale()(0))
@@ -258,11 +258,11 @@ export default {
       });
     },
     createCanvas: function () {
-      this.svgViewport =  d3.select('#' + this.blockId)
-        .append('svg')
-        .attr('width', this.svgWidth)
-        .attr('height', this.svgHeight)
-        .style('background', 'white')
+      this.svgViewport =  d3.select("#" + this.blockId)
+        .append("svg")
+        .attr("width", this.svgWidth)
+        .attr("height", this.svgHeight)
+        .style("background", "white")
         .call(this.zoom());
 
       this.innerSpace = this.getInnerSpace();
@@ -304,7 +304,7 @@ export default {
       self.scale = d3.event.transform;
 
       for (var i=0;i<this.region.length;i++){
-        this.bkg[this.region[i].region_name].attr('transform',  self.scale)
+        this.bkg[this.region[i].region_name].attr("transform",  self.scale)
       }
 
       for(var i=0; i<this.labelsNodeID.length; i++){
@@ -312,23 +312,23 @@ export default {
         var testX = self.newx? self.newx: self.xAxisScale();
         var testY = self.newy? self.newy: self.yAxisScale();
 
-        this.stationIcon[nodeId].attr('transform',  self.scale)
-          .attr('width', this.size*2)
-          .attr('height', this.size*2)
-          .attr('x', testX(self.stationIcon[nodeId].info.x)-self.stationIcon[nodeId].info.offest_x)
-          .attr('y', testY(self.stationIcon[nodeId].info.y)-self.stationIcon[nodeId].info.offest_y)
+        this.stationIcon[nodeId].attr("transform",  self.scale)
+          .attr("width", this.size*2)
+          .attr("height", this.size*2)
+          .attr("x", testX(self.stationIcon[nodeId].info.x)-self.stationIcon[nodeId].info.offest_x)
+          .attr("y", testY(self.stationIcon[nodeId].info.y)-self.stationIcon[nodeId].info.offest_y)
 
-        this.innerSpace.selectAll('circle').attr("transform", self.scale).attr('r',3/self.scale.k)
+        this.innerSpace.selectAll("circle").attr("transform", self.scale).attr("r",3/self.scale.k)
         this.zoomText(nodeId,self.scale)
       }
       for(var i=0; i<this.stationsNodeID.length; i++){
         var nodeId = this.stationsNodeID[i];
 
-        this.stationIcon[this.stationsNodeID[i]].attr('transform',  self.scale)
-          .attr('width', this.size*4 / self.scale.k)
-          .attr('height', this.size*4 / self.scale.k)
-          .attr('x', self.xAxisScale()(self.stationIcon[nodeId].info.x)-self.stationIcon[nodeId].info.offest_x/self.scale.k)
-          .attr('y', self.yAxisScale()(self.stationIcon[nodeId].info.y)-self.stationIcon[nodeId].info.offest_y/self.scale.k);
+        this.stationIcon[this.stationsNodeID[i]].attr("transform",  self.scale)
+          .attr("width", this.size*4 / self.scale.k)
+          .attr("height", this.size*4 / self.scale.k)
+          .attr("x", self.xAxisScale()(self.stationIcon[nodeId].info.x)-self.stationIcon[nodeId].info.offest_x/self.scale.k)
+          .attr("y", self.yAxisScale()(self.stationIcon[nodeId].info.y)-self.stationIcon[nodeId].info.offest_y/self.scale.k);
         this.zoomText(nodeId,self.scale)
       }
       self.planeInfo.forEach(function (key) {
@@ -341,21 +341,21 @@ export default {
     },
     zoomText: function (nodeId,proportion) {
       var self = this;
-      this.text[nodeId].attr('transform',  proportion)
+      this.text[nodeId].attr("transform",  proportion)
         .attr("font-size", this.size / proportion.k)
-        .attr('x', self.xAxisScale()(self.text[nodeId].info.x)-self.text[nodeId].info.offest_x/proportion.k)
-        .attr('y', self.yAxisScale()(self.text[nodeId].info.y)+self.text[nodeId].info.offest_y/proportion.k);
-      this.coorText[nodeId].attr('transform',  proportion)
+        .attr("x", self.xAxisScale()(self.text[nodeId].info.x)-self.text[nodeId].info.offest_x/proportion.k)
+        .attr("y", self.yAxisScale()(self.text[nodeId].info.y)+self.text[nodeId].info.offest_y/proportion.k);
+      this.coorText[nodeId].attr("transform",  proportion)
         .attr("font-size", this.size / proportion.k)
-        .attr('x', self.xAxisScale()(self.coorText[nodeId].info.x)-self.coorText[nodeId].info.offest_x/proportion.k)
-        .attr('y', self.yAxisScale()(self.coorText[nodeId].info.y)+self.coorText[nodeId].info.offest_y/proportion.k)
+        .attr("x", self.xAxisScale()(self.coorText[nodeId].info.x)-self.coorText[nodeId].info.offest_x/proportion.k)
+        .attr("y", self.yAxisScale()(self.coorText[nodeId].info.y)+self.coorText[nodeId].info.offest_y/proportion.k)
     },
 
     startMove: function () {
       const self = this;
       if(self.startCoor === false) return;
-      const  labelInfo = self.coordinate['labelInfo'] || {};
-      const stationInfo = self.coordinate['stationInfo'] || {};
+      const  labelInfo = self.coordinate["labelInfo"] || {};
+      const stationInfo = self.coordinate["stationInfo"] || {};
 
       self.getDeleteNode(self.labelsNodeID,labelInfo)
       self.getDeleteNode(self.stationsNodeID,stationInfo)
@@ -366,7 +366,7 @@ export default {
         const name = labelInfo[key][2];
         const timeStamp = labelInfo[key][3];
         const color = labelInfo[key][4];
-        const coor = '('+labelInfo[key][0]+','+labelInfo[key][1]+')';
+        const coor = "("+labelInfo[key][0]+","+labelInfo[key][1]+")";
 
 
         if(self.labelsNodeID.indexOf(key) !==-1){
@@ -407,7 +407,7 @@ export default {
 
         }else {
 
-          self.stationIcon[key] = self.createStationIcon(key,node_x,node_y,self.size*2,'static/image/label.svg')
+          self.stationIcon[key] = self.createStationIcon(key,node_x,node_y,self.size*2,"static/image/label.svg")
           self.text[key] = self.createText(key,node_x,node_y,name,color)
           self.coorText[key] = self.createCoorText(key,node_x,node_y,coor,color)
           self.dataArr[key] = []
@@ -415,25 +415,25 @@ export default {
 
           jQuery("image"+"."+key).each(function(){
             var $img = $(this);
-            var imgClass = $img.attr('class');
-            var imgURL = $img.attr('href');
+            var imgClass = $img.attr("class");
+            var imgURL = $img.attr("href");
             jQuery.get(imgURL, function(data) {
-              var $svg = jQuery(data).find('svg');
-              $svg.attr('x', $img.attr('x'));
-              $svg.attr('y', $img.attr('y'));
-              $svg.attr('width', $img.attr('width'));
-              $svg.attr('height',$img.attr('height'));
-              $svg.attr('fill', color);
-              if(typeof imgClass !== 'undefined') {
-                $svg = $svg.attr('class', imgClass+' replaced-svg');
+              var $svg = jQuery(data).find("svg");
+              $svg.attr("x", $img.attr("x"));
+              $svg.attr("y", $img.attr("y"));
+              $svg.attr("width", $img.attr("width"));
+              $svg.attr("height",$img.attr("height"));
+              $svg.attr("fill", color);
+              if(typeof imgClass !== "undefined") {
+                $svg = $svg.attr("class", imgClass+" replaced-svg");
               }
-              $svg = $svg.removeAttr('xmlns:a');
+              $svg = $svg.removeAttr("xmlns:a");
 
               $img.replaceWith($svg);
 
               $svg.info = self.stationIcon[key].info;
               self.stationIcon[key] = $svg
-            }, 'xml');
+            }, "xml");
           });
           self.planeInfo.forEach(function (Plane) {
             var startNodeID = Plane.node_ids[0]>Plane.node_ids[1] ? Plane.node_ids[1] : Plane.node_ids[0]
@@ -449,14 +449,14 @@ export default {
         const node_x = stationInfo[key][0];
         const node_y = stationInfo[key][1];
         const name = stationInfo[key][2];
-        const coor = '('+stationInfo[key][0]+','+stationInfo[key][1]+')';
+        const coor = "("+stationInfo[key][0]+","+stationInfo[key][1]+")";
         if(self.stationsNodeID.indexOf(key) !==-1){
           self.moveText(key,node_x,node_y,name)
           self.moveCoorText(key,node_x,node_y,coor)
           self.moveStationIcon(key,node_x,node_y,self.getProportion)
 
         }else {
-          self.stationIcon[key] = self.createStationIcon(key,node_x,node_y,self.size*4,'static/image/station.svg');
+          self.stationIcon[key] = self.createStationIcon(key,node_x,node_y,self.size*4,"static/image/station.svg");
           self.text[key] = self.createText(key,node_x,node_y,name);
           self.coorText[key] = self.createCoorText(key,node_x,node_y,coor);
           self.stationsNodeID.push(key)
@@ -468,8 +468,8 @@ export default {
       var self = this;
       self.text[key]
       // .transition()
-        .attr('x', self.xAxisScale()(node_x)-self.getProportion)
-        .attr('y', self.yAxisScale()(node_y)+self.getProportion*2)
+        .attr("x", self.xAxisScale()(node_x)-self.getProportion)
+        .attr("y", self.yAxisScale()(node_y)+self.getProportion*2)
         .text(name);
       self.text[key].info.x = node_x;
       self.text[key].info.y = node_y
@@ -479,8 +479,8 @@ export default {
       var self = this;
       self.coorText[key]
       // .transition()
-        .attr('x', self.xAxisScale()(node_x)-self.getProportion)
-        .attr('y', self.yAxisScale()(node_y)+self.getProportion*3)
+        .attr("x", self.xAxisScale()(node_x)-self.getProportion)
+        .attr("y", self.yAxisScale()(node_y)+self.getProportion*3)
         .text(coor);
       self.coorText[key].info.x = node_x;
       self.coorText[key].info.y = node_y
@@ -493,11 +493,11 @@ export default {
       if(self.labelsNodeID.indexOf(key) !==-1){
         self.stationIcon[key]
           .attr("x", testX(node_x)- proportion*2)
-          .attr('y', testY(node_y)- proportion*2);
+          .attr("y", testY(node_y)- proportion*2);
       }else {
         self.stationIcon[key]
           .attr("x", self.xAxisScale()(node_x)- proportion*2)
-          .attr('y', self.yAxisScale()(node_y)- proportion*2);
+          .attr("y", self.yAxisScale()(node_y)- proportion*2);
       }
 
 
@@ -571,8 +571,8 @@ export default {
 
           for(var i = 0; i<self.dataArr[key].length; i++ ){
             self.circles[key][i]
-              .attr('cx',(self.dataArr[key][i].x))
-              .attr('cy',self.dataArr[key][i].y)
+              .attr("cx",(self.dataArr[key][i].x))
+              .attr("cy",self.dataArr[key][i].y)
           }
 
         }
@@ -583,9 +583,9 @@ export default {
     getLabelTime: function (key,timeStamp) {
       var update = new Date().getTime()
       if((update -timeStamp)>20000){
-        return {'nodeID': key, 'status': false}
+        return {"nodeID": key, "status": false}
       }else {
-        return {'nodeID': key, 'status': true}
+        return {"nodeID": key, "status": true}
       }
 
     },
@@ -593,7 +593,7 @@ export default {
     getEquipment: function () {
       var self = this
       self.equipment.forEach(function (key) {
-        if(key.equipment_name == '飞机'){
+        if(key.equipment_name == "飞机"){
           self.planeInfo.push(key)
         }
       })
@@ -605,7 +605,7 @@ export default {
           var info = self.region[i]
           self.startx = info.start_point[0]
           self.starty = info.start_point[1]
-          self.svgWidth = document.getElementsByClassName('father')[0].offsetWidth;
+          self.svgWidth = document.getElementsByClassName("father")[0].offsetWidth;
           self.svgHeight = self.svgWidth * (info.height / info.width)
           self.rangeWidth = info.width
           self.rangeHeight = info.height
@@ -623,13 +623,13 @@ export default {
       var width = this.svgWidth;
       var height = this.svgHeight;
       var index = -1;
-      var elem = document.getElementsByClassName('testblock');
-      var heightblock = document.getElementsByClassName('heightblock');
-      var father = document.getElementsByClassName('father');
+      var elem = document.getElementsByClassName("testblock");
+      var heightblock = document.getElementsByClassName("heightblock");
+      var father = document.getElementsByClassName("father");
       var canvasWidth;
       var hight;
       for(var i =0; i<elem.length;i++){
-        if(elem[i].getElementsByTagName('div')[0].getAttribute('id') == this.blockId){
+        if(elem[i].getElementsByTagName("div")[0].getAttribute("id") == this.blockId){
           index = i;
           break
         }
@@ -643,16 +643,16 @@ export default {
         }
       }
       var scale = Number((canvasWidth / width));
-      elem[index].style.height = canvasWidth * (height / width) + 'px';
-      elem[index].style.transform = 'scale(' + scale + ',' + scale + ')';
-      elem[index].style.transformOrigin = '0 0';
+      elem[index].style.height = canvasWidth * (height / width) + "px";
+      elem[index].style.transform = "scale(" + scale + "," + scale + ")";
+      elem[index].style.transformOrigin = "0 0";
       hight = elem[index].style.height;
       heightblock[index].style.height = hight
     },
 
     resetSize: function () {
-      if(this.reset == '') return;
-      if(this.blockId === (this.reset.split('-')[0])){
+      if(this.reset == "") return;
+      if(this.blockId === (this.reset.split("-")[0])){
         var reduction = d3.zoomIdentity.translate(0,0).scale(1);
         this.svgViewport.call(this.zoom().transform,reduction)
       }
@@ -662,7 +662,7 @@ export default {
       var reduction = d3.zoomIdentity.translate(0,0).scale(1);
       self.svgViewport.call(self.zoom().transform,reduction)
 
-      self.innerSpace.selectAll('circle').remove()
+      self.innerSpace.selectAll("circle").remove()
       for(var i=0; i<self.labelsNodeID.length; i++){
         var nodeID = self.labelsNodeID[i]
         self.stationIcon[nodeID].remove()
@@ -679,15 +679,15 @@ export default {
       self.stationsNodeID = []
       self.dataArr = {}
       self.planeInfo.forEach(function (key) {
-          if(self.plane[key.id]!== undefined){
-            self.plane[key.id].remove()
-          }
+        if(self.plane[key.id]!== undefined){
+          self.plane[key.id].remove()
+        }
       })
       self.plane = {}
 
     },
     removeCircle: function () {
-      this.innerSpace.selectAll('circle').remove()
+      this.innerSpace.selectAll("circle").remove()
       for (var i = 0; i < this.labelsNodeID.length; i++) {
         var nodeID = this.labelsNodeID[i]
         this.dataArr[nodeID] = []

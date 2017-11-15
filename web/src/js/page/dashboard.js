@@ -481,10 +481,11 @@ export default {
             }
           }
         }
-        self.getConfigTable(diffTime,colors)
+        self.getConfigTable(diffTime,colors,data)
       }
     },
-    getConfigTable: function (diffTime,colors) {
+    getConfigTable: function (diffTime,colors,data) {
+      var self = this
       if(diffTime !== null) {
         if (diffTime.updateDate <= data.timestamp) {
           if (diffTime.delete !== undefined) {

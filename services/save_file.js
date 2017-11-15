@@ -32,6 +32,7 @@ function getLastData(startTime, endTime, timeDifference, allDataObj, fileName) {
         for (var j in allDataObj) {
             if (j in obj != true) {
                 obj[j] = [];
+                obj.timestamp = (startTime+i)*1000
             }
             getOneSecondData(obj, j, i, startTime, endTime, allDataObj);
         }
@@ -45,9 +46,9 @@ function getOneSecondData(obj, name, i, startTime, endTime, allDataObj) {
     for (var z = 0; z < allDataObj[name].length; z++) {
         var timeData = getTime(allDataObj[name][z].timestamp);
         if (startTime + i <= timeData && timeData < startTime + i + 1 && startTime <= timeData && timeData <= endTime) {
+            obj.timestamp = allDataObj[name][z].timestamp;
             obj[name].push(allDataObj[name][z])
         }
-        obj.timestamp = allDataObj[name][z].timestamp || (startTime+i)*1000;
 
     }
 }

@@ -370,9 +370,9 @@ export default {
 
 
         if(self.labelsNodeID.indexOf(key) !==-1){
-          self.moveStationIcon(key,node_x,node_y,self.size/2)
-          self.moveText(key,node_x,node_y,name)
-          self.moveCoorText(key,node_x,node_y,coor)
+          self.moveStationIcon(key,node_x,node_y,self.size/2,color)
+          self.moveText(key,node_x,node_y,name,color)
+          self.moveCoorText(key,node_x,node_y,coor,color)
           self.getDataArr(key,self.xAxisScale()(node_x),self.yAxisScale()(node_y), timeStamp, color)
           var nodeStatus = self.getLabelTime(key,timeStamp)
           self.planeInfo.forEach(function (Plane) {
@@ -464,36 +464,39 @@ export default {
       })
     },
 
-    moveText: function (key,node_x,node_y,name) {
+    moveText: function (key,node_x,node_y,name,color) {
       var self = this;
       self.text[key]
       // .transition()
         .attr("x", self.xAxisScale()(node_x)-self.getProportion)
         .attr("y", self.yAxisScale()(node_y)+self.getProportion*2)
-        .text(name);
+        .text(name)
+        .attr("fill", color||"black")
       self.text[key].info.x = node_x;
       self.text[key].info.y = node_y
     },
 
-    moveCoorText: function (key,node_x,node_y,coor) {
+    moveCoorText: function (key,node_x,node_y,coor,color) {
       var self = this;
       self.coorText[key]
       // .transition()
         .attr("x", self.xAxisScale()(node_x)-self.getProportion)
         .attr("y", self.yAxisScale()(node_y)+self.getProportion*3)
-        .text(coor);
+        .text(coor)
+        .attr("fill", color||"black")
       self.coorText[key].info.x = node_x;
       self.coorText[key].info.y = node_y
     },
 
-    moveStationIcon: function (key,node_x,node_y,proportion) {
+    moveStationIcon: function (key,node_x,node_y,proportion,color) {
       var self = this;
       var testX = self.newx? self.newx: self.xAxisScale();
       var testY = self.newy? self.newy: self.yAxisScale();
       if(self.labelsNodeID.indexOf(key) !==-1){
         self.stationIcon[key]
           .attr("x", testX(node_x)- proportion*2)
-          .attr("y", testY(node_y)- proportion*2);
+          .attr("y", testY(node_y)- proportion*2)
+          .attr("fill", color)
       }else {
         self.stationIcon[key]
           .attr("x", self.xAxisScale()(node_x)- proportion*2)
@@ -573,6 +576,7 @@ export default {
             self.circles[key][i]
               .attr("cx",(self.dataArr[key][i].x))
               .attr("cy",self.dataArr[key][i].y)
+              .attr("fill",color)
           }
 
         }

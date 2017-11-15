@@ -447,7 +447,6 @@ export default {
       this.startIndex = parseInt(this.playProgress * this.historyInfos.length / 100)
     },
     getHistoryTable: function (data,configInfo) {
-      console.log(JSON.stringify(data.timestamp))
       var self = this
       self.historyDataInfo.rtkStationData = []
       self.historyDataInfo.uwbStationData = []

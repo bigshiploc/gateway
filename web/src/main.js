@@ -8,6 +8,21 @@ import router from "./router";
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
 import sidebar from "@/components/sidebar/Sidebar";
+import Data from './js/server/httpServer'
+
+router.beforeEach((to, from, next) => {
+  if(to.path === '/login')  {
+    next()
+  } else {
+  return Data.isLogin()
+    .then(function (result) {
+      if(result.bool == false){
+        return next({ path: '/login' })
+      }
+      next()
+    })
+}
+})
 
 Vue.config.productionTip = false
 Vue.use(ElementUI)

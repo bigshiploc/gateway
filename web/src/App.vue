@@ -7,16 +7,6 @@
 <script>
   import Data from './js/server/httpServer'
   export default {
-    beforeCreate: function () {
-      var self = this
-      return Data.isLogin()
-        .then(function (result) {
-          if(result.bool == false){
-            self.$router.push('/login')
-          }
-        })
-    }
-
   }
 </script>
 

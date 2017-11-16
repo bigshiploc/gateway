@@ -232,8 +232,8 @@ export default {
           message: "时间选择不完整,请检查"
         })
       }
-      if (this.startDate > this.endDate ||
-        (JSON.stringify(this.startDate) == JSON.stringify(this.endDate) &&
+      if (JSON.stringify(this.startDate.toLocaleString().split(" ")[0]) > JSON.stringify(this.endDate.toLocaleString().split(" ")[0]) ||
+        (JSON.stringify(this.startDate.toLocaleString().split(" ")[0]) == JSON.stringify(this.endDate.toLocaleString().split(" ")[0]) &&
         (this.startTime > this.endTime||JSON.stringify(this.startTime) == JSON.stringify(this.endTime)))) {
         return self.$message({
           type: "error",

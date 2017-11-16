@@ -226,10 +226,6 @@ export default {
     },
     timeSelect () {
       var self = this
-      console.log(this.startTime)
-      console.log(this.endTime)
-      console.log(this.startDate)
-      console.log(this.endDate)
 
       if (this.startTime == "" || this.endTime == "" || this.startDate == "" || this.endDate == "") {
         return self.$message({

@@ -3,7 +3,7 @@
         <sidebar/>
         <el-row>
             <el-col :span="14" :offset=5 class="stationManageTitle">
-                标签管理
+                终端管理
                 <el-button type="text" icon="el-icon-plus" @click="dialogAddLabel = true" style="margin-left: 20px">添加
                 </el-button>
             </el-col>
@@ -58,7 +58,7 @@
         </el-dialog>
 
 
-        <el-dialog title="添加标签" :visible.sync="dialogAddLabel" top="5%" :modal="true" :show-close="false">
+        <el-dialog title="添加终端" :visible.sync="dialogAddLabel" top="5%" :modal="true" :show-close="false">
             <el-form :model="addForm" labelPosition="left" :rules="rules" ref="addForm">
                 <el-form-item label="节点ID" prop="nodeID" :label-width="formLabelWidth">
                     <el-input type="number" v-model.number="addForm.nodeID" autoComplete="off" placeholder="节点ID"></el-input>

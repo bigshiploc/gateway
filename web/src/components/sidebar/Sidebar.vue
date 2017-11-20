@@ -13,7 +13,7 @@
         </el-menu-item>
         <el-menu-item index="/labelManage">
           <i class="el-icon-location-outline"></i>
-          <span slot="title">标签管理</span>
+          <span slot="title">终端管理</span>
         </el-menu-item>
         <el-menu-item index="/zoneManage">
           <i class="el-icon-view"></i>

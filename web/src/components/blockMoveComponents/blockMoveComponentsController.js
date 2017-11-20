@@ -50,7 +50,7 @@ export default {
       scale: null,
       startCoor: false,
       getTime: 0,
-      dataArr: {},  //轨迹展示的所有标签的坐标集合。
+      dataArr: {},  //轨迹展示的所有终端的坐标集合。
       dataArrLen: 4,  //轨迹长度的全局变量（轨迹的点的个数）
 
       maxEnlarge: null,

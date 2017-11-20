@@ -41,7 +41,7 @@
                             </div>
                             <div class="heightblock">
                                 <div class="testblock">
-                                    <controlMap :blockId="item.region_name" :coordinate="realDataInfo.coordinate"
+                                    <controlMap :blockId="'d3_'+item.region_name" :coordinate="realDataInfo.coordinate"
                                                 :windowWidth="windowWidth" :region="region"
                                                 :regionName="item.region_name" :reset="reset"
                                                 :equipment="equipment"

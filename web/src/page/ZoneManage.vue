@@ -63,10 +63,10 @@
                     </el-col>
                 </el-form-item>
                 <el-form-item label="最大放大倍数" prop="maxEnlarge" :label-width="formLabelWidth">
-                    <el-input type="number" v-model.number="form.maxEnlarge" autoComplete="off" placeholder="最大放大倍数" value="form.maxEnlarge"></el-input>
+                    <el-input type="number" v-model.number="form.maxEnlarge" autoComplete="off" placeholder="最大放大倍数"></el-input>
                 </el-form-item>
                 <el-form-item label="最大缩小倍数" prop="maxNarrow" :label-width="formLabelWidth">
-                    <el-input type="number" v-model.number="form.maxNarrow" autoComplete="off" placeholder="最大缩小倍数" value="form.maxNarrow"></el-input>
+                    <el-input type="number" v-model.number="form.maxNarrow" autoComplete="off" placeholder="最大缩小倍数"></el-input>
                 </el-form-item>
             </el-form>
             <div slot="footer" class="dialog-footer">

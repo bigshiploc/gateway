@@ -16,8 +16,8 @@ export default {
       size: 10,
       getProportion: 10,
 
-      startNodeID: "514",
-      endNodeID: "515",
+      // startNodeID: "514",
+      // endNodeID: "515",
 
       // planeWidth: 0.3,
       // planeHeight: 0.3,
@@ -374,10 +374,9 @@ export default {
           self.moveText(key,node_x,node_y,name,color)
           self.moveCoorText(key,node_x,node_y,coor,color)
           self.getDataArr(key,self.xAxisScale()(node_x),self.yAxisScale()(node_y), timeStamp, color)
-          var nodeStatus = self.getLabelTime(key,timeStamp)
+          var nodeStatus = self.getLabelTime(key,timeStamp) //检查标签没有实时数据
           self.planeInfo.forEach(function (Plane) {
             if(self.plane[Plane.id] !== undefined){
-
               var startNodeID = Plane.node_ids[0]>Plane.node_ids[1] ? Plane.node_ids[1] : Plane.node_ids[0]
               var endNodeID = Plane.node_ids[0]>Plane.node_ids[1] ? Plane.node_ids[0] : Plane.node_ids[1]
               if((nodeStatus.nodeID == startNodeID || nodeStatus.nodeID == endNodeID) && nodeStatus.status == false ){

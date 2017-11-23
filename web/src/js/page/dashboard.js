@@ -455,6 +455,7 @@ export default {
       var colors = ["Crimson", "Blue", "PaleVioletRed", "DarkCyan", "DarkMagenta", "Indigo", "Cyan", "DarkSlateGray","DoderBlue", "SeaGreen", "Lime", "Yellow", "Olive", "GoldEnrod", "SaddleBrown", "RosyBrown", "Black", "Silver"]
       for (var i=0;i<configInfo.length;i++){
         var config = configInfo[i]
+        if(config.length == 0) return
         var diffTimeLittle = []
         var diffTimeBig = []
         var diffTime = null

@@ -27,139 +27,68 @@
   ],
   "nodes": [
     {
-      "id": 1,
+      "x": 0,
+      "y": 0,
+      "z": 0,
       "nodeID": 1,
-      "nodeType": 2,
-      "delaySend": 200,
-      "x": 1.6,
-      "y": -0.6,
-      "z": 2.2,
-      "channel": 1,
-      "headLength": 3,
-      "headCode": 4,
-      "PRF": 0,
-      "coordinate": "1.6,-0.6,2.2",
-      "history": {
-        "beforeUpdate": {
-          "nodeID": 1,
-          "nodeType": 2,
-          "x": 1.6,
-          "y": -0.6,
-          "z": 2.2
-        }
-      },
-      "name": "基站2"
-    },
-    {
-      "id": 2,
-      "nodeID": 2,
-      "nodeType": 2,
-      "delaySend": 300,
-      "x": 2.4,
-      "y": 0,
-      "z": 2.2,
-      "channel": 1,
-      "headLength": 3,
-      "headCode": 4,
-      "PRF": 0
-    },
-    {
-      "id": 4,
-      "nodeID": 4,
-      "nodeType": 2,
-      "delaySend": 400,
-      "x": 2.4,
-      "y": 3,
-      "z": 2.2,
-      "channel": 1,
-      "headLength": 3,
-      "headCode": 4,
-      "PRF": 0
-    },
-    {
-      "id": 5,
-      "nodeID": 5,
-      "nodeType": 2,
-      "delaySend": 300,
-      "x": 1.2,
-      "y": 3.1,
-      "z": 2,
-      "channel": 1,
-      "headLength": 3,
-      "headCode": 4,
-      "PRF": 0
-    },
-    {
-      "id": 6,
-      "nodeID": 6,
-      "nodeType": 2,
-      "delaySend": 300,
-      "x": 0,
-      "y": 3,
-      "z": 2.2,
-      "channel": 1,
-      "headLength": 3,
-      "headCode": 4,
-      "PRF": 0
-    },
-    {
-      "id": 7,
-      "nodeID": 7,
+      "name": "wetsuit",
       "nodeType": 1,
-      "x": 6.57,
-      "y": 0,
-      "z": 0
-    },
-    {
-      "id": 8,
-      "nodeID": 8,
-      "nodeType": 1,
-      "x": 3.285,
-      "y": 3.28,
-      "z": 0
-    },
-    {
-      "id": 3,
-      "nodeID": 3,
-      "nodeType": 1,
-      "x": 0,
-      "y": 0,
-      "z": 0,
+      "createdAt": 1510820908282,
+      "id": "1",
       "coordinate": "0,0,0",
-      "name": "dddd"
+      "status": 0
     },
     {
-      "x": 0,
-      "y": 0,
-      "z": 0,
-      "nodeID": 78,
-      "name": "78",
+      "x": 1,
+      "y": 1,
+      "z": 1,
+      "nodeID": 2,
+      "name": "2",
       "nodeType": 1,
-      "createdAt": 1510628600092,
-      "id": "78"
+      "createdAt": 1510820927103,
+      "id": "2"
+    },
+    {
+      "x": 2,
+      "y": 2,
+      "z": 2,
+      "nodeID": 3,
+      "name": "3",
+      "nodeType": 2,
+      "channel": 0,
+      "headLength": 0,
+      "headCode": 0,
+      "PRF": 0,
+      "createdAt": 1510821026658,
+      "id": "3"
     },
     {
       "nodeType": 3,
       "nodeID": 514,
-      "name": "fghjkl;",
-      "createdAt": 1510640337763,
-      "id": "514",
-      "coordinate": "1.472,1.312",
-      "anchors": "0,1,2,4,5,6"
-    },
-    {
-      "nodeType": 3,
-      "nodeID": 516,
-      "name": "516",
-      "createdAt": 1510726764031,
-      "id": "516"
+      "name": "514",
+      "createdAt": 1510821050137,
+      "id": "514"
     },
     {
       "nodeType": 3,
       "nodeID": 515,
       "name": "515",
-      "createdAt": 1510731088669,
+      "createdAt": 1510821058833,
       "id": "515"
+    },
+    {
+      "nodeType": 3,
+      "nodeID": 516,
+      "name": "516",
+      "createdAt": 1510825604029,
+      "id": "516"
+    },
+    {
+      "nodeType": 3,
+      "nodeID": 517,
+      "name": "517",
+      "createdAt": 1510825613261,
+      "id": "517"
     }
   ],
   "wrapper": {
@@ -208,8 +137,8 @@
   "vehicle": [
     {
       "node_ids": [
-        "514",
-        "515"
+        "516",
+        "517"
       ],
       "equipment_name": "飞机",
       "width": 0.2,

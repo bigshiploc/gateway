@@ -6,7 +6,7 @@ import Data from "../server/httpServer" ;
 export default {
   data () {
     var checkPoint = (rule, value, callback) => {
-      if (isNaN(value[0])||isNaN(value[1])||value[0]==(undefined||"")||value[1]==(undefined||"")) {
+      if (isNaN(value[0])||isNaN(value[1])||value[0]===(undefined||"")||value[1]===(undefined||"")) {
         return callback(new Error("请检查(必须为数字值)"))
       }
       callback()

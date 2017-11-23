@@ -16,10 +16,10 @@ exports.SERVERS = {
     RAW_SERVER_PORT: 8899,
 }
 
-exports.WRAPPER_CORE_EXE = "C:\\bigship-20171101\\wrapper\\GPSUWB_CoreWrapper.exe"
+exports.WRAPPER_CORE_EXE = "C:\\bigship-dev\\wrapper\\GPSUWB_CoreWrapper.exe"
 
 exports.DIR = {
-    DATA_DIR: "C:\\bigship-20171101\\data",
+    DATA_DIR: "C:\\bigship-dev\\data",
     get LOG_RAW() {
         return path.join(this.DATA_DIR, "raw.log")
     },

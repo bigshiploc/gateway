@@ -171,7 +171,7 @@ export default {
       var self = this
       return Promise.resolve()
         .then(function () {
-          return self.$confirm("确定要删除此标签？", "警告", {
+          return self.$confirm("确定要删除此终端？", "警告", {
             confirmButtonText: "确定",
             cancelButtonText: "取消",
           })

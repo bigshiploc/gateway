@@ -6,12 +6,8 @@ import Data from "../server/httpServer" ;
 export default {
   data () {
     var checkPoint = (rule, value, callback) => {
-      if (value.length < 1) {
-        return callback(new Error("坐标不能为空"))
-      } else if (isNaN(value[0])) {
-        return callback(new Error("必须为数字值"))
-      } else if((value[1] !== undefined) && (isNaN(value[1]))) {
-        return callback(new Error("必须为数字值"))
+      if (isNaN(value[0])||isNaN(value[1])||value[0]==(undefined||"")||value[1]==(undefined||"")) {
+        return callback(new Error("请检查(必须为数字值)"))
       }
       callback()
     }
@@ -19,7 +15,8 @@ export default {
       zoneData: [],
       dialogEditZone: false,
       dialogAddZone: false,
-
+      maxEnlarge: 5,
+      maxNarrow: 0.3,
       form: {
         start_point: []
       },
@@ -37,18 +34,18 @@ export default {
         height: [
           {required: true, type: "number", message: "请输入宽度", trigger: "blur,change"}
         ],
-        background_image: [
-          {required: true, message: "请输入图片路径", trigger: "blur"}
-        ],
+        // background_image: [
+        //   {required: true, message: "请输入图片路径", trigger: "blur"}
+        // ],
         start_point: [
           {required: true, validator: checkPoint, trigger: "blur"}
         ],
-        maxEnlarge: [
-          {required: true, type: "number", message: "请输入最大放大倍数", trigger: "blur,change"}
-        ],
-        maxNarrow: [
-          {required: true, type: "number", message: "请输入最大缩小倍数", trigger: "blur,change"}
-        ]
+        // maxEnlarge: [
+        //   {required: true, type: "number", message: "请输入最大放大倍数", trigger: "blur,change"}
+        // ],
+        // maxNarrow: [
+        //   {required: true, type: "number", message: "请输入最大缩小倍数", trigger: "blur,change"}
+        // ]
       }
     }
   },
@@ -101,6 +98,7 @@ export default {
       var self = this
       this.$refs[formName].validate(function (valid) {
         if (valid) {
+          self.checkMultiple(self.form)
           Data.updateArea(self.form.id, self.form)
             .then(function () {
               self.$message({
@@ -115,9 +113,6 @@ export default {
                 message: "更新失败"
               })
             })
-            .then(function () {
-
-            })
         }else {
           self.$message({
             type: "error",
@@ -128,10 +123,16 @@ export default {
       })
 
     },
+    checkMultiple (form){
+      form.maxEnlarge = form.maxEnlarge || this.maxEnlarge;
+      form.maxNarrow = form.maxNarrow || this.maxNarrow;
+      form.background_image = form.background_image || ""
+    },
     addArea (formName) {
       var self = this
       this.$refs[formName].validate(function (valid) {
         if (valid) {
+          self.checkMultiple(self.addForm)
           Data.addArea(self.addForm)
             .then(function () {
               self.dialogAddZone = false

@@ -41,7 +41,7 @@
                             </div>
                             <div class="heightblock">
                                 <div class="testblock">
-                                    <controlMap :blockId="item.region_name" :coordinate="realDataInfo.coordinate"
+                                    <controlMap :blockId="'d3_'+item.region_name" :coordinate="realDataInfo.coordinate"
                                                 :windowWidth="windowWidth" :region="region"
                                                 :regionName="item.region_name" :reset="reset"
                                                 :equipment="equipment"
@@ -55,7 +55,7 @@
             <el-row class="row-bg">
                 <el-col :span="18" :offset="5">
                     <el-tabs v-model="activeNode">
-                        <el-tab-pane label="标签节点" name="labelChange">
+                        <el-tab-pane label="终端节点" name="labelChange">
                             <nodeList url="label" :tableData="realDataInfo.labelData" class="table"></nodeList>
                         </el-tab-pane>
                         <el-tab-pane label="UWB基站节点" name="UWBstationChange">
@@ -114,7 +114,7 @@
             <el-row class="row-bg">
                 <el-col :span="18" :offset="5">
                     <el-tabs v-model="activeNode">
-                        <el-tab-pane label="标签节点" name="labelChange">
+                        <el-tab-pane label="终端节点" name="labelChange">
                             <nodeList url="label" :tableData="historyDataInfo.labelData" class="table"></nodeList>
                         </el-tab-pane>
                         <el-tab-pane label="UWB基站节点" name="UWBstationChange">

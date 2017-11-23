@@ -36,7 +36,7 @@
                         <el-card class="box-card">
                             <div class="father">
                                 {{item.region_name}}
-                                <el-button size="mini" @click="reduction(item.region_name)" icon="el-icon-refresh">重置
+                                <el-button size="mini" @click="reduction('d3_'+item.region_name)" icon="el-icon-refresh">重置
                                 </el-button>
                             </div>
                             <div class="heightblock">

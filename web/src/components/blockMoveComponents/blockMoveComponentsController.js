@@ -613,7 +613,7 @@ export default {
           self.rangeWidth = info.width
           self.rangeHeight = info.height
           self.maxEnlarge = info.maxEnlarge || 5
-          self.maxNarrow = info.maxNarrow || 0
+          self.maxNarrow = info.maxNarrow || 0.3
           self.onresize()
           self.createCanvas()
           self.startCoor = true

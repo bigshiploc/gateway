@@ -4,21 +4,21 @@ export default {
   data (){
     var checkPoint = (rule, value, callback) => {
       if (Object.keys(value).length < 1) {
-        return callback(new Error("不能为空"))
-      } else if (isNaN(value.hightLimit)) {
-        return callback(new Error("必须为数字值"))
-      }else if(value.vLimit == undefined){
-        return callback(new Error("不能为空"))
+         return callback(new Error("不能为空"));
+      } else if ((value.vLimit === "") || (value.hightLimit === "")) {
+         return callback(new Error("不能为空"));
+      } else if((value.vLimit === undefined) || (value.hightLimit === undefined)){
+         return callback(new Error("不能为空"));
       }
-      callback()
+      callback();
     }
     var checkNumber = (rule, value, callback) => {
       if (Object.keys(value).length < 1) {
         return callback(new Error("不能为空"))
-      } else if (isNaN(value.C21)) {
-        return callback(new Error("必须为数字值"))
-      } else if((value.C22!== undefined) && (isNaN(value.C22))) {
-        return callback(new Error("必须为数字值"))
+      } else if ((value.C22 === undefined) || (value.C21 === undefined)) {
+        return callback(new Error("请输入数字值"))
+      } else if((value.C22 === "") || (value.C21 === "")) {
+        return callback(new Error("请输入数字值"))
       }
       callback()
     }
@@ -40,16 +40,16 @@ export default {
           {required: true,validator: checkNumber, trigger: "blur"}
         ],
         IterNum: [
-          {required: true, type: "number", message: "请输入", trigger: "blur,change"}
+          {required: true, type: "number", message: "请输入数字值", trigger: "blur,change"}
         ],
         positionMargin: [
-          {required: true, type: "number", message: "请输入", trigger: "blur,change"}
+          {required: true, type: "number", message: "请输入数字值", trigger: "blur,change"}
         ],
         positionNumToPick: [
-          {required: true, type: "number", message: "请输入", trigger: "blur,change"}
+          {required: true, type: "number", message: "请输入数字值", trigger: "blur,change"}
         ],
         portToUWBLib: [
-          {required: true, type: "number", message: "请输入", trigger: "blur,change"}
+          {required: true, type: "number", message: "请输入数字值", trigger: "blur,change"}
         ],
         logLevel: [
           {required: true, message: "请输入", trigger: "blur,change"}
@@ -58,19 +58,19 @@ export default {
           {required: true, message: "请输入", trigger: "blur,change"}
         ],
         InputStream_type: [
-          {required: true, type: "number", message: "请输入", trigger: "blur,change"}
+          {required: true, type: "number", message: "请输入数字值", trigger: "blur,change"}
         ],
         InputStream_file: [
           {required: true,  message: "请输入", trigger: "blur,change"}
         ],
         Log_InputData: [
-          {required: true, type: "number", message: "请输入", trigger: "blur,change"}
+          {required: true, type: "number", message: "请输入数字值", trigger: "blur,change"}
         ],
         Log_OutputData: [
-          {required: true, type: "number", message: "请输入", trigger: "blur,change"}
+          {required: true, type: "number", message: "请输入数字值", trigger: "blur,change"}
         ],
         Log_RoverSol: [
-          {required: true, type: "number", message: "请输入", trigger: "blur,change"}
+          {required: true, type: "number", message: "请输入数字值", trigger: "blur,change"}
         ]
       }
     }

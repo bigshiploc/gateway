@@ -18,6 +18,8 @@ export default {
         }
       },
 
+      activeName2: "realTimeData",
+
       realDataInfo: {rotationAngle: {}, coordinate: {}, rtkStationData: [], labelData: [], uwbStationData: []},
       historyDataInfo: {rotationAngle: {}, coordinate: {}, labelData: [], rtkStationData: [], uwbStationData: []},
       windowWidth: 0,
@@ -99,6 +101,15 @@ export default {
     }
   },
   methods: {
+    handleClick(tab){
+      var self = this
+      if(tab.name === "realTimeData"){
+        self.showRealTimeData()
+      }
+      else {
+        self.showHistoryData()
+      }
+    },
     getLabelInfo () {
       var self = this
       return Data.getLabels()

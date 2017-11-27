@@ -2,11 +2,15 @@
     <div id="app">
         <sidebar/>
         <el-row>
-            <el-col :span="14" :offset=5 class="panel-title-button">
-                <el-button-group>
-                    <el-button :plain="true" @click="showRealTimeData">实时数据</el-button>
-                    <el-button :plain="true" class="panelButtonLeft" @click="showHistoryData">历史数据</el-button>
-                </el-button-group>
+            <el-col :span="4" :offset=5 class="panel-title-button">
+                <!--<el-button-group>-->
+                    <!--<el-button :plain="true" @click="showRealTimeData">实时数据</el-button>-->
+                    <!--<el-button :plain="true" class="panelButtonLeft" @click="showHistoryData">历史数据</el-button>-->
+                <!--</el-button-group>-->
+              <el-tabs v-model="activeName2" type="card" @tab-click="handleClick">
+                <el-tab-pane label="实时数据" name="realTimeData" ></el-tab-pane>
+                <el-tab-pane label="历史数据" name="historyData"></el-tab-pane>
+              </el-tabs>
             </el-col>
         </el-row>
 

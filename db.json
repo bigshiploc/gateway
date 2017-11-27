@@ -8,7 +8,7 @@
       "equipment_name": "飞机",
       "width": 10,
       "height": 10,
-      "image": "/static/plane.svg",
+      "image": "static/image/plane.svg",
       "style": "2-littlehead",
       "createdAt": 1510200162347,
       "id": 1
@@ -35,9 +35,12 @@
       "region_name": "室外",
       "width": 300,
       "height": 70,
-      "background_image": "static/bigship.jpg",
+      "background_image": "static/image/ship.jpg",
       "createdAt": 1509780350903,
-      "id": "HJvYsyo0W"
+      "id": "HJvYsyo0W",
+      "coordinate": "0,100",
+      "maxEnlarge": 5,
+      "maxNarrow": 0.3
     }
   ],
   "nodes": [

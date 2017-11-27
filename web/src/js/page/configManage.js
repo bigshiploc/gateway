@@ -87,6 +87,7 @@ export default {
           var info = []
           info.push((JSON.parse(JSON.stringify(result))))
           self.uwbData = info
+          self.uwbForm = result
         })
     },
     getRTKInfo: function () {
@@ -96,6 +97,7 @@ export default {
           var info = []
           info.push((JSON.parse(JSON.stringify(result))))
           self.rtkData = info
+          self.rtkForm = result
         })
     },
     updateUWB (formName) {

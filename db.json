@@ -6,8 +6,8 @@
         "514"
       ],
       "equipment_name": "飞机",
-      "width": 0.4,
-      "height": 0.4,
+      "width": 10,
+      "height": 10,
       "image": "static/image/plane.svg",
       "style": "2-littlehead",
       "createdAt": 1510200162347,

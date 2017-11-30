@@ -3,6 +3,6 @@ node_modules
 log/*
 data/*
 public/*
-test.json/
+test.json
 C:\\bigship-20171101\\data
 package-lock.json

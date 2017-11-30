@@ -57,7 +57,6 @@ export default {
       // Clone data to a new object
       this.form = Object.assign({}, data)
       this.dialogEditZone = true
-      console.log('=======================')
     },
     getZoneInfo: function () {
       var self = this

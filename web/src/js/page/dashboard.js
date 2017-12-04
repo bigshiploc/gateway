@@ -258,8 +258,8 @@ export default {
     },
     createHistoryDate: function () {
       var self = this
-      var startTime = this.startDate.toLocaleString().split(" ")[0] + " " + this.startTime.toTimeString().split(" ")[0]
-      var endTime = this.endDate.toLocaleString().split(" ")[0] + " " + this.endTime.toTimeString().split(" ")[0]
+      var startTime = new Date(this.startDate.toDateString() + " " + this.startTime.toTimeString()).getTime()
+      var endTime = new Date(this.endDate.toDateString()+ " " + this.endTime.toTimeString()).getTime()
       if (self.historyStatus) {
         return self.$message({
           type: "error",

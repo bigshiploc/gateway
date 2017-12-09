@@ -1,7 +1,8 @@
 const path = require("path")
-
+const os = require("os")
 const MQ_SERVER_PORT = 8001
-const MQ_SERVER_BASE = "http://localhost:" + MQ_SERVER_PORT + "/"
+console.log(os.networkInterfaces().wlp3s0f0[0].address)
+const MQ_SERVER_BASE = "http://0.0.0.0:" + MQ_SERVER_PORT + "/"
 
 exports.SERVERS = {
     MQ_SERVER: MQ_SERVER_BASE + "events",
@@ -10,7 +11,7 @@ exports.SERVERS = {
     MQ_SERVER_BASE: MQ_SERVER_BASE,
     // WEB_SERVER_PORT: 8080,
     WEB_SERVER_PORT: 9000,
-    SIO_WRAPPER_IP: "localhost",
+    SIO_WRAPPER_IP: "0.0.0.0",
     SIO_WRAPPER_PORT: 3000,
     RAW_SERVER_IP: "localhost",
     RAW_SERVER_PORT: 8899,

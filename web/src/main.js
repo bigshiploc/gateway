@@ -7,8 +7,11 @@ import App from "./App";
 import router from "./router";
 import ElementUI from "element-ui";
 import "element-ui/lib/theme-chalk/index.css";
+import "lib-flexible/flexible.js";
+import "../static/css/fontSize.css"
 import sidebar from "@/components/sidebar/Sidebar";
-import Data from './js/server/httpServer'
+import Data from "./js/server/httpServer";
+
 
 router.beforeEach((to, from, next) => {
   if(to.path === '/login')  {

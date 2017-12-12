@@ -1,0 +1,32 @@
+.typeface{
+  font-size: 18px !important;
+}
+@media only screen and (min-width: 1366rem) {
+  .typeface {
+    font-size: 16px !important;
+  }
+}
+.stationManageTitle {
+  font-size: 16px;
+}
+@media only screen and (min-width: 1366rem) {
+  .stationManageTitle {
+    font-size: 16px !important;
+  }
+}
+.typeface-title {
+  font-size: 25px;
+}
+@media only screen and (min-width: 1366rem) {
+  .typeface-title {
+    font-size: 25px !important;
+  }
+}
+.typeface-number {
+  font-size: 18px;
+}
+@media only screen and (min-width: 1366rem) {
+  .typeface-number {
+    font-size: 10px !important;
+  }
+}

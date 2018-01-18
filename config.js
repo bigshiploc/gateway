@@ -1,7 +1,6 @@
 const path = require("path")
 const os = require("os")
 const MQ_SERVER_PORT = 8001
-console.log(os.networkInterfaces().wlp3s0f0[0].address)
 const MQ_SERVER_BASE = "http://0.0.0.0:" + MQ_SERVER_PORT + "/"
 
 exports.SERVERS = {

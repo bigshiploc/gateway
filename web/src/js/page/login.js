@@ -23,12 +23,6 @@ export default {
             })
           }
         })
-// if (result !== false) {
-      //   localStorage.setItem("user", JSON.stringify({"username": this.username, "password": this.password}))
-      //   this.$router.push("/")
-      // } else {
-      //   alert("错误")
-      // }
     }
   }
 }

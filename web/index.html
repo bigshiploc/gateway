@@ -5,11 +5,16 @@
     <title>vue2</title>
     <script src="static/lib/d3/d3.js"></script>
     <!--<script src='/faye/client.js'></script>-->
-    <script src="http://127.0.0.1:8001/events/client.js"></script>
+    <script>
+      var url ="http://" + window.location.hostname.split(':')[0]
+      document.write('<scr'+'ipt src="'+url+ ':8001/events/client.js"></scr'+'ipt>');
+    </script>
+    <!--<script src="http://192.168.1.21:8001/events/client.js"></script>-->
     <script>
       window.settingInfo = {
 //         server: "139.129.212.222",
         //server: '0.0.0.0',
+//        server: "localhost",
         port: '9000'
       }
       window.settingInfo.server = window.location.hostname.split(':')[0]

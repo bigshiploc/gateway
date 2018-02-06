@@ -2,11 +2,15 @@
     <div id="app">
         <sidebar/>
         <el-row>
-            <el-col :span="14" :offset=5 class="panel-title-button">
-                <el-button-group>
-                    <el-button :plain="true" @click="showRealTimeData">实时数据</el-button>
-                    <el-button :plain="true" class="panelButtonLeft" @click="showHistoryData">历史数据</el-button>
-                </el-button-group>
+            <el-col :span="18" :offset=5 class="panel-title-button">
+                <!--<el-button-group>-->
+                    <!--<el-button :plain="true" @click="showRealTimeData">实时数据</el-button>-->
+                    <!--<el-button :plain="true" class="panelButtonLeft" @click="showHistoryData">历史数据</el-button>-->
+                <!--</el-button-group>-->
+              <el-tabs v-model="activeName2" type="card" @tab-click="handleClick">
+                <el-tab-pane label="实时数据" name="realTimeData" ></el-tab-pane>
+                <el-tab-pane label="历史数据" name="historyData"></el-tab-pane>
+              </el-tabs>
             </el-col>
         </el-row>
 
@@ -14,18 +18,18 @@
             <el-row class="row-bg">
                 <el-col :span="18" :offset="5">
                     <el-card class="box-card">
-                        <div>舰船情况</div>
+                        <div class="typeface">舰船情况</div>
                         <div class="euler-angle">
                             <p class="number">{{realDataInfo.rotationAngle.firstangle}}</p>
-                            <span class="unit">俯仰</span>
+                            <span class="unit typeface">俯仰</span>
                         </div>
                         <div class="euler-angle">
                             <p class="number">{{realDataInfo.rotationAngle.secondangle}}</p>
-                            <span class="unit">横滚</span>
+                            <span class="unit typeface">横滚</span>
                         </div>
                         <div class="euler-angle">
                             <p class="number">{{realDataInfo.rotationAngle.thirdangle}}</p>
-                            <span class="unit">偏航</span>
+                            <span class="unit typeface">偏航</span>
                         </div>
                     </el-card>
                 </el-col>
@@ -34,7 +38,7 @@
                 <el-row class="row-bg">
                     <el-col :span="18" :offset="5">
                         <el-card class="box-card">
-                            <div class="father">
+                            <div class="father typeface">
                                 {{item.region_name}}
                                 <el-button size="mini" @click="reduction('d3_'+item.region_name)" icon="el-icon-refresh">重置
                                 </el-button>
@@ -72,18 +76,18 @@
             <el-row class="row-bg">
                 <el-col :span="18" :offset="5">
                     <el-card class="box-card">
-                        <div>舰船情况</div>
+                        <div class="typeface">舰船情况</div>
                         <div class="euler-angle">
                             <p class="number">{{historyDataInfo.rotationAngle.firstangle}}</p>
-                            <span class="unit">俯仰</span>
+                            <span class="unit typeface">俯仰</span>
                         </div>
                         <div class="euler-angle">
                             <p class="number">{{historyDataInfo.rotationAngle.secondangle}}</p>
-                            <span class="unit">横滚</span>
+                            <span class="unit typeface">横滚</span>
                         </div>
                         <div class="euler-angle">
                             <p class="number">{{historyDataInfo.rotationAngle.thirdangle}}</p>
-                            <span class="unit">偏航</span>
+                            <span class="unit typeface">偏航</span>
                         </div>
                     </el-card>
                 </el-col>
@@ -92,7 +96,7 @@
                 <el-row class="row-bg">
                     <el-col :span="18" :offset="5">
                         <el-card class="box-card">
-                            <div class="father">
+                            <div class="father typeface">
                                 {{item.region_name}}
                                 <el-button size="mini" @click="reduction('history'+item.region_name)" icon="el-icon-refresh">重置
                                 </el-button>
@@ -130,17 +134,17 @@
             <el-dialog title="历史数据查询" :visible.sync="isTimeSelect">
                 <div class="block">
                     <span class="demonstration">起始时间</span>
-                    <el-date-picker v-model="startDate" type="date" placeholder="选择日期"
+                    <el-date-picker class="timeDialog" v-model="startDate" type="date" placeholder="选择日期"
                                     :picker-options="startDataSelect">
                     </el-date-picker>
-                    <el-time-picker v-model="startTime" placeholder="任意时间点">
+                    <el-time-picker class="timeDialog" v-model="startTime" placeholder="任意时间点">
                     </el-time-picker>
                 </div>
                 <div class="block">
                     <span class="demonstration">截至时间</span>
-                    <el-date-picker v-model="endDate" type="date" placeholder="选择日期" :picker-options="endDataSelect">
+                    <el-date-picker class="timeDialog" v-model="endDate" type="date" placeholder="选择日期" :picker-options="endDataSelect">
                     </el-date-picker>
-                    <el-time-picker v-model="endTime" placeholder="任意时间点" :picker-options="{ minTime: startTime }">
+                    <el-time-picker class="timeDialog" v-model="endTime" placeholder="任意时间点" :picker-options="{ minTime: startTime }">
                     </el-time-picker>
                 </div>
                 <div slot="footer" class="dialog-footer">
@@ -148,21 +152,20 @@
                 </div>
             </el-dialog>
             <el-row :span="18" class="progress-bar" v-show="isProgressBar">
-                <el-col :span="1" :offset="5" class="star-time"><span>{{playTime}}</span></el-col>
+                <el-col :span="1" :offset="5" class="star-time typeface-number"><span>{{playTime}}</span></el-col>
                 <el-col :span="13">
                     <el-slider v-model="playProgress" :step="1" @change="changeProgress()"></el-slider>
                 </el-col>
-                <el-col :span="1" class="sum-time"><span>{{allTime}}</span></el-col>
+                <el-col :span="1" class="sum-time typeface-number"><span>{{allTime}}</span></el-col>
                 <el-col :span="3">
                     <el-button type="primary" @click="play">{{playState}}</el-button>
                     <el-button @click="doublePlay" size="large">{{speed}}</el-button>
                 </el-col>
-                <el-col :span="1" class="play-cancle"><span @click="progressBarShow">×</span></el-col>
+                <!--<el-col :span="1" class="play-cancle"><span @click="progressBarShow">×</span></el-col>-->
             </el-row>
         </div>
 
     </div>
 </template>
-
 <script src="../js/page/dashboard.js"></script>
 <style src="../../static/css/dashboard.css"></style>

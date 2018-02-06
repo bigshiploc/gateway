@@ -1,6 +1,6 @@
 <template>
   <div class="signIn">
-    <h3>{{ msg }}</h3>
+    <h3 class="typeface-title">{{ msg }}</h3>
 
     <div class="SignInInput">
       <el-input placeholder="用户名" v-model="username" size="large" >

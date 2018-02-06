@@ -180,39 +180,24 @@
       "status": 0
     },
     {
-      "nodeType": 3,
-      "nodeID": 515,
-      "name": "515",
-      "createdAt": 1512723051535,
-      "id": "515"
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "nodeID": 1,
+      "name": "1",
+      "nodeType": 1,
+      "createdAt": 1511854251092,
+      "id": "1"
     },
     {
-      "nodeType": 3,
-      "nodeID": 516,
-      "name": "516",
-      "createdAt": 1512723060792,
-      "id": "516"
-    },
-    {
-      "nodeType": 3,
-      "nodeID": 517,
-      "name": "517",
-      "createdAt": 1512723070613,
-      "id": "517"
-    },
-    {
-      "nodeType": 3,
-      "nodeID": 513,
-      "name": "513",
-      "createdAt": 1512723090046,
-      "id": "513"
-    },
-    {
-      "nodeType": 3,
-      "nodeID": 514,
-      "name": "514",
-      "createdAt": 1516612886967,
-      "id": "514"
+      "x": 0,
+      "y": 0,
+      "z": 0,
+      "nodeID": 2,
+      "name": "2",
+      "nodeType": 1,
+      "createdAt": 1511854286158,
+      "id": "2"
     }
   ],
   "wrapper": {
@@ -225,18 +210,18 @@
   },
   "uwb": {
     "limit": {
-      "hightLimit": 2.2,
-      "vLimit": ""
+      "hightLimit": 1,
+      "vLimit": "1"
     },
     "threshold": {
-      "C21": 2e-7,
-      "C22": 100
+      "C21": 1,
+      "C22": 1
     },
-    "IterNum": 20,
-    "positionMargin": 10,
+    "IterNum": 1,
+    "positionMargin": 1,
     "positionNumToPick": 1,
-    "portToUWBLib": 5566,
-    "logLevel": "TRACE",
+    "portToUWBLib": 1,
+    "logLevel": "1",
     "recorder": "1"
   },
   "rtk": {

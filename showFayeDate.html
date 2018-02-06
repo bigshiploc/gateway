@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>faye</title>
+    <script>
+        var url ="http://" + window.location.hostname.split(':')[0];
+        document.write('<scr'+'ipt src="'+url+ ':8001/events/client.js"></scr'+'ipt>');
+    </script>
+    <script>
+        window.settingInfo = {
+            port: '9000'
+        };
+        window.settingInfo.server = window.location.hostname.split(':')[0];
+        window.client = new Faye.Client('http://' + window.settingInfo.server + ':8001/events');
+        window.client.subscribe("/node", function (message) {
+
+            if(message.data.nodeID){
+                var para=document.createElement("p");
+                var node=document.createTextNode(message.data.nodeID +"  |  "+ new Date(message.data.timestamp).toLocaleString());
+
+                para.id="faye_"+message.data.nodeID;
+                para.appendChild(node);
+
+                var element= document.getElementById("list");
+                var length = element.getElementsByTagName("p");
+
+                if(length.length === 0){
+                    element.appendChild(para)
+                }else {
+
+                    for(var i =0;i<length.length;i++){
+
+                        if(length[i].id == para.id){
+                            length[i].innerHTML = node.wholeText;
+                            break;
+                        }else if(i===length.length-1){
+                            element.appendChild(para)
+                        }
+                    }
+                }
+
+            }
+        })
+    </script>
+</head>
+<body>
+<div id="list">
+    nodeID  |  时间
+</div>
+</body>
+</html>

@@ -9,9 +9,10 @@
     <script>
       window.settingInfo = {
 //         server: "139.129.212.222",
-        server: 'localhost',
+        //server: '0.0.0.0',
         port: '9000'
       }
+      window.settingInfo.server = window.location.hostname.split(':')[0]
       window.client = new Faye.Client('http://' + window.settingInfo.server + ':8001/events');
         window.url = 'http://' + window.settingInfo.server + ':' + window.settingInfo.port;
     </script>

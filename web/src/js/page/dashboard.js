@@ -247,8 +247,8 @@ export default {
     },
     createHistoryDate: function () {
       var self = this
-      var startTime = this.startDate.toLocaleString().split(" ")[0] + " " + this.startTime.toTimeString().split(" ")[0]
-      var endTime = this.endDate.toLocaleString().split(" ")[0] + " " + this.endTime.toTimeString().split(" ")[0]
+      var startTime = new Date(this.startDate.toDateString() + " " + this.startTime.toTimeString()).getTime()
+      var endTime = new Date(this.endDate.toDateString() + " " + this.endTime.toTimeString()).getTime();
       if (self.historyStatus) {
         return self.$message({
           type: "error",
@@ -256,7 +256,6 @@ export default {
         })
       }
       self.historyStatus = true
-
       Data.getHistoryDataFile(startTime, endTime)
         .then(function (result) {
           self.getHistoryDataFile(startTime, endTime,result)
@@ -455,7 +454,7 @@ export default {
       var colors = ["Crimson", "Blue", "PaleVioletRed", "DarkCyan", "DarkMagenta", "Indigo", "Cyan", "DarkSlateGray","DoderBlue", "SeaGreen", "Lime", "Yellow", "Olive", "GoldEnrod", "SaddleBrown", "RosyBrown", "Black", "Silver"]
       for (var i=0;i<configInfo.length;i++){
         var config = configInfo[i]
-        if(config.length == 0) return
+        // if(config.length == 0) return
         var diffTimeLittle = []
         var diffTimeBig = []
         var diffTime = null

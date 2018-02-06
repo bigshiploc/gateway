@@ -36,7 +36,7 @@ log4js.configure({
 var logger = log4js.getLogger('services')
 logger.level = 'debug'
 
-var MOCKUP = true
+var MOCKUP = false
 
 require('./services/web_server')
 require('./services/message_server')

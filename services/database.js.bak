@@ -1,4 +1,4 @@
-
+/*
 var config = require('../config')
 
 var Faye = require('faye')
@@ -19,3 +19,4 @@ client.subscribe('/node', function (message) {
         // console.log(resp);
     });
 });
+*/

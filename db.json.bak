@@ -82,7 +82,7 @@
       "status": 1
     },
     {
-      "x": 0,
+      "x": 15.3,
       "y": 0,
       "z": 2.2,
       "nodeID": 256,
@@ -95,12 +95,12 @@
       "delaySend": 0,
       "createdAt": 1512722153771,
       "id": "256",
-      "coordinate": "15.3,0,2.2",
-      "status": 0
+      "coordinate": "0,0,2.2",
+      "status": -1
     },
     {
-      "x": 1.2,
-      "y": 3,
+      "x": 0,
+      "y": 9.7,
       "z": 2.2,
       "nodeID": 261,
       "name": "5",
@@ -112,12 +112,12 @@
       "delaySend": 0,
       "createdAt": 1512722497414,
       "id": "261",
-      "coordinate": "0,9.7,2.2",
-      "status": 0
+      "coordinate": "1.2,3.2,2.2",
+      "status": -1
     },
     {
       "x": 0,
-      "y": 3,
+      "y": 0,
       "z": 2.2,
       "nodeID": 262,
       "name": "6",
@@ -128,12 +128,12 @@
       "PRF": 0,
       "createdAt": 1512722831441,
       "id": "262",
-      "coordinate": "0,0,2.2",
-      "status": 0
+      "coordinate": "0,3,2.2",
+      "status": -1
     },
     {
-      "x": 2.4,
-      "y": 0,
+      "x": 31.322,
+      "y": 9.732,
       "z": 2.2,
       "nodeID": 258,
       "name": "2",
@@ -144,12 +144,12 @@
       "PRF": 0,
       "createdAt": 1512722934992,
       "id": "258",
-      "coordinate": "31.322,9.732,2.2",
-      "status": 0
+      "coordinate": "2.4,0,2.2",
+      "status": -1
     },
     {
-      "x": 2.4,
-      "y": 3,
+      "x": 15.3,
+      "y": 9.732,
       "z": 2.2,
       "nodeID": 260,
       "name": "4",
@@ -160,12 +160,12 @@
       "PRF": 0,
       "createdAt": 1512722967042,
       "id": "260",
-      "coordinate": "15.3,9.732,2.2",
-      "status": 0
+      "coordinate": "2.4,3,2.2",
+      "status": -1
     },
     {
-      "x": 1.2,
-      "y": -0.6,
+      "x": 31.322,
+      "y": 0,
       "z": 2.2,
       "nodeID": 257,
       "name": "1",
@@ -176,8 +176,8 @@
       "PRF": 0,
       "createdAt": 1512723003514,
       "id": "257",
-      "coordinate": "31.322,0,2.2",
-      "status": 0
+      "coordinate": "1.2,-0.6,2.2",
+      "status": -1
     },
     {
       "nodeType": 3,

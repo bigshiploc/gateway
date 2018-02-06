@@ -100,7 +100,7 @@ var server = net.createServer(function (socket) {
 
         results.forEach(function (result) {
 
-            console.log(result.node_id, result.node_type, result.frame_type)
+            console.log(result.node_id, result.node_type)
             result.crc = 0
             for (var i = 0; i < result.frame_len - 1; i++) {
                 result.crc = result.crc ^ result.raw_pkg[i]

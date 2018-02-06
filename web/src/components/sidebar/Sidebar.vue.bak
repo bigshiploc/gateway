@@ -2,7 +2,7 @@
   <div class="sidebar">
     <el-col :span="4" class="sidebarCol">
       <el-menu class="el-menu-vertical-demo sidebarMenu" :default-active="this.$route.path"  background-color="#545c64" text-color="#fff" :router="true" >
-        <h3  class="sidebarTitle">自主式保障空地信息传输演示原型系统</h3>
+        <h3  class="sidebarTitle">自助式保障空地信息传输演示原型系统</h3>
         <el-menu-item index="/">
           <i class="el-icon-menu"></i>
           <span slot="title">监控面板</span>

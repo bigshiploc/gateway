@@ -36,7 +36,7 @@ log4js.configure({
 var logger = log4js.getLogger('services')
 logger.level = 'debug'
 
-var MOCKUP = false
+var MOCKUP = true
 
 require('./services/web_server')
 require('./services/message_server')
@@ -49,7 +49,7 @@ if (MOCKUP) {
 //         // require('./services/mock_services/mock_wrapper')
         require('./mock_services/mock_faye')(
             config,
-            path.join(__dirname+'/data/', 'result')
+            path.join(__dirname+'/../data/', 'result')
         )
     }, 3000)
 } else {
